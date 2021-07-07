@@ -11,22 +11,21 @@ import java.util.StringJoiner;
 /**
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
- * @param <T>
  */
-public class List<T> extends java.util.LinkedList<T> {
+public class MSet<T> extends java.util.ArrayList<T> {
     
-    public List() {
+    public MSet() {
         super();
     }
     
-    public List(Collection<T> c) {
+    public MSet(Collection<T> c) {
         super(c);
     }
     
     @Override
     public String toString() {
-        var sj = new StringJoiner(",", "[", "]");
-        this.forEach((T t) -> sj.add(t.toString()));
+        var sj = new StringJoiner(" ", "[", "]");
+        forEach((T t) -> sj.add(t.toString()));
         return sj.toString();
     }
     

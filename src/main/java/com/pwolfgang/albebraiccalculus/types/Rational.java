@@ -46,6 +46,8 @@ public class Rational implements Comparable<Rational> {
     }
     public static final Rational ONE = new Rational(1,1);
     public static final Rational ZERO = new Rational(0,1);
+    public static final Rational TWO = new Rational(2, 1);
+    public static final Rational HALF = new Rational(1, 2);
     
     public static long gcd(long d1, long d2) {
         if (d2 == 0) return d1;

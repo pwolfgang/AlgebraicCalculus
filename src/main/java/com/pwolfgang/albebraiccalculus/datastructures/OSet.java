@@ -5,9 +5,11 @@
  */
 package com.pwolfgang.albebraiccalculus.datastructures;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Spliterator;
 import java.util.StringJoiner;
 
@@ -22,6 +24,11 @@ public class OSet<T> extends java.util.AbstractCollection<T> implements java.uti
 
     public OSet(int initialCapacity) {
         data = new LinkedHashSet<>(initialCapacity);
+    }
+    
+    public OSet(Collection<T> c) {
+        data = new LinkedHashSet<>(c.size());
+        data.addAll(c);
     }
 
     @Override
@@ -40,8 +47,27 @@ public class OSet<T> extends java.util.AbstractCollection<T> implements java.uti
     }
     
     @Override
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (this == other) return true;
+        if (this.getClass() == other.getClass()) {
+            var o = (OSet)other;
+            return data.equals(o.data);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.data);
+        return hash;
+    }
+    
+    @Override
     public String toString() {
-        var sj = new StringJoiner(", ", "{", "}");
+        var sj = new StringJoiner(",", "{", "}");
         data.forEach((T t) -> sj.add(t.toString()));
         return sj.toString();
     }
