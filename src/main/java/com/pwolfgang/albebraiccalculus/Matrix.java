@@ -5,6 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus;
 
+import com.pwolfgang.albebraiccalculus.types.Rational;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

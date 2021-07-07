@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pwolfgang.albebraiccalculus;
+package com.pwolfgang.albebraiccalculus.types;
+
+import com.pwolfgang.albebraiccalculus.types.Rational;
 
 /**
  *
