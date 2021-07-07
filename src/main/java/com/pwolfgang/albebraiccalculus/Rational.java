@@ -15,13 +15,15 @@ public class Rational implements Comparable<Rational> {
     public final long den;
     public Rational(long num, long den) {
         if (den == 0) throw new IllegalArgumentException("Div by Zero");
-        if (den < 0) {
-            num = -num;
-            den = -den;
-        }
         long g = gcd(num, den);
-        this.num = num / g;
-        this.den = den / g;
+        long n = num / g;
+        long d = den / g;
+        if (d < 0) {
+            n = -n;
+            d = -d;
+        }
+        this.num = n;
+        this.den = d;
     }
     
     public Rational(long num) {
@@ -46,7 +48,7 @@ public class Rational implements Comparable<Rational> {
     public static final Rational ZERO = new Rational(0,1);
     
     public static long gcd(long d1, long d2) {
-        if (d2 == 0) return d1 < 0 ? -d1 : d1;
+        if (d2 == 0) return d1;
         return gcd(d2, d1 % d2);
     }
     

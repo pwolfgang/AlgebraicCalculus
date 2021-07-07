@@ -5,8 +5,10 @@
  */
 package com.pwolfgang.albebraiccalculus;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  *
@@ -35,7 +37,7 @@ public class Matrix {
             return determinant;
         }
         if (n == 2) {
-            determinant = m[0].mul(m[3].sub(m[1].mul(m[2])));
+            determinant = m[0].mul(m[3]).sub(m[1].mul(m[2]));
             return determinant;
         } else {
             determinant = null;
@@ -64,6 +66,66 @@ public class Matrix {
             inverse = null;
         }
         return inverse;
+    }
+    
+    Matrix add(Matrix other) {
+        if (n != other.n) {
+            throw new IllegalArgumentException("Matrices must be the same size");
+        }
+        Rational[] r = new Rational[n*n];
+        for (int i = 0; i < n*n; i++) {
+            r[i] = m[i].add(other.m[i]);
+        }
+        return new Matrix(r, n);
+    }
+    
+    Rational[] mul(Rational[] v) {
+        Rational[] r = new Rational[n];
+        int j = 0;
+        for (int i = 0; i < n; i++) {
+            Rational s = Rational.ZERO;
+            for (int k = 0; k < n; k++) {
+                s = s.add(m[j].mul(v[k]));
+                j++;
+            }
+            r[i] = s;
+        }
+        return r;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (o.getClass() == this.getClass()) {
+            Matrix other = (Matrix)o;
+            if (n != other.n) return false;
+            return Arrays.equals(m, other.m);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + Arrays.deepHashCode(this.m);
+        hash = 19 * hash + this.n;
+        return hash;
+    }
+    
+    @Override
+    public String toString() {
+        var sj1 = new StringJoiner("\n");
+        int j = 0;
+        for (int i = 0; i < n; i++) {
+            var sj2 = new StringJoiner(" ");
+            for (int k = 0; k < n; k++) {
+                sj2.add(String.format("%10s", m[j].toString()));
+                j++;
+            }
+            sj1.add(sj2.toString());
+        }
+        return sj1.toString();
     }
     
 }

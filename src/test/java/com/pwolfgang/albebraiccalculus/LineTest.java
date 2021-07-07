@@ -5,8 +5,8 @@
  */
 package com.pwolfgang.albebraiccalculus;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -37,6 +37,21 @@ public class LineTest {
         Point p2 = new Point(6, 3);
         Line l1 = new Line(-2, 4, 0);
         assertEquals(l1, Line.join(p1, p2));
+        Point p3 = new Point(5, 1);
+        Line l3 = new Line(0, 1, 1);
+        assertEquals(l3, Line.join(p1, p3));
+        Point p4 = new Point(6, 6);
+        Line l4 = new Line(1, 0, 6);
+        assertEquals(l4, Line.join(p2, p4));
+    }
+    
+    @Test
+    public void testJoin2() {
+        var p1 = new Point(1, -1);
+        var p2 = new Point(2, 3);
+        var l1 = new Line(4, -1, 5);
+        assertEquals(l1, Line.join(p1, p2));
+        System.out.println(Line.join(p1, p2));
     }
     
     @Test
