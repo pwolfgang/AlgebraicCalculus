@@ -12,16 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
  */
-public class OSideTest {
+public class CircleTest {
     
-    public OSideTest() {
+    public CircleTest() {
     }
 
     @Test
-    public void testSignedArea() {
-        Point p1 = new Point(1,3);
-        Point p2 = new Point(-5,4);
-        assertEquals(new Rational(19,2), new OSide(p1,p2).area());
+    public void testTriangle() {
+        assertEquals(new Rational(6,10), Circle.triangle(new Rational(-1), 
+                new Rational(2), new Rational(-3)).area());
     }
     
 }

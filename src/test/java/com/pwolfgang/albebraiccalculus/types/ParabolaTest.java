@@ -12,16 +12,23 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
  */
-public class OSideTest {
+public class ParabolaTest {
     
-    public OSideTest() {
+    public ParabolaTest() {
     }
 
     @Test
-    public void testSignedArea() {
-        Point p1 = new Point(1,3);
-        Point p2 = new Point(-5,4);
-        assertEquals(new Rational(19,2), new OSide(p1,p2).area());
+    public void testPoint() {
+    }
+
+    @Test
+    public void testOSide() {
+    }
+
+    @Test
+    public void testTriangle() {
+        assertEquals(new Rational(10125,1000), Parabola.triangle(new Rational(-1), 
+                new Rational(2), new Rational(-25,10)).area());
     }
     
 }

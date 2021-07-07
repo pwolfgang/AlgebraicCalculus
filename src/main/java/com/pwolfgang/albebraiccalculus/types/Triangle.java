@@ -9,18 +9,24 @@ package com.pwolfgang.albebraiccalculus.types;
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
  */
-public class OSide {
+public class Triangle {
     
     public final Point p1;
     public final Point p2;
+    public final Point p3;
     
-    public OSide(Point p1, Point p2) {
+    public Triangle (Point p1, Point p2, Point p3) {
         this.p1 = p1;
         this.p2 = p2;
+        this.p3 = p3;
     }
     
     public Rational area() {
-        return Rational.HALF.mul(p1.x.mul(p2.y).sub(p2.x.mul(p1.y)));
+        OSide s1 = new OSide(p1, p2);
+        OSide s2 = new OSide(p2, p3);
+        OSide s3 = new OSide(p3, p1);
+        return s1.area().add(s2.area()).add(s3.area());
     }
+    
     
 }
