@@ -5,8 +5,6 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
-import com.pwolfgang.albebraiccalculus.types.Point;
-import com.pwolfgang.albebraiccalculus.types.Rational;
 import java.util.Objects;
 
 /**
@@ -74,10 +72,10 @@ public class Line {
     }
     
     public static Line join(Point p1, Point p2) {
-        Rational x1 = p1.x;
-        Rational y1 = p1.y;
-        Rational x2 = p2.x;
-        Rational y2 = p2.y;
+        Rational x1 = p1.getX();
+        Rational y1 = p1.getY();
+        Rational x2 = p2.getX();
+        Rational y2 = p2.getY();
         Rational a = y1.sub(y2);
         Rational b = x2.sub(x1);
         Rational c = a.mul(x1).add(b.mul(y1));
@@ -85,7 +83,7 @@ public class Line {
     }
     
     public boolean passesThrough(Point p) {
-        return a.mul(p.x).add(b.mul(p.y)).equals(c);
+        return a.mul(p.getX()).add(b.mul(p.getY())).equals(c);
     }
     
     public boolean areCollinear(Point p1, Point p2, Point p3) {

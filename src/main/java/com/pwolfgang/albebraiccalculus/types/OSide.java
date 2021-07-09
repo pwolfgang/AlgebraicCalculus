@@ -20,7 +20,7 @@ public class OSide {
     }
     
     public Rational area() {
-        return Rational.HALF.mul(p1.x.mul(p2.y).sub(p2.x.mul(p1.y)));
+        return Rational.HALF.mul(p1.getX().mul(p2.getY()).sub(p2.getX().mul(p1.getY())));
     }
     
 }

@@ -11,8 +11,8 @@ package com.pwolfgang.albebraiccalculus.types;
  */
 public class Point {
     
-    public final Rational x;
-    public final Rational y;
+    private final Rational x;
+    private final Rational y;
     
     public static final Point O = new Point(new Rational(0), new Rational(0));
     
@@ -24,6 +24,9 @@ public class Point {
     public Point(long x, long y) {
         this(new Rational(x), new Rational(y));
     }
+    
+    public Rational getX() {return x;}
+    public Rational getY() {return y;}
     
     public Point mul(Rational lambda) {
         return new Point(x.mul(lambda), y.mul(lambda));
