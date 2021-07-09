@@ -12,7 +12,7 @@ package com.pwolfgang.albebraiccalculus.types;
 public class Point {
     
    
-    private final long a, b, c;
+    public final long a, b, c;
     
     public static final Point O = new Point(new Rational(0), new Rational(0));
     
@@ -27,6 +27,12 @@ public class Point {
         this.a = 1;
         this.b = x;
         this.c = y;
+    }
+    
+    public Point(long a, long b, long c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
     
     public Rational getX() {return new Rational(b,a);}
