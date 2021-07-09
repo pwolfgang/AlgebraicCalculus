@@ -11,34 +11,41 @@ package com.pwolfgang.albebraiccalculus.types;
  */
 public class Point {
     
-    private final Rational x;
-    private final Rational y;
+   
+    private final long a, b, c;
     
     public static final Point O = new Point(new Rational(0), new Rational(0));
     
     public Point(Rational x, Rational y) {
-        this.x = x;
-        this.y = y;
+        Rational lcm = new Rational(Rational.lcm(x.den, y.den));
+        this.a = lcm.num;
+        this.b = x.mul(lcm).num;
+        this.c = y.mul(lcm).num;
     }
     
     public Point(long x, long y) {
-        this(new Rational(x), new Rational(y));
+        this.a = 1;
+        this.b = x;
+        this.c = y;
     }
     
-    public Rational getX() {return x;}
-    public Rational getY() {return y;}
+    public Rational getX() {return new Rational(b,a);}
+    public Rational getY() {return new Rational(c,a);}
+    public long getA() {return a;}
+    public long getB() {return b;}
+    public long getC() {return c;}
     
     public Point mul(Rational lambda) {
-        return new Point(x.mul(lambda), y.mul(lambda));
+        return new Point(getX().mul(lambda), getY().mul(lambda));
     }
     
     public Point add(Point p) {
-        return new Point(x.add(p.x), y.add(p.y));
+        return new Point(getX().add(p.getX()), getY().add(p.getY()));
     }
     
     @Override
     public String toString() {
-        return String.format("[%s, %s]", x.toString(), y.toString());
+        return String.format("[%s, %s]", getX().toString(), getY().toString());
     }
     
 }
