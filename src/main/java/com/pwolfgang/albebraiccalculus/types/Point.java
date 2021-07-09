@@ -5,8 +5,6 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
-import com.pwolfgang.albebraiccalculus.types.Rational;
-
 /**
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
@@ -25,6 +23,14 @@ public class Point {
     
     public Point(long x, long y) {
         this(new Rational(x), new Rational(y));
+    }
+    
+    public Point mul(Rational lambda) {
+        return new Point(x.mul(lambda), y.mul(lambda));
+    }
+    
+    public Point add(Point p) {
+        return new Point(x.add(p.x), y.add(p.y));
     }
     
     @Override

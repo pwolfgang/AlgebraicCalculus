@@ -13,7 +13,7 @@ import java.util.StringJoiner;
  * @author Paul Wolfgang <paul@pwolfgang.com>
  * @param <T>
  */
-public class List<T> extends java.util.LinkedList<T> {
+public class List<T> extends java.util.ArrayList<T> {
     
     public List() {
         super();
