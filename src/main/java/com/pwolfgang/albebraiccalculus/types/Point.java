@@ -37,9 +37,6 @@ public class Point {
     
     public Rational getX() {return new Rational(b,a);}
     public Rational getY() {return new Rational(c,a);}
-    public long getA() {return a;}
-    public long getB() {return b;}
-    public long getC() {return c;}
     
     public Point mul(Rational lambda) {
         return new Point(getX().mul(lambda), getY().mul(lambda));
@@ -52,6 +49,18 @@ public class Point {
     @Override
     public String toString() {
         return String.format("[%s, %s]", getX().toString(), getY().toString());
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (this == o) return true;
+        if (this.getClass() == o.getClass()) {
+            var p = (Point) o;
+            return getX().equals(p.getX()) && getY().equals(p.getY());  
+        } else {
+            return false;
+        }
     }
     
 }

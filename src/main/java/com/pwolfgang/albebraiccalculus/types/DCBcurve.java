@@ -35,14 +35,14 @@ public class DCBcurve {
         else return r3(lambda);
     }
     
-    private Point r2(Rational lambda) {
+    Point r2(Rational lambda) {
         var q0 = scale(lambda, p0, p1);
         var q1 = scale(lambda, p1, p2);
-        var r  = scale(lambda, p0, q1);
+        var r  = scale(lambda, q0, q1);
         return r;
     }
     
-    private Point r3(Rational lambda) {
+    Point r3(Rational lambda) {
         var q0 = scale(lambda, p0, p1);
         var q1 = scale(lambda, p1, p2);
         var q2 = scale(lambda, p2, p3);

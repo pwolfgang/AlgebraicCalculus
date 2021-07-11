@@ -29,15 +29,15 @@ public class DCBcurveTest {
     }
     
     @Test
-    public void testR3() {
-        var p0 = new Point(-1,0);
-        var p1 = new Point(new Rational(-1, 1), new Rational(-1, 3));
-        var p2 = new Point(new Rational(-2, 3), new Rational(-2, 3));
-        var p3 = new Point(0, 0);
+    public void testR3_3() {
+        var p0 = new Point(1, 0, 1);
+        var p1 = new Point(1000, 552, 1000);
+        var p2 = new Point(1000, 1000, 552);
+        var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
-        for (int i = 0; i <= 4; i++) {
-            System.out.println(curve.r(new Rational(i, 4)));
-        }
+        var lambda = new Rational(1,2);
+        var r = curve.r3(lambda);
+        System.out.printf("r= %.9f%n", r.getX().toDouble());
+        assertEquals(new Point(1000, 707, 707), r);
     }
-    
 }
