@@ -40,4 +40,17 @@ public class DCBcurveTest {
         System.out.printf("r= %.9f%n", r.getX().toDouble());
         assertEquals(new Point(1000, 707, 707), r);
     }
+    @Test
+    public void testR3_4() {
+        var p0 = new Point(1, 0, 1);
+        var p1 = new Point(100000000,  55228475, 100000000);
+        var p2 = new Point(100000000, 100000000,  55228475);
+        var p3 = new Point(1, 1, 0);
+        var curve = new DCBcurve(p0, p1, p2, p3);
+        var lambda = new Rational(1,2);
+        var r = curve.r3(lambda);
+        System.out.printf("r= %.9f%n", r.getX().toDouble());
+        assertEquals(new Point(100000000, 707106781, 707106781), r);
+    }
+
 }
