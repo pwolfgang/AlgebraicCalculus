@@ -65,6 +65,18 @@ public class Rational implements Comparable<Rational> {
             throw new IllegalArgumentException(d + " is too big to be expressed as a Rational");
         }
         long[] norm = normalize(mantissa, div);
+        while (norm[0] > 0x000000001fffffffL) {
+            norm[0] >>= 1;
+            norm[1] >>= 1;
+        }
+        while (norm[0] < 0xffffffffe0000001L) {
+            norm[0] >>= 1;
+            norm[1] >>= 1;
+        }
+        while (norm[1] > 0x000000001fffffffL) {
+            norm[0] >>= 1;
+            norm[1] >>= 1;
+        }
         this.num = norm[0];
         this.den = norm[1];
    }
@@ -98,7 +110,15 @@ public class Rational implements Comparable<Rational> {
     }
 
     public static long lcm(long d1, long d2) {
-        return d1 * d2 / gcd(d1, d2);
+        long g = gcd(d1, d2);
+        long d1xd2 = d1 * d2;
+        long result = d1xd2 / g;
+        if (result != 0) {
+            return result;
+        } else {
+            throw new IllegalArgumentException(String.format("d1 = %d d2 = %d g = %d d1xd2 = %d, result = %d%n",
+                    d1, d2, g, d1xd2, result));
+        }
     }
 
     public Rational add(Rational other) {
