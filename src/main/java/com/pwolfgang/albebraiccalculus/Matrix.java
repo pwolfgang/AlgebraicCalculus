@@ -69,7 +69,7 @@ public class Matrix {
         return inverse;
     }
     
-    Matrix add(Matrix other) {
+    public Matrix add(Matrix other) {
         if (n != other.n) {
             throw new IllegalArgumentException("Matrices must be the same size");
         }
@@ -80,7 +80,7 @@ public class Matrix {
         return new Matrix(r, n);
     }
     
-    Rational[] mul(Rational[] v) {
+    public Rational[] mul(Rational[] v) {
         Rational[] r = new Rational[n];
         int j = 0;
         for (int i = 0; i < n; i++) {

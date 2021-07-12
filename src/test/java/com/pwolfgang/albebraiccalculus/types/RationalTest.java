@@ -67,6 +67,19 @@ public class RationalTest {
         Rational r3 = new Rational(5, 6);
         assertEquals(r3, r1.div(r2));
     }
+    
+    @Test
+    public void testRationalofDouble() {
+        assertEquals(Rational.ONE, new Rational(1.0));
+        assertEquals(new Rational(1,2), new Rational(0.5));
+        assertEquals(new Rational(2), new Rational(2.0));
+        Rational big = new Rational(0x4000000000000000L, 1L);
+        assertEquals(big, new Rational(big.toDouble()), "big");
+        Rational small = new Rational(1L, 0x4000000000000000L);
+        double smallDouble = small.toDouble();
+        Rational smallRational = new Rational(smallDouble);
+        assertEquals(small, new Rational(small.toDouble()), "small");
+    }
 
     
 }

@@ -49,8 +49,9 @@ public class DCBcurveTest {
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(1,2);
         var r = curve.r3(lambda);
-        System.out.printf("r= %.9f%n", r.getX().toDouble());
-        assertEquals(new Point(100000000, 707106781, 707106781), r);
+        System.out.printf("r= %s%n", Double.toString(r.getX().toDouble()));
+        System.out.println("sqrt(2)/2 = " + Math.sqrt(2.0)/2.0);
+        assertEquals(new Point(100000000000L, 70710678125L, 70710678125L), r);
     }
 
 }

@@ -14,6 +14,9 @@ import java.util.Objects;
 public class Line {
     private final long r, s, t;
     
+    public Line(Point p1, Point p2) {
+        this(p1.b*p2.c - p1.c*p2.b, p1.c*p2.a - p1.a*p2.c, p1.a*p2.b - p1.b*p2.a);
+    }
     
     public Line(long r, long s, long t) {
         long gcd = Rational.gcd(r, s);
@@ -64,7 +67,7 @@ public class Line {
     }
     
     public static Line join(Point p1, Point p2) {
-        return new Line(p1.b*p2.c - p1.c*p2.b, p1.c*p2.a - p1.a*p2.c, p1.a*p2.b - p1.b*p2.a);
+        return new Line(p1, p2);
     }
     
     public boolean passesThrough(Point p) {
