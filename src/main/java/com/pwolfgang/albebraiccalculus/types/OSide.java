@@ -24,11 +24,12 @@ public class OSide {
     }
     
     public Rational area() {
+        if (p1.equals(p2)) return Rational.ZERO;
         return Rational.HALF.mul(p1.getX().mul(p2.getY()).sub(p2.getX().mul(p1.getY())));
     }
     
     public boolean isInside(Point p) {
-//        if (!line.passesThrough(p)) return false;
+        if (!line.passesThrough(p)) return false;
         var aXmBx = p1.getX().sub(p2.getX());
         var aXmCx = p1.getX().sub(p.getX());
         var lambda = aXmCx.div(aXmBx);
