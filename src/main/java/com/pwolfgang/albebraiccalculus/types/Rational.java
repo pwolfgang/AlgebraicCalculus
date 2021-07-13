@@ -111,20 +111,19 @@ public class Rational implements Comparable<Rational> {
 
     public static long lcm(long d1, long d2) {
         long g = gcd(d1, d2);
-        long d1xd2 = d1 * d2;
-        long result = d1xd2 / g;
+        long result = d1/g * d2;
         if (result != 0) {
             return result;
         } else {
-            throw new IllegalArgumentException(String.format("d1 = %d d2 = %d g = %d d1xd2 = %d, result = %d%n",
-                    d1, d2, g, d1xd2, result));
+            throw new IllegalArgumentException(String.format("d1 = %d d2 = %d g = %d, result = %d%n",
+                    d1, d2, g, result));
         }
     }
 
     public Rational add(Rational other) {
         long commonD = lcm(den, other.den);
-        long n1 = num * commonD / den;
-        long n2 = other.num * commonD / other.den;
+        long n1 = num * (commonD / den);
+        long n2 = other.num * (commonD / other.den);
         return new Rational(n1 + n2, commonD);
     }
 
