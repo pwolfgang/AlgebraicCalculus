@@ -29,7 +29,7 @@ public class OSideTest {
         var a = new Point(-3, -1);
         var b = new Point(9, 3);
         var c = new Point(3, 1);
-        var d = new Point(-2, -6);
+        var d = new Point(-6, -2);
         var e = new Point(12, 4);
         var f = new Point(2, 4);
         var oside = new OSide(a, b);

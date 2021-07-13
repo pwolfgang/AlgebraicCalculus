@@ -29,12 +29,15 @@ public class OSide {
     }
     
     public boolean isInside(Point p) {
-        if (!line.passesThrough(p)) return false;
         var aXmBx = p1.getX().sub(p2.getX());
         var aXmCx = p1.getX().sub(p.getX());
-        var lambda = aXmCx.div(aXmBx);
-        if (Rational.ZERO.compareTo(lambda) > 0) return false;
-        return(Rational.ONE.compareTo(lambda) > 0);
+        var lambdax = aXmCx.div(aXmBx);
+        var aYmBy = p1.getY().sub(p2.getY());
+        var aYmCy = p1.getY().sub(p.getY());
+        var lambday = aYmCy.div(aYmBy);
+        if (!lambdax.equals(lambday)) return false;
+        if (Rational.ZERO.compareTo(lambdax) > 0) return false;
+        return(Rational.ONE.compareTo(lambdax) > 0);
     }
     
 }
