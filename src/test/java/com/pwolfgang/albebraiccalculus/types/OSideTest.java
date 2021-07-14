@@ -39,4 +39,73 @@ public class OSideTest {
         assertFalse(oside.isInside(f), "f is not inside ab");
     }
     
+    @Test
+    public void testIsRightOf() {
+        var a = new Point(5, -3);
+        var b = new Point(-5, 3);
+        var e = new Point(2, 1);
+        var d = new Point(-4, -5);
+        var c = new Point(0, 0);
+        var oside = new OSide(a, b);
+        assertTrue(oside.isRightOf(e), "e is right of ab");
+        assertTrue(oside.isStrictlyRightOf(e), "e is strictly right of ab");
+        assertTrue(oside.isRightOf(c), "c is right of ab");
+        assertFalse(oside.isStrictlyRightOf(c), "c is not strictly right of ab");
+        assertFalse(oside.isRightOf(d), "d is not right of ab");
+        assertFalse(oside.isStrictlyRightOf(d), "d is not strictly right of ab");
+    }
+    
+    @Test
+    public void testIsLeftOf() {
+        var a = new Point(5, -3);
+        var b = new Point(-5, 3);
+        var e = new Point(2, 1);
+        var d = new Point(-4, -5);
+        var c = new Point(0, 0);
+        var oside = new OSide(a, b);
+        assertFalse(oside.isLeftOf(e), "e is not left of ab");
+        assertFalse(oside.isStrictlyLeftOf(e), "e is not strictly left of ab");
+        assertTrue(oside.isLeftOf(c), "c is left of ab");
+        assertFalse(oside.isStrictlyLeftOf(c), "c is not strictly left of ab");
+        assertTrue(oside.isLeftOf(d), "d is left of ab");
+        assertTrue(oside.isStrictlyLeftOf(d), "d is strictly left of ab");
+    }
+    
+    @Test
+    public void testLeftRight() {
+        var c = new Point(0,0);
+        var d = new Point(6,6);
+        var a = new Point(1,2);
+        var b = new Point(-2, 7);
+        var cd = new OSide(c,d);
+        var ab = new OSide(a,b);
+        assertTrue(cd.isLeftOf(a), "cd is left of a");
+        assertFalse(cd.isRightOf(a), "cd is not right of a");
+        assertTrue(cd.isLeftOf(b), "cd is left of b");
+        assertFalse(cd.isRightOf(b), "cd is not right of b");
+        assertTrue(ab.isLeftOf(c), "ab is left of c");
+        assertFalse(ab.isRightOf(c), "ab is nor right of c");
+        assertTrue(ab.isRightOf(d), "ab is right of d");
+        assertFalse(ab.isLeftOf(d), "ab is left of d");
+
+    }
+    
+    @Test
+    public void testCrosses() {
+        var a = new Point(4, -1);
+        var b = new Point(-1, 5);
+        var c = new Point(0, 0);
+        var d = new Point(6, 6);
+        var e = new Point(3, 3);
+        var f = new Point(0, 7);
+        var g = new Point(1, 2);
+        var h = new Point(-2, 7);
+        var ab = new OSide(a, b);
+        var cd = new OSide(c, d);
+        var ef = new OSide(e, f);
+        var gh = new OSide(g, h);
+        assertTrue(OSide.crosses(ab, cd), "ab crosses cd");
+        assertTrue(OSide.crosses(cd, ef), "cd crosses ef");
+        assertFalse(OSide.crosses(cd, gh), "gh does not cross cd");
+    }
 }

@@ -6,6 +6,7 @@
 package com.pwolfgang.albebraiccalculus.types;
 
 import com.pwolfgang.albebraiccalculus.datastructures.List;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.StringJoiner;
 
@@ -16,6 +17,10 @@ import java.util.StringJoiner;
 public class COPS {
     
     public final List<Point> points;
+    
+    public COPS(Point... points) {
+        this.points = new List(Arrays.asList(points));
+    }
     
     public COPS(Collection<Point> points) {
         this.points = new List(points);
@@ -32,16 +37,14 @@ public class COPS {
                 p2 = points.get(i+1);
             }
             Rational s = new OSide(p1, p2).area();
-            System.out.printf("%s + %s == %s%n", p1.toString(), p2.toString(), s.toString());
             sum = sum.add(s);
-            System.out.printf("sum == %s%n", sum.toString());
         }
         return sum;
     }
     
     @Override
     public String toString() {
-        var sj = new StringJoiner(",", "‹[","]›");
+        var sj = new StringJoiner(",", "<[","]>");
         points.forEach((var p) -> sj.add(p.toString()));
         return sj.toString();
     }

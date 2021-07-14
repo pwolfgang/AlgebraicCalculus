@@ -5,7 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
-import com.pwolfgang.albebraiccalculus.Matrix;
+import java.util.Arrays;
 
 /**
  *
@@ -15,12 +15,10 @@ public class OSide {
     
     private final Point p1;
     private final Point p2;
-    private final Line line;
     
     public OSide(Point p1, Point p2) {
         this.p1 = p1;
         this.p2 = p2;
-        this.line = new Line(p1, p2);
     }
     
     public Rational area() {
@@ -40,4 +38,40 @@ public class OSide {
         return(Rational.ONE.compareTo(lambdax) > 0);
     }
     
+    public boolean isLeftOf(Point p) {
+        var cops = new COPS(Arrays.asList(p1, p2, p));
+        var copsArea = cops.area();
+        return (copsArea.compareTo(Rational.ZERO) >= 0);
+    }
+    
+    public boolean isRightOf(Point p) {
+        var cops = new COPS(p1, p2, p);
+        var copsArea = cops.area();
+        return (copsArea.compareTo(Rational.ZERO) <= 0);
+    }
+
+    public boolean isStrictlyLeftOf(Point p) {
+        var cops = new COPS(p1, p2, p);
+        var copsArea = cops.area();
+        return (copsArea.compareTo(Rational.ZERO) > 0);
+    }
+    
+    public boolean isStrictlyRightOf(Point p) {
+        var cops = new COPS(Arrays.asList(p1, p2, p));
+        var copsArea = cops.area();
+        return (copsArea.compareTo(Rational.ZERO) < 0);
+    }
+    
+    public boolean oppositeSides(Point a, Point b) {
+        boolean leftOfA = isLeftOf(a);
+        boolean rightOfB = isRightOf(b);
+        boolean rightOfA = isRightOf(a);
+        boolean leftOfB = isLeftOf(b);
+        if (leftOfA && rightOfB) return true;
+        return rightOfA && leftOfB;
+    }
+    
+    public static boolean crosses(OSide ab, OSide cd) {
+        return ab.oppositeSides(cd.p1, cd.p2) && cd.oppositeSides(ab.p1, ab.p2);
+    }
 }

@@ -51,7 +51,6 @@ public class LineTest {
         var p2 = new Point(2, 3);
         var l1 = new Line(-5, 4, -1);
         assertEquals(l1, Line.join(p1, p2));
-        System.out.println(Line.join(p1, p2));
     }
     
     @Test

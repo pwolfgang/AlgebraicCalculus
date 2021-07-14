@@ -6,7 +6,7 @@
 package com.pwolfgang.albebraiccalculus.types;
 
 import com.pwolfgang.albebraiccalculus.datastructures.List;
-import java.util.Arrays;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -24,14 +24,14 @@ public class OPSTest {
         Point b = new Point(0, 2);
         Point c = new Point(-1, -1);
         Point d = new Point(0, -1);
-        OPS ops1a = new OPS(Arrays.asList(a, b));
-        OPS ops1b = new OPS(Arrays.asList(c, d));
-        OPS ops2 = new OPS(Arrays.asList(a, b, c, d));
-        OPS ops3 = new OPS(Arrays.asList(a, b, c, b, b,c));
-        printArea(ops1a);
-        printArea(ops1b);
-        printArea(ops2);
-        printArea(ops3);
+        OPS ab = new OPS(a, b);
+        OPS cd = new OPS(c, d);
+        OPS abcd = new OPS(a, b, c, d);
+        OPS abcbbc = new OPS(a, b, c, b, b,c);
+        assertEquals(new Rational(3), ab.area());
+        assertEquals(new Rational(1,2), cd.area());
+        assertEquals(new Rational(9,2), abcd.area(), abcd.toString());
+        assertEquals(new Rational(4), abcbbc.area(), abcbbc.toString());
     }
     
     @Test
@@ -41,18 +41,14 @@ public class OPSTest {
             p1to5.add(new Point(i-1, i*i));
         }
         OPS ops1to5 = new OPS(p1to5);
-        printArea(ops1to5);
+        assertEquals(new Rational(8), ops1to5.area());
         
         List<Point> p10to13 = new List<>();
         for (int i = 10; i <= 13; i++) {
             p10to13.add(new Point(i-1, i*i));
         }
         OPS ops10to13 = new OPS(p10to13);
-        printArea(ops10to13);
+        assertEquals(new Rational(329,2), ops10to13.area());
     }
-
-    private void printArea(OPS ops) {
-        System.out.printf("Area of %s is %s%n", ops.toString(), ops.area().toString());        
-    } 
     
 }

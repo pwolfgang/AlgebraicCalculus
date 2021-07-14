@@ -24,8 +24,15 @@ public class DCBcurveTest {
         var p1 = new Point(4, 3);
         var p2 = new Point(5, 1);
         var curve = new DCBcurve(p0, p1, p2);
+        Point[] expected = new Point[] {
+            new Point(-1, 2),
+            new Point(new Rational(5,4), new Rational(37, 16)),
+            new Point(new Rational(3), new Rational(9,4)),
+            new Point(new Rational(17,4), new Rational(29,16)),
+            new Point(5,1)
+        };
         for (int i = 0; i <= 4; i++) {
-            System.out.println(curve.r(new Rational(i, 4)));
+            assertEquals(expected[i], curve.r(new Rational(i, 4)));
         }
     }
     
@@ -39,7 +46,6 @@ public class DCBcurveTest {
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(1,2);
         var r = curve.r3(lambda);
-        System.out.printf("r= %.9f%n", r.getX().toDouble());
         assertEquals(new Point(1000, 707, 707), r);
     }
 
@@ -53,8 +59,6 @@ public class DCBcurveTest {
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(1,2);
         var r = curve.r3(lambda);
-        System.out.printf("r= %s%n", Double.toString(r.getX().toDouble()));
-        System.out.println("sqrt(2)/2 = " + Math.sqrt(2.0)/2.0);
         assertEquals(new Point(100000000000L, 70710678125L, 70710678125L), r);
     }
 
@@ -71,10 +75,7 @@ public class DCBcurveTest {
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(1,2);
         var r = curve.r3(lambda);
-        System.out.printf("r= %s%n", Double.toString(r.getX().toDouble()));
-        System.out.println("sqrt(2)/2 = " + Math.sqrt(2.0)/2.0);
         Rational ratSqrt2Over2 = new Rational(sqrt2over2);
-        System.out.println("ratSqrt2Over2 = " + ratSqrt2Over2.toDouble());
         assertEquals(new Point(ratSqrt2Over2,ratSqrt2Over2), r);
     }
 

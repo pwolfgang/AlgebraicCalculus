@@ -6,6 +6,7 @@
 package com.pwolfgang.albebraiccalculus.types;
 
 import com.pwolfgang.albebraiccalculus.datastructures.List;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -14,6 +15,10 @@ import java.util.Collection;
  */
 public class OPS {
     public final List<Point> points;
+    
+    public OPS(Point... points) {
+        this.points = new List(Arrays.asList(points));
+    }
     
     public OPS(Collection<Point> points) {
         this.points = new List(points);
