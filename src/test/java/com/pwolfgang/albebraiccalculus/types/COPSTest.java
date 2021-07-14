@@ -55,4 +55,17 @@ public class COPSTest {
         assertEquals(a, area);
     }
     
+    @Test
+    public void testIsPlanar() {
+        var a1 = new Point(-1, 1);
+        var a2 = new Point(-4, 2);
+        var a3 = new Point(-4, 1);
+        var a4 = new Point(-3, -2);
+        var a5 = new Point(-5, -1);
+        COPS curve = new COPS(a1, a2, a3, a4, a5);
+        assertFalse(curve.isPlanar());
+        COPS curve2 = new COPS(a1, a2, a3, a5, a4);
+        assertTrue(curve2.isPlanar());
+   }
+    
 }

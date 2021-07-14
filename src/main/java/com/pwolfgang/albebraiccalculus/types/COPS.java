@@ -42,6 +42,33 @@ public class COPS {
         return sum;
     }
     
+    public boolean isPlanar() {
+        int n = points.size();
+        OSide[] edges = new OSide[n];
+        for (int i = 0; i < n-1; i++) {
+            edges[i] = new OSide(points.get(i), points.get(i+1));
+        }
+        edges[n-1] = new OSide(points.get(n-1), points.get(0));
+        for (int i = 0; i < n; i++) {
+            if (!verifyEdge(i, edges)) return false;
+        }
+        return true;
+    }
+    
+    public boolean verifyEdge(int i, OSide[] edges) {
+        int n = edges.length;
+        int j = i+2;
+        var edge = edges[i];
+        for (int k = 0; k < n-3; k++) {
+            if (j > n-1) j -= n;
+            if (OSide.crosses(edge,edges[j])) {
+                return false;
+            }
+            j++;
+        }
+        return true;
+    }
+    
     @Override
     public String toString() {
         var sj = new StringJoiner(",", "<[","]>");
