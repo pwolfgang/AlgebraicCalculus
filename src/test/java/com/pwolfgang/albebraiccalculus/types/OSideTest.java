@@ -144,4 +144,17 @@ public class OSideTest {
         assertEquals(-1, ab.crossingNumber(cd));
         assertEquals(1, cd.crossingNumber(ab));
     }
+    
+    @Test
+    public void linesShouldNotBeAdjacent() {
+        var a = new Point(0, 0);
+        var b = new Point(2, 2);
+        var c = new Point(3, 3);
+        var d = new Point(-1, -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            var ab = new OSide(a, b);
+            var cd = new OSide(c, d);
+            int i = ab.crossingNumber(cd);
+        });
+    }
 }

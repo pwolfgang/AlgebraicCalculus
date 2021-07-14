@@ -78,10 +78,22 @@ public class OSide {
     public int crossingNumber(OSide cd) {
         Point c = cd.p1;
         Point d = cd.p2;
+        boolean leftOfC = isLeftOf(c);
+        boolean leftOfD = isLeftOf(d);
+        boolean rightOfC = isRightOf(c);
+        boolean rightOfD = isRightOf(d);
+        if (leftOfC && rightOfC && leftOfD && rightOfD) {
+            throw new IllegalArgumentException(String.format("%s is alligned with %s%n", 
+                    this.toString(), cd.toString()));
+        }
         if (!crosses(this, cd)) return 0;
         if (isRightOf(c) && isLeftOf(d))return 1;
         if (isLeftOf(c) && isRightOf(d)) return -1;
         throw new RuntimeException(String.format("%s and %s crossingNumber not defined%n", 
                 this.toString(), cd.toString()));
+    }
+    
+    public String toString() {
+        return String.format("{%s,%s}", p1.toString(), p2.toString());
     }
 }
