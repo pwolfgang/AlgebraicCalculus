@@ -108,4 +108,40 @@ public class OSideTest {
         assertTrue(OSide.crosses(cd, ef), "cd crosses ef");
         assertFalse(OSide.crosses(cd, gh), "gh does not cross cd");
     }
+    
+    @Test
+    public void testCrossingNumberTest1() {
+        var a = new Point(10, -2);
+        var b = new Point(11, -3);
+        var c = new Point(17, 0);
+        var d = new Point(0, -5);
+        var ab = new OSide(a, b);
+        var cd = new OSide(c, d);
+        assertEquals(-1, ab.crossingNumber(cd));
+        assertEquals(1, cd.crossingNumber(ab));
+    }
+
+    @Test
+    public void testCrossingNumberTest2() {
+        var a = new Point(3, 1);
+        var b = new Point(5, -1);
+        var c = new Point(0, -1);
+        var d = new Point(5, 3);
+        var ab = new OSide(a, b);
+        var cd = new OSide(c, d);
+        assertEquals(0, ab.crossingNumber(cd));
+        assertEquals(0, cd.crossingNumber(ab));
+    }
+
+    @Test
+    public void testCrossingNumberTest3() {
+        var a = new Point(-6, 0);
+        var b = new Point(-1, 0);
+        var c = new Point(0, 3);
+        var d = new Point(-4, -1);
+        var ab = new OSide(a, b);
+        var cd = new OSide(c, d);
+        assertEquals(-1, ab.crossingNumber(cd));
+        assertEquals(1, cd.crossingNumber(ab));
+    }
 }

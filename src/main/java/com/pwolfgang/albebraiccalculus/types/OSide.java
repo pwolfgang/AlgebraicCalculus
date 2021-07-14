@@ -74,4 +74,14 @@ public class OSide {
     public static boolean crosses(OSide ab, OSide cd) {
         return ab.oppositeSides(cd.p1, cd.p2) && cd.oppositeSides(ab.p1, ab.p2);
     }
+    
+    public int crossingNumber(OSide cd) {
+        Point c = cd.p1;
+        Point d = cd.p2;
+        if (!crosses(this, cd)) return 0;
+        if (isRightOf(c) && isLeftOf(d))return 1;
+        if (isLeftOf(c) && isRightOf(d)) return -1;
+        throw new RuntimeException(String.format("%s and %s crossingNumber not defined%n", 
+                this.toString(), cd.toString()));
+    }
 }
