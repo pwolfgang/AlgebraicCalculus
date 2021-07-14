@@ -15,6 +15,7 @@ public class OSide {
     
     private final Point p1;
     private final Point p2;
+    private Line line = null;
     
     public OSide(Point p1, Point p2) {
         this.p1 = p1;
@@ -93,7 +94,15 @@ public class OSide {
                 this.toString(), cd.toString()));
     }
     
+    @Override
     public String toString() {
         return String.format("{%s,%s}", p1.toString(), p2.toString());
+    }
+    
+    public Line getLine() {
+        if (line == null) {
+            line = new Line(p1, p2);
+        }
+        return line;
     }
 }

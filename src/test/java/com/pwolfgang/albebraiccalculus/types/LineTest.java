@@ -62,4 +62,27 @@ public class LineTest {
         assertFalse(l1.passesThrough(p2), l1 + "does not pass through " + p2);
     }
     
+    @Test 
+    public void pointSlopeTest() {
+        System.out.println("point slope test");
+        var p = new Point(-1, 0);
+        var m = new Rational(3);
+        assertEquals(new Line(3, 3, -1), Line.pointSlope(p, m));
+    }
+    
+    @Test
+    public void slopeTest() {
+        var p = new Point(-1, 0);
+        var a = new Point(-2, -2);
+        var b = new Point(0, 4);
+        var c = new Point(3, -2);
+        var d = new Point(-4, 0);
+        var e = new Point(3, 2);
+        assertEquals(new Rational(2), new Line(a, p).slope());
+        assertEquals(new Rational(4), new Line(b, p).slope());
+        assertEquals(new Rational(-1,2), new Line(c, p).slope());
+        assertEquals(new Rational(0), new Line(d, p).slope());
+        assertEquals(new Rational(1,2), new Line(e, p).slope());
+    }
+    
 }

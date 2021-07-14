@@ -90,5 +90,14 @@ public class Line {
     public static Point meet(Line l1, Line l2) {
         return new Point(l1.s * l2.t - l1.t * l2.s, l1.t * l2.r - l1.r * l2.t, l1.r * l2.s - l1.s * l2.r);
     }
+    
+    public Rational slope() {
+        return new Rational(-s, t);
+    }
+    
+    public static Line pointSlope(Point p, Rational m) {
+        Point p2 = new Point(p.getX().add(Rational.ONE), p.getY().add(m));
+        return join(p, p2);
+    }
 
 }
