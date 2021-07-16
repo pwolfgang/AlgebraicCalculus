@@ -83,6 +83,7 @@ public class LineTest {
         assertEquals(new Rational(-1,2), new Line(c, p).slope());
         assertEquals(new Rational(0), new Line(d, p).slope());
         assertEquals(new Rational(1,2), new Line(e, p).slope());
+        assertEquals(new Rational(2), new Line(p, a).slope());
     }
     
 }

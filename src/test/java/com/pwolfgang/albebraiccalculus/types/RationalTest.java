@@ -46,9 +46,9 @@ public class RationalTest {
     
     @Test
     public void testAdd() {
-        Rational r1 = new Rational(2, 3);
-        Rational r2 = new Rational(4, 5);
-        Rational r3 = new Rational(22, 15);
+        Rational r1 = new Rational(2, 45);
+        Rational r2 = new Rational(4, 75);
+        Rational r3 = new Rational(22, 225);
         assertEquals(r3, r1.add(r2));
     }
     
