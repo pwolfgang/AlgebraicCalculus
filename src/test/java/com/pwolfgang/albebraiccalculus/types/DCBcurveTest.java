@@ -66,8 +66,7 @@ public class DCBcurveTest {
     public void testR3_5() {
         System.out.println("testR3_5");
         double sqrt2over2 = Math.sqrt(2.0)/2.0;
-        double a = (Math.sqrt(2)*4 - 4.0)/3.0;
-        Rational rationalA = new Rational(a);
+        Rational rationalA = (new Rational(Math.sqrt(2)).mul(new Rational(4))).sub(new Rational(4)).div(new Rational(3));
         var p0 = new Point(1, 0, 1);
         var p1 = new Point(rationalA, Rational.ONE);
         var p2 = new Point(Rational.ONE, rationalA);

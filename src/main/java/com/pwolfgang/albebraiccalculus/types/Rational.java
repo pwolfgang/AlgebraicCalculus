@@ -65,15 +65,15 @@ public class Rational implements Comparable<Rational> {
             throw new IllegalArgumentException(d + " is too big to be expressed as a Rational");
         }
         long[] norm = normalize(mantissa, div);
-        while (norm[0] > 0x000000001fffffffL) {
+        while (norm[0] > 0x000000007fffffffL) {
             norm[0] >>= 1;
             norm[1] >>= 1;
         }
-        while (norm[0] < 0xffffffffe0000001L) {
+        while (norm[0] < 0xffffffff80000001L) {
             norm[0] >>= 1;
             norm[1] >>= 1;
         }
-        while (norm[1] > 0x000000001fffffffL) {
+        while (norm[1] > 0x0000000080000000L) {
             norm[0] >>= 1;
             norm[1] >>= 1;
         }
@@ -136,7 +136,9 @@ public class Rational implements Comparable<Rational> {
     }
 
     public Rational mul(Rational other) {
-        return new Rational(num * other.num, den * other.den);
+        Rational x = new Rational(num, other.den);
+        Rational y = new Rational(other.num, den);
+        return new Rational(x.num*y.num, x.den*y.den);
     }
 
     public Rational div(Rational other) {
