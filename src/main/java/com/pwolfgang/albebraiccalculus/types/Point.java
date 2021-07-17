@@ -46,6 +46,14 @@ public class Point {
         return new Point(getX().add(p.getX()), getY().add(p.getY()));
     }
     
+    public Point add(Vector v) {
+        return new Point(getX().add(v.x), getY().add(v.y));
+    }
+    
+    public Vector sub(Point p) {
+        return new Vector(this, p);
+    }
+    
     @Override
     public String toString() {
         return String.format("[%s, %s]", getX().toString(), getY().toString());
