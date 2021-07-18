@@ -6,6 +6,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /*
@@ -53,6 +57,15 @@ public class Canvas extends JPanel {
         return new Canvas((int)xOrigin, (int)yOrigin, sf, w, h);
     }
     
+    public void writeImage(String fileName) {
+        File file = new File(fileName);
+        try {
+            ImageIO.write(image, "png", file);
+        } catch (IOException ex) {
+            throw new UncheckedIOException(ex);
+        }
+    }
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -78,8 +91,14 @@ public class Canvas extends JPanel {
     public void plotPixel(double x, double y, Color c, int size) {
         int[] p = convertPoint(x, y);
         for (int k = -size/2; k <= size/2; k++) {
-            image.setRGB(p[0]+k, p[1], c.getRGB());
-            image.setRGB(p[0], p[1]+k, c.getRGB());
+            int pX = p[0];
+            int pY = p[1];
+            if ((pX + k) >=0 && (pX + k) < w) {
+                image.setRGB(pX+k, pY, c.getRGB());
+            }
+            if ((pY + k) >=0 && (pY + k) < h) {
+                image.setRGB(pX, pY+k, c.getRGB());
+            }
         }
        repaint();
     }
