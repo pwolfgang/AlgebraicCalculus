@@ -19,11 +19,11 @@ public class COPS {
     public final List<Point> points;
     
     public COPS(Point... points) {
-        this.points = new List(Arrays.asList(points));
+        this.points = new List<>(Arrays.asList(points));
     }
     
     public COPS(Collection<Point> points) {
-        this.points = new List(points);
+        this.points = new List<>(points);
     }
     
     Rational area() {

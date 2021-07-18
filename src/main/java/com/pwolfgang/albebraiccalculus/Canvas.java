@@ -22,6 +22,7 @@ import javax.swing.JPanel;
  *
  * @author Paul
  */
+@SuppressWarnings("serial")
 public class Canvas extends JPanel {
     
     private final int xOrigin;

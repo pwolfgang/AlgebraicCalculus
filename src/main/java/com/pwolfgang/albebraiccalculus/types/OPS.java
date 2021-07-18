@@ -17,11 +17,11 @@ public class OPS {
     public final List<Point> points;
     
     public OPS(Point... points) {
-        this.points = new List(Arrays.asList(points));
+        this.points = new List<>(Arrays.asList(points));
     }
     
     public OPS(Collection<Point> points) {
-        this.points = new List(points);
+        this.points = new List<>(points);
     }
     
     Rational area() {

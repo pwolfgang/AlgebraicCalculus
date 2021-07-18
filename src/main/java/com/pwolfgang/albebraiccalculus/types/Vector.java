@@ -66,6 +66,14 @@ public class Vector {
         }
     }
     
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + x.hashCode();
+        hash = 59 * hash + y.hashCode();
+        return hash;
+    }
+    
     public String toString() {
         return String.format("(%s,%s)", x.toString(), y.toString());
     }

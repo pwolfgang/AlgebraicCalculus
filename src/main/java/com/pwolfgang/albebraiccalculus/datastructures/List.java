@@ -13,6 +13,7 @@ import java.util.StringJoiner;
  * @author Paul Wolfgang <paul@pwolfgang.com>
  * @param <T>
  */
+@SuppressWarnings("serial")
 public class List<T> extends java.util.ArrayList<T> {
     
     public List() {

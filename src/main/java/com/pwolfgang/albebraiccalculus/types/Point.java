@@ -71,4 +71,13 @@ public class Point {
         }
     }
     
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + (int) (this.a ^ (this.a >>> 32));
+        hash = 59 * hash + (int) (this.b ^ (this.b >>> 32));
+        hash = 59 * hash + (int) (this.c ^ (this.c >>> 32));
+        return hash;
+    }
+    
 }
