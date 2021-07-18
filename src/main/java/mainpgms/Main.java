@@ -32,10 +32,10 @@ public class Main {
         }
         double log2radius = Math.log(radius)/Math.log(2);
         int canvasSize = 1 << ((int)Math.ceil(log2radius)+1);
-        int offset = 5*canvasSize/8;
-        radius /= 2;
-//        int offset = canvasSize*3/4;
-//        radius /= 16;
+//        int offset = 5*canvasSize/8;
+//        radius /= 2;
+        int offset = canvasSize*3/4;
+        radius /= 16;
         Canvas canvas = Canvas.newInstance(0., canvasSize-1, 0., canvasSize-1, canvasSize, canvasSize);
         JFrame frame = new JFrame();
         frame.getContentPane().add(canvas);
@@ -69,11 +69,13 @@ public class Main {
         var p2 = new Point(Rational.ONE, rationalA);
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
-        for (int i = 0; i <= 15*numSteps/4; i++) {
-            var lambda = new Rational(i, numSteps).sub(new Rational(11,8));
+//        for (int i = 0; i <= 15*numSteps/4; i++) {
+//            var lambda = new Rational(i, numSteps).sub(new Rational(11,8));
+        for (int i = 0; i <= 7*numSteps; i++) {
+            var lambda = new Rational(i, numSteps).sub(new Rational(3));
             var p = curve.r(lambda);
-            int px = (int)(p.getX().toDouble()*radius + offset);
-            int py = (int)(p.getY().toDouble()*radius + offset);
+            double px = p.getX().mul(new Rational(radius)).add(new Rational(offset)).toDouble();
+            double py = p.getY().mul(new Rational(radius)).add(new Rational(offset)).toDouble();
             canvas.plotPixel(px, py, Color.GREEN, 2);
         }
         for (int i = 0; i < canvasSize; i++) {
@@ -83,7 +85,7 @@ public class Main {
             canvas.plotPixel(i, offset, Color.BLACK);
             canvas.plotPixel(offset, i, Color.BLACK);
         }
-        canvas.writeImage("ExtendedCircle.png");
+        canvas.writeImage("ExtendedCircle2.png");
         SwingUtilities.invokeLater(() -> frame.setVisible(true));
     }
     
