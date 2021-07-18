@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
  */
 public class OSetTest {
     
-    OSet oSet;
+    OSet<Rational> oSet;
     
     public OSetTest() {
-        oSet = new OSet(Arrays.asList(new Rational(1), new Rational(4), new Rational(2)));
+        oSet = new OSet<>(Arrays.asList(new Rational(1), new Rational(4), new Rational(2)));
     }
 
     @Test
