@@ -16,7 +16,7 @@ public class Rational implements Comparable<Rational> {
 
     public Rational(long num, long den) {
         if (den == 0) {
-            throw new IllegalArgumentException("Div by Zero");
+            throw new ArithmeticException("Div by Zero");
         }
         long[] norm = normalize(num, den);
         this.num = norm[0];
@@ -36,6 +36,22 @@ public class Rational implements Comparable<Rational> {
 
     public Rational(long num) {
         this(num, 1);
+    }
+    
+    public Rational(String s) {
+        String[] tokens = s.split("/");
+        if (tokens.length == 1) {
+            num = Long.parseLong(s);
+            den = 1;
+        } else if (tokens.length == 2) {
+            long n = Long.parseLong(tokens[0]);
+            long d = Long.parseLong(tokens[1]);
+            long[] norm = normalize(n, d);
+            this.num = norm[0];
+            this.den = norm[1];
+        } else {
+            throw new NumberFormatException(String.format("Cannot parse %s as Rational", s));
+        }
     }
 
     public Rational(Double d) {
@@ -138,7 +154,11 @@ public class Rational implements Comparable<Rational> {
     public Rational mul(Rational other) {
         Rational x = new Rational(num, other.den);
         Rational y = new Rational(other.num, den);
-        return new Rational(x.num*y.num, x.den*y.den);
+        try {
+            return new Rational(x.num*y.num, x.den*y.den);
+        } catch (ArithmeticException ex) {
+            throw new IllegalArgumentException(String.format("%s.mul(%s)", this.toString(), other.toString()), ex); 
+        }
     }
 
     public Rational div(Rational other) {
@@ -176,6 +196,14 @@ public class Rational implements Comparable<Rational> {
         }
     }
 
+    public long longValue() {
+        return num/den;
+    }
+    
+    public int intValue() {
+        return (int)longValue();
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

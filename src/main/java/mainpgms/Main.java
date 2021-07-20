@@ -23,19 +23,25 @@ public class Main {
     public static void main(String... args) {
         int numSteps;
         int radius;
-        if (args.length < 2) {
+        Rational scaleFactor;
+        Rational offsetFactor;
+        if (args.length < 4) {
             numSteps = 1024;
             radius = 512;
+            scaleFactor = new Rational(1, 16);
+            offsetFactor = new Rational(3, 4);
         } else {
             numSteps = Integer.parseInt(args[0]);
             radius = Integer.parseInt(args[1])/2;
+            scaleFactor = new Rational(args[2]);
+            offsetFactor = new Rational(args[3]);
         }
         double log2radius = Math.log(radius)/Math.log(2);
         int canvasSize = 1 << ((int)Math.ceil(log2radius)+1);
 //        int offset = 5*canvasSize/8;
 //        radius /= 2;
-        int offset = canvasSize*3/4;
-        radius /= 16;
+        int offset = new Rational(canvasSize).mul(offsetFactor).intValue();
+        radius = new Rational(radius).mul(scaleFactor).intValue();
         Canvas canvas = Canvas.newInstance(0., canvasSize-1, 0., canvasSize-1, canvasSize, canvasSize);
         JFrame frame = new JFrame();
         frame.getContentPane().add(canvas);
@@ -43,9 +49,6 @@ public class Main {
         frame.pack();
         int m = numSteps;
         int mSq = m*m;
-        double sqrt2over2 = Math.sqrt(2)/2.0;
-        Rational lowBound = Rational.ZERO;
-        Rational hiBound = Rational.ONE;
         for (int n = 1; n < numSteps; n++) {
             int nSq = n*n;
             int twoNM = 2*n*m;
