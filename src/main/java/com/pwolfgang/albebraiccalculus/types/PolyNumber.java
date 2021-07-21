@@ -18,18 +18,32 @@ public class PolyNumber {
     private final List<Rational> list;
     
     public PolyNumber(Rational... r) {
-        list = new List<>(Arrays.asList(r));
+        List<Rational> tempList = new List<>(Arrays.asList(r));
+        trimTrailingZeros(tempList);
+        list = tempList;
     }
     
     public PolyNumber(long... n) {
-        list = new List<>();
+        List<Rational> tempList = new List<>();
         for (int i = 0; i < n.length; i++) {
-            list.add(new Rational(n[i]));
+            tempList.add(new Rational(n[i]));
         }
+        trimTrailingZeros(tempList);
+        list = tempList;
     }
     
     public PolyNumber(List<Rational> list) {
-        this.list = list;
+        List<Rational> tempList = new List<>(list);
+        trimTrailingZeros(tempList);
+        this.list = tempList;
+    }
+    
+    private void trimTrailingZeros(List<Rational> list) {
+        int i = list.size()-1;
+        while (i > 0 && list.get(i).equals(Rational.ZERO)) {
+            list.remove(i);
+            i--;
+        }
     }
     
     public PolyNumber add(PolyNumber p) {
@@ -103,7 +117,9 @@ public class PolyNumber {
     public PolyNumber eval(PolyNumber x) {
         PolyNumber result = new PolyNumber(0);
         for (int i = list.size()-1; i >= 0; i--) {
-            result = result.mul(x).add(new PolyNumber(list.get(i)));
+            var t1 = result.mul(x);
+            var t2 = new PolyNumber(list.get(i));
+            result = t1.add(t2);
         }
         return result;
     }

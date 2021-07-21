@@ -47,7 +47,7 @@ public class PolyNumberTest {
     public void testEval_PolyNumber() {
         var p1 = new PolyNumber(3, 2, 1);
         var p2 = new PolyNumber(4, 5);
-        var p3 = new PolyNumber(3, 8, 26, 40, 25);
+        var p3 = new PolyNumber(27, 50, 25);
         assertEquals(p3, p1.eval(p2));
     }
    
