@@ -15,12 +15,12 @@ import java.util.StringJoiner;
  */
 public class PolyNumber {
     
-    private final List<Rational> list;
+    private final Rational[] aS;
     
     public PolyNumber(Rational... r) {
         List<Rational> tempList = new List<>(Arrays.asList(r));
         trimTrailingZeros(tempList);
-        list = tempList;
+        aS = tempList.toArray(new Rational[tempList.size()]);
     }
     
     public PolyNumber(long... n) {
@@ -29,13 +29,13 @@ public class PolyNumber {
             tempList.add(new Rational(n[i]));
         }
         trimTrailingZeros(tempList);
-        list = tempList;
+        aS = tempList.toArray(new Rational[tempList.size()]);
     }
     
     public PolyNumber(List<Rational> list) {
         List<Rational> tempList = new List<>(list);
         trimTrailingZeros(tempList);
-        this.list = tempList;
+        aS = tempList.toArray(new Rational[tempList.size()]);
     }
     
     private void trimTrailingZeros(List<Rational> list) {
@@ -48,43 +48,45 @@ public class PolyNumber {
     
     public PolyNumber add(PolyNumber p) {
         List<Rational> result = new List<>();
-        int maxThis = list.size();
-        int maxOther = p.list.size();
+        int maxThis = aS.length;
+        int maxOther = p.aS.length;
         int i = 0;
         int j = 0;
         while (i < maxThis && j < maxOther) {
-            result.add(list.get(i++).add(p.list.get(j++)));
+            result.add(aS[i++].add(p.aS[j++]));
         }
         while (i < maxThis) {
-            result.add(list.get(i++));
+            result.add(aS[i++]);
         }
         while (j < maxOther) {
-            result.add(p.list.get(j++));
+            result.add(p.aS[j++]);
         }
         return new PolyNumber(result);
     }
 
     public PolyNumber sub(PolyNumber p) {
         List<Rational> result = new List<>();
-        int maxThis = list.size();
-        int maxOther = p.list.size();
+        int maxThis = aS.length;
+        int maxOther = p.aS.length;
         int i = 0;
         int j = 0;
         while (i < maxThis && j < maxOther) {
-            result.add(list.get(i++).sub(p.list.get(j++)));
+            result.add(aS[i++].sub(p.aS[j++]));
         }
         while (i < maxThis) {
-            result.add(list.get(i++));
+            result.add(aS[i++]);
         }
         while (j < maxOther) {
-            result.add(p.list.get(j++));
+            result.add(p.aS[j++]);
         }
         return new PolyNumber(result);
     }
     
     public PolyNumber mul(Rational lambda) {
         List<Rational> result = new List<>();
-        list.forEach(r -> result.add(r.mul(lambda)));
+        for (var r:aS) {
+            result.add(r.mul(lambda));
+        }
         return new PolyNumber(result);
     }
     
@@ -93,14 +95,16 @@ public class PolyNumber {
         for (int i = 0; i < k; i++) {
             result.add(Rational.ZERO);
         }
-        list.forEach(r -> result.add(r));
+        for (var r:aS) {
+            result.add(r);
+        }
         return new PolyNumber(result);
     }
     
     public PolyNumber mul(PolyNumber p) {
         PolyNumber result = new PolyNumber(Rational.ZERO);
-        for (int i = 0; i < list.size(); i++) {
-            PolyNumber term = p.mul(list.get(i)).shift(i);
+        for (int i = 0; i < aS.length; i++) {
+            PolyNumber term = p.mul(aS[i]).shift(i);
             result = result.add(term);
         }
         return result;
@@ -108,24 +112,24 @@ public class PolyNumber {
     
     public Rational eval(Rational x) {
         Rational result = Rational.ZERO;
-        for (int i = list.size()-1; i >= 0; i--) {
-            result = result.mul(x).add(list.get(i));
+        for (int i = aS.length-1; i >= 0; i--) {
+            result = result.mul(x).add(aS[i]);
         }
         return result;
     }
 
     public PolyNumber eval(PolyNumber x) {
         PolyNumber result = new PolyNumber(0);
-        for (int i = list.size()-1; i >= 0; i--) {
-            result = result.mul(x).add(new PolyNumber(list.get(i)));
+        for (int i = aS.length-1; i >= 0; i--) {
+            result = result.mul(x).add(new PolyNumber(aS[i]));
         }
         return result;
     }
     
     public PolyNumber D() {
         List<Rational> result = new List<>();
-        for (int i = 1; i < list.size(); i++) {
-            result.add(list.get(i).mul(new Rational(i)));
+        for (int i = 1; i < aS.length; i++) {
+            result.add(aS[i].mul(new Rational(i)));
         }
         if (result.isEmpty()) {
             result.add(Rational.ZERO);
@@ -136,16 +140,16 @@ public class PolyNumber {
     public PolyNumber S() {
         List<Rational> result = new List<>();
         result.add(Rational.ZERO);
-        for (int i = 0; i < list.size(); i++) {
-            result.add(list.get(i).mul(new Rational(1, i+1)));
+        for (int i = 0; i < aS.length; i++) {
+            result.add(aS[i].mul(new Rational(1, i+1)));
         }
         return new PolyNumber(result);
     }
     
     public String toString() {
         var sj = new StringJoiner(" + ");
-        for (int i = 0; i < list.size(); i++) {
-            Rational term = list.get(i);
+        for (int i = 0; i < aS.length; i++) {
+            Rational term = aS[i];
             if (!Rational.ZERO.equals(term)) {
                 if (Rational.ONE.equals(term)) {
                     sj.add(String.format("α^%d",i));
@@ -166,7 +170,7 @@ public class PolyNumber {
         if (o == null) return false;
         if (this == o) return true;
         if (this.getClass() == o.getClass()) {
-            return list.equals(((PolyNumber)o).list);
+            return Arrays.equals(aS, ((PolyNumber)o).aS);
         } else {
             return false;
         }
