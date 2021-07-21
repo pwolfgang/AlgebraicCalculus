@@ -69,5 +69,11 @@ public class PolyNumberTest {
         var p2 = new PolyNumber(5, 8);
         assertEquals(p1, p2.S());
     }
+    
+    @Test
+    public void testToString() {
+        assertEquals("α + 2α^2", new PolyNumber(0, 1, 2).toString());
+        assertEquals("3 + 2α + α^2", new PolyNumber(3, 2, 1).toString());
+    }
    
 }

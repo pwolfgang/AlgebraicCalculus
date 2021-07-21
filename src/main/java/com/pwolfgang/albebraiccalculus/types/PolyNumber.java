@@ -152,9 +152,21 @@ public class PolyNumber {
             Rational term = aS[i];
             if (!Rational.ZERO.equals(term)) {
                 if (Rational.ONE.equals(term)) {
-                    sj.add(String.format("α^%d",i));
+                    if (i == 0) {
+                        sj.add("1");
+                    } else if (i == 1) {
+                        sj.add("α");
+                    } else {
+                        sj.add(String.format("α^%d",i));
+                    }
                 } else {
-                    sj.add(String.format("%sα^%d",term, i));
+                    if (i == 0) {
+                        sj.add(String.format("%s", term));
+                    } else if (i == 1) {
+                        sj.add(String.format("%sα", term));
+                    } else {
+                        sj.add(String.format("%sα^%d",term, i));
+                    }
                 }
             }
         }
