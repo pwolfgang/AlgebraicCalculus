@@ -117,9 +117,7 @@ public class PolyNumber {
     public PolyNumber eval(PolyNumber x) {
         PolyNumber result = new PolyNumber(0);
         for (int i = list.size()-1; i >= 0; i--) {
-            var t1 = result.mul(x);
-            var t2 = new PolyNumber(list.get(i));
-            result = t1.add(t2);
+            result = result.mul(x).add(new PolyNumber(list.get(i)));
         }
         return result;
     }
