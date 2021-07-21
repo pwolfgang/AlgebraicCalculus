@@ -62,5 +62,12 @@ public class PolyNumberTest {
         assertEquals(p2, p1.D());
         assertEquals(new PolyNumber(0), new PolyNumber(5).D());
     }
+
+    @Test
+    public void testS() {
+        var p1 = new PolyNumber(0, 5, 4);
+        var p2 = new PolyNumber(5, 8);
+        assertEquals(p1, p2.S());
+    }
    
 }
