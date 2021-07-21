@@ -122,6 +122,17 @@ public class PolyNumber {
         return result;
     }
     
+    public PolyNumber D() {
+        List<Rational> result = new List<>();
+        for (int i = 1; i < list.size(); i++) {
+            result.add(list.get(i).mul(new Rational(i)));
+        }
+        if (result.isEmpty()) {
+            result.add(Rational.ZERO);
+        }
+        return new PolyNumber(result);
+    }
+    
     public String toString() {
         var sj = new StringJoiner(" + ");
         for (int i = 0; i < list.size(); i++) {

@@ -19,6 +19,10 @@ public class PolyNumberTest {
 
     @Test
     public void testSub() {
+        var p1 = new PolyNumber(3, 2, 1);
+        var p2 = new PolyNumber(4, 5);
+        var p3 = new PolyNumber(-1, -3, 1);
+        assertEquals(p3, p1.sub(p2));
     }
 
     @Test
@@ -49,6 +53,14 @@ public class PolyNumberTest {
         var p2 = new PolyNumber(4, 5);
         var p3 = new PolyNumber(27, 50, 25);
         assertEquals(p3, p1.eval(p2));
+    }
+    
+    @Test
+    public void testD() {
+        var p1 = new PolyNumber(6, 5, 4);
+        var p2 = new PolyNumber(5, 8);
+        assertEquals(p2, p1.D());
+        assertEquals(new PolyNumber(0), new PolyNumber(5).D());
     }
    
 }
