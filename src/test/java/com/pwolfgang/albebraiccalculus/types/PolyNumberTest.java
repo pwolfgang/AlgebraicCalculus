@@ -75,5 +75,28 @@ public class PolyNumberTest {
         assertEquals("α + 2α^2", new PolyNumber(0, 1, 2).toString());
         assertEquals("3 + 2α + α^2", new PolyNumber(3, 2, 1).toString());
     }
+    
+    @Test
+    public void p6p3p3() {
+        var p = new PolyNumber(2, -3, 0, 0, 12);
+        var q = new PolyNumber(-1, 5, -8, 1);
+        System.out.println(p.mul(q));
+        
+    }
+    
+    @Test
+    public void p6p2p8() {
+        var p = new PolyNumber(4, -1);
+        var q = new PolyNumber(0, 0, 3);
+        System.out.println(p.eval(q));
+        System.out.println(q.eval(p));
+    }
+    
+    @Test
+    public void p6p2p9() {
+        var p = new PolyNumber(-2, -1, 2, 3, 1);
+        System.out.println(p.D());
+        System.out.println(p.S());
+    }
    
 }

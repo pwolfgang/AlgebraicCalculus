@@ -83,9 +83,9 @@ public class PolyNumber {
     }
     
     public PolyNumber mul(Rational lambda) {
-        List<Rational> result = new List<>();
-        for (var r:aS) {
-            result.add(r.mul(lambda));
+        Rational[] result = new Rational[aS.length];
+        for (int i = 0; i < aS.length; i++) {
+            result[i] = lambda.mul(aS[i]);
         }
         return new PolyNumber(result);
     }
