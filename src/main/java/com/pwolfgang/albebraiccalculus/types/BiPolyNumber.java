@@ -168,8 +168,7 @@ public class BiPolyNumber {
         return new BiPolyNumber(newAs);
     }
 
-
-/*    
+ 
     public BiPolyNumber shift(int k) {
         List<Rational> result = new List<>();
         for (int i = 0; i < k; i++) {
@@ -267,6 +266,5 @@ public class BiPolyNumber {
             return false;
         }
     }
- */
     
 }

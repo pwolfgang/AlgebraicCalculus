@@ -91,12 +91,12 @@ public class PolyNumber {
     }
     
     public PolyNumber shift(int k) {
-        List<Rational> result = new List<>();
+        Rational[] result = new Rational[aS.length + k];
         for (int i = 0; i < k; i++) {
-            result.add(Rational.ZERO);
+            result[i] = Rational.ZERO;
         }
-        for (var r:aS) {
-            result.add(r);
+        for (int i = 0; i < aS.length; i++) {
+            result[i+k] = aS[i];
         }
         return new PolyNumber(result);
     }
@@ -127,21 +127,21 @@ public class PolyNumber {
     }
     
     public PolyNumber D() {
-        List<Rational> result = new List<>();
-        for (int i = 1; i < aS.length; i++) {
-            result.add(aS[i].mul(new Rational(i)));
+        if (aS.length == 1) {
+            return new PolyNumber(new Rational[]{Rational.ZERO});
         }
-        if (result.isEmpty()) {
-            result.add(Rational.ZERO);
+        Rational[] result = new Rational[aS.length-1];
+        for (int i = 1; i < aS.length; i++) {
+            result[i-1] = aS[i].mul(new Rational(i));
         }
         return new PolyNumber(result);
     }
     
     public PolyNumber S() {
-        List<Rational> result = new List<>();
-        result.add(Rational.ZERO);
+        Rational[] result = new Rational[aS.length+1];
+        result[0] = Rational.ZERO;
         for (int i = 0; i < aS.length; i++) {
-            result.add(aS[i].mul(new Rational(1, i+1)));
+            result[i+1] = aS[i].mul(new Rational(1, i+1));
         }
         return new PolyNumber(result);
     }
