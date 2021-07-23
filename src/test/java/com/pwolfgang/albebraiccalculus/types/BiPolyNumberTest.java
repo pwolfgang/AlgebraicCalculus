@@ -145,29 +145,24 @@ public class BiPolyNumberTest {
             {4}
         });
         assertEquals(r, p.eval(x, y));
-//        var p = new BiPolyNumber(new long[][]
-//        {
-//            {-7, -5},
-//            {-1, 1, -2},
-//            {4}     
-//        });
-//        var x = new BiPolyNumber(new long[][]
-//        {
-//            {0},
-//            {1}
-//        });
-//        var y = new BiPolyNumber(new long[][]
-//        {
-//            {0, 1}
-//        });
-//        var r = new BiPolyNumber(new long[][]
-//        {
-//            {0, -11, -4},
-//            {14, -3, -2},
-//            {4}
-//        });
-//        assertEquals(p, p.eval(x, y));
-        
+       
+    }
+    
+    @Test
+    public void testTangentAt() {
+        var curve = new BiPolyNumber(new long[][]
+        {
+            {10, -2},
+            {1, -3},
+            {1}
+        });
+        var p = new Point(3,2);
+        var expected = new BiPolyNumber(new long[][]
+        {
+            {19, -11},
+            {1}
+        });
+        assertEquals(expected, curve.tangentAt(p));
     }
     
 }

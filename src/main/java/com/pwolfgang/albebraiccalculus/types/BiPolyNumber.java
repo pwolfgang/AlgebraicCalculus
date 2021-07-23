@@ -225,10 +225,9 @@ public class BiPolyNumber {
         System.out.println("eval_Rational_Rational");
         Rational result = Rational.ZERO;
         for (int i = aS.length - 1; i >= 0; i--) {
+            PolyNumber row = new PolyNumber(aS[i]);
             result = result.mul(x);
-            for (int j = aS[i].length-1; j >= 0; j--) {
-                result = result.mul(y).add(aS[i][j]);
-            }
+            result = result.add(row.eval(y));
         }
         return result;
     }
@@ -244,6 +243,26 @@ public class BiPolyNumber {
             result = resultTimesX.add(rowBPN);
        }
         return result;
+    }
+    
+    public BiPolyNumber tangentAt(Point p) {
+        var evalAtp = eval(p);
+        if (!eval(p).equals(Rational.ZERO)) {
+            throw new IllegalArgumentException(String.format("%s is not on the curve %s%n", p.toString(), this.toString()));
+        }
+        var pX = p.getX();
+        var pY = p.getY();
+        var x = new BiPolyNumber(new Rational[][]{{pX},{Rational.ONE}});
+        var y = new BiPolyNumber(new Rational[][]{{pY, Rational.ONE}});
+        var translated = this.eval(x, y);
+        var tanget = new BiPolyNumber(new Rational[][]
+        {
+            {translated.aS[0][0], translated.aS[0][1]},
+            {translated.aS[1][0]}
+        });
+        var xP = new BiPolyNumber(new Rational[][]{{pX.neg()},{Rational.ONE}});
+        var yP = new BiPolyNumber(new Rational[][]{{pY.neg(), Rational.ONE}});
+        return tanget.eval(xP, yP);
     }
     
      /*    
