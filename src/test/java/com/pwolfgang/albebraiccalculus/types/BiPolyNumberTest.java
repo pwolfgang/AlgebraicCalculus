@@ -52,28 +52,32 @@ public class BiPolyNumberTest {
         assertEquals(result, p.mul(2).add(q).sub(r.mul(3)));
     }
 
-    @Test
-    public void testAddRows() {
-    }
-
-    @Test
-    public void testSub() {
-    }
-
-    @Test
-    public void testSubRows() {
-    }
-
-    @Test
-    public void testMul_Rational() {
-    }
-
+ 
     @Test
     public void testShift() {
     }
 
     @Test
     public void testMul_BiPolyNumber() {
+        var p = new BiPolyNumber(new long[][]
+        {
+            {-3, 1, 2},
+            {1, -1, -2}
+        });
+        var q = new BiPolyNumber(new long[][]
+        {
+            {1, -5},
+            {-2, 3},
+            {0, -1}        
+        });
+        var pq = new BiPolyNumber(new long[][]
+        {
+            {-3, 16, -3, -10},
+            {7, -17, 2, 16},
+            {-2, 8, 0, -8},
+            {0, -1, 1, 2}
+        });
+        assertEquals(pq, p.mul(q));
     }
 
     @Test

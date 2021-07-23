@@ -187,17 +187,18 @@ public class BiPolyNumber {
     }
 
     public BiPolyNumber shift(int k, int l) {
-        Rational[][] result = new Rational[aS.length][];
+        Rational[][] result = new Rational[aS.length + k][];
         for (int i = 0; i < k; i++) {
             result[i] = new Rational[]{Rational.ZERO};
         }
         for (int i = 0; i < aS.length; i++) {
             Rational[] row = aS[i];
+            result[i+k] = new Rational[row.length + l];
             for (int j = 0; j < l; j++) {
-                result[i][j] = Rational.ZERO;
+                result[i+k][j] = Rational.ZERO;
             }
             for (int j = 0; j < row.length; j++) {
-                result[i][j + l] = row[j];
+                result[i+k][j + l] = row[j];
             }
         }
         return new BiPolyNumber(result);
