@@ -14,13 +14,17 @@ public class Rational implements Comparable<Rational> {
     public final long num;
     public final long den;
 
-    public Rational(long num, long den) {
+    public Rational(long num, long den) { 
         if (den == 0) {
             throw new ArithmeticException("Div by Zero");
         }
         long[] norm = normalize(num, den);
         this.num = norm[0];
-        this.den = norm[1];
+        if (this.num == 0) {
+            this.den = 1;
+        } else {
+            this.den = norm[1];
+        }
     }
 
     private long[] normalize(long num1, long den1) {
@@ -113,6 +117,7 @@ public class Rational implements Comparable<Rational> {
     public static Rational mediant(Rational left, Rational right) {
         return new Rational(left.num + right.num, left.den + right.den);
     }
+    
     public static final Rational ONE = new Rational(1, 1);
     public static final Rational ZERO = new Rational(0, 1);
     public static final Rational TWO = new Rational(2, 1);
