@@ -15,7 +15,7 @@ import java.util.StringJoiner;
  */
 public class PolyNumber {
     
-    private final Rational[] aS;
+    final Rational[] aS;
     
     public PolyNumber(Rational... r) {
         List<Rational> tempList = new List<>(Arrays.asList(r));
@@ -187,5 +187,5 @@ public class PolyNumber {
             return false;
         }
     }
-    
+        
 }

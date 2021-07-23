@@ -56,6 +56,8 @@ public class BiPolyNumber {
     public BiPolyNumber(Rational r) {
         this(new Rational[][]{{r}});
     }
+    
+    public static BiPolyNumber ZERO = new BiPolyNumber(0);
 
     public BiPolyNumber(List<List<Rational>> list) {
         List<Rational> tempList = new List<>();
@@ -214,12 +216,17 @@ public class BiPolyNumber {
         }
         return result;
     }
+    
+    public Rational eval(Point p) {
+        return eval(p.getX(), p.getY());
+    }
 
     public Rational eval(Rational x, Rational y) {
+        System.out.println("eval_Rational_Rational");
         Rational result = Rational.ZERO;
         for (int i = aS.length - 1; i >= 0; i--) {
             result = result.mul(x);
-            for (int j = 0; j < aS[i].length; j++) {
+            for (int j = aS[i].length-1; j >= 0; j--) {
                 result = result.mul(y).add(aS[i][j]);
             }
         }
@@ -227,17 +234,19 @@ public class BiPolyNumber {
     }
 
     public BiPolyNumber eval(BiPolyNumber x, BiPolyNumber y) {
-        BiPolyNumber result = new BiPolyNumber(new Rational[][]{{Rational.ZERO}});
-        for (int i = aS.length - 1; i >= 0; i--) {
-            result = result.mul(x);
-            for (int j = 0; j < aS[i].length; j++) {
-                result = result.mul(y).add(new BiPolyNumber(aS[i][j]));
-            }
-        }
+        PolyNumber yPN = new PolyNumber(y.aS[0]);
+        BiPolyNumber result = BiPolyNumber.ZERO;
+        for (int i = aS.length-1; i >= 0; i--) {
+            PolyNumber row = new PolyNumber(aS[i]);
+            row = row.eval(yPN);
+            BiPolyNumber rowBPN = new BiPolyNumber(new Rational[][]{row.aS});
+            var resultTimesX = result.mul(x);
+            result = resultTimesX.add(rowBPN);
+       }
         return result;
     }
-
-    /*    
+    
+     /*    
     public BiPolyNumber D() {
         List<Rational> result = new List<>();
         for (int i = 1; i < aS.length; i++) {
@@ -265,7 +274,9 @@ public class BiPolyNumber {
             for (int j = 0; j < aS[i].length; j++) {
                 Rational term = aS[i][j];
                 if (!Rational.ZERO.equals(term)) {
-                    if (Rational.ONE.equals(term)) {
+                    if (i == 0 && j == 0) {
+                        sj.add(term.toString());
+                    } else if (Rational.ONE.equals(term)) {
                         sj.add(formatAlphaBeta(i, j));
                     } else {
                         sj.add(term.toString()+formatAlphaBeta(i, j));

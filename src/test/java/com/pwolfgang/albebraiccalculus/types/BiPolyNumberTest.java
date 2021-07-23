@@ -5,8 +5,12 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -14,11 +18,18 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class BiPolyNumberTest {
     
-    public BiPolyNumberTest() {
+    @BeforeEach
+    public void init() {
+        try {
+            PrintStream p = new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8");
+            System.setOut(p);          
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        
     }
-
-    @Test
-    public void testTrimTrailingZeros() {
+    
+    public BiPolyNumberTest() {
     }
 
     @Test
@@ -54,10 +65,6 @@ public class BiPolyNumberTest {
 
  
     @Test
-    public void testShift() {
-    }
-
-    @Test
     public void testMul_BiPolyNumber() {
         var p = new BiPolyNumber(new long[][]
         {
@@ -79,25 +86,88 @@ public class BiPolyNumberTest {
         });
         assertEquals(pq, p.mul(q));
     }
-
     @Test
-    public void testEval_Rational_Rational() {
+
+    public void testMul_BiPolyNumber2() {
+        var p = new BiPolyNumber(new long[][]
+        {
+            {2, 3},
+            {-1}
+        });
+        var q = new BiPolyNumber(new long[][]
+        {
+            {1, 4},
+            {5, 0, 1},
+            {2}        
+        });
+        var pq = new BiPolyNumber(new long[][]
+        {
+            {2, 11, 12},
+            {9, 11, 2, 3},
+            {-1, 6, -1},
+            {-2}
+        });
+        assertEquals(pq, p.mul(q));
+    }
+    
+    @Test
+    public void testEval_Point() {
+        var p = new BiPolyNumber(new long[][]
+        {
+            {-7, -5},
+            {-1, 1, -2},
+            {4}     
+        });
+        assertEquals(Rational.ZERO, p.eval(new Point(2, 1)));
     }
 
     @Test
     public void testEval_BiPolyNumber_BiPolyNumber() {
-    }
-
-    @Test
-    public void testToString() {
-    }
-
-    @Test
-    public void testFormatAlphaBeta() {
-    }
-
-    @Test
-    public void testEquals() {
+        var p = new BiPolyNumber(new long[][]
+        {
+            {-7, -5},
+            {-1, 1, -2},
+            {4}     
+        });
+        var x = new BiPolyNumber(new long[][]
+        {
+            {2},
+            {1}
+        });
+        var y = new BiPolyNumber(new long[][]
+        {
+            {1, 1}
+        });
+        var r = new BiPolyNumber(new long[][]
+        {
+            {0, -11, -4},
+            {14, -3, -2},
+            {4}
+        });
+        assertEquals(r, p.eval(x, y));
+//        var p = new BiPolyNumber(new long[][]
+//        {
+//            {-7, -5},
+//            {-1, 1, -2},
+//            {4}     
+//        });
+//        var x = new BiPolyNumber(new long[][]
+//        {
+//            {0},
+//            {1}
+//        });
+//        var y = new BiPolyNumber(new long[][]
+//        {
+//            {0, 1}
+//        });
+//        var r = new BiPolyNumber(new long[][]
+//        {
+//            {0, -11, -4},
+//            {14, -3, -2},
+//            {4}
+//        });
+//        assertEquals(p, p.eval(x, y));
+        
     }
     
 }
