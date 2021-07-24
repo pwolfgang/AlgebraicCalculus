@@ -25,21 +25,25 @@ public class Main {
         int radius;
         Rational scaleFactor;
         Rational offsetFactor;
-        if (args.length < 4) {
+        Rational lambdaMin;
+        Rational lambdaMax;
+        if (args.length < 6) {
             numSteps = 1024;
             radius = 512;
             scaleFactor = new Rational(1, 16);
             offsetFactor = new Rational(3, 4);
+            lambdaMin = new Rational(-3);
+            lambdaMax = new Rational(4);
         } else {
             numSteps = Integer.parseInt(args[0]);
             radius = Integer.parseInt(args[1])/2;
             scaleFactor = new Rational(args[2]);
             offsetFactor = new Rational(args[3]);
+            lambdaMin = new Rational(args[4]);
+            lambdaMax = new Rational(args[5]);
         }
         double log2radius = Math.log(radius)/Math.log(2);
         int canvasSize = 1 << ((int)Math.ceil(log2radius)+1);
-//        int offset = 5*canvasSize/8;
-//        radius /= 2;
         int offset = new Rational(canvasSize).mul(offsetFactor).intValue();
         radius = new Rational(radius).mul(scaleFactor).intValue();
         Canvas canvas = Canvas.newInstance(0., canvasSize-1, 0., canvasSize-1, canvasSize, canvasSize);
@@ -72,10 +76,9 @@ public class Main {
         var p2 = new Point(Rational.ONE, rationalA);
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
-//        for (int i = 0; i <= 15*numSteps/4; i++) {
-//            var lambda = new Rational(i, numSteps).sub(new Rational(11,8));
-        for (int i = 0; i <= 7*numSteps; i++) {
-            var lambda = new Rational(i, numSteps).sub(new Rational(3));
+        Rational deltaLambda = lambdaMax.sub(lambdaMin);
+        for (int i = 0; i <= deltaLambda.intValue()*numSteps; i++) {
+            var lambda = new Rational(i, numSteps).add(lambdaMin);
             var p = curve.r(lambda);
             double px = p.getX().mul(new Rational(radius)).add(new Rational(offset)).toDouble();
             double py = p.getY().mul(new Rational(radius)).add(new Rational(offset)).toDouble();

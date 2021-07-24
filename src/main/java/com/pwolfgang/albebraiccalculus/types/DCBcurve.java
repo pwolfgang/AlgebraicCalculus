@@ -57,7 +57,7 @@ public class DCBcurve {
         Point p0Scaled = p0.mul(oneMinusLambda);
         Point p1Scaled = p1.mul(lambda);
         Point result = p0Scaled.add(p1Scaled);
-        return p0.mul(Rational.ONE.sub(lambda)).add(p1.mul(lambda));
+        return result;
     }
     
 }
