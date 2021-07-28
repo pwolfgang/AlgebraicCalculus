@@ -78,4 +78,22 @@ public class DCBcurveTest {
         assertEquals(new Point(ratSqrt2Over2,ratSqrt2Over2), r);
     }
 
+    @Test
+    public void testR3_6() {
+        System.out.println("testR3_6");
+        double sqrt2over2 = Math.sqrt(2.0)/2.0;
+        double a = (Math.sqrt(2)*4-4)/3.0;
+        Rational rationalA = new Rational(a);
+        Rational A = (new Rational(Math.sqrt(2)).mul(new Rational(4)).sub(new Rational(4))).div(new Rational(3));
+        var p0 = new Point(1, 0, 1);
+        var p1 = new Point(rationalA, Rational.ONE);
+        var p2 = new Point(Rational.ONE, rationalA);
+        var p3 = new Point(1, 1, 0);
+        var curve = new DCBcurve(p0, p1, p2, p3);
+        var lambda = new Rational(416,1024);
+        var r = curve.r3(lambda);
+        System.out.println("r = " + r);
+        System.out.println("x = " + r.getX().toDouble() + " y = " + r.getY().toDouble());
+    }
+
 }

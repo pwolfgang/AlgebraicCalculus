@@ -86,4 +86,13 @@ public class LineTest {
         assertEquals(new Rational(2), new Line(p, a).slope());
     }
     
+    @Test
+    public void findLine() {
+        var p = new Point(5, 3, 4);
+        var q = new Point(5, -1, 7);
+        var l = Line.join(p, q);
+        System.out.println(l);
+                
+    }
+    
 }
