@@ -265,28 +265,6 @@ public class BiPolyNumber {
         return tanget.eval(xP, yP);
     }
     
-     /*    
-    public BiPolyNumber D() {
-        List<Rational> result = new List<>();
-        for (int i = 1; i < aS.length; i++) {
-            result.add(aS[i].mul(new Rational(i)));
-        }
-        if (result.isEmpty()) {
-            result.add(Rational.ZERO);
-        }
-        return new BiPolyNumber(result);
-    }
-    
-    public BiPolyNumber S() {
-        List<Rational> result = new List<>();
-        result.add(Rational.ZERO);
-        for (int i = 0; i < aS.length; i++) {
-            result.add(aS[i].mul(new Rational(1, i+1)));
-        }
-        return new BiPolyNumber(result);
-    }
-
-     */
     public String toString() {
         var sj = new StringJoiner(" + ");
         for (int i = 0; i < aS.length; i++) {
