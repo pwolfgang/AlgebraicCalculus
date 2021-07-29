@@ -17,6 +17,8 @@ public class PolyNumber {
     
     final Rational[] aS;
     
+    public static final PolyNumber ZERO = new PolyNumber(0);
+    
     public PolyNumber(Rational... r) {
         List<Rational> tempList = new List<>(Arrays.asList(r));
         trimTrailingZeros(tempList);
@@ -110,6 +112,31 @@ public class PolyNumber {
         return result;
     }
     
+    public PolyNumber div(PolyNumber p) {
+        PolyNumber r = new PolyNumber(aS);
+        PolyNumber q = new PolyNumber(0);
+        int maxTerms = aS.length + p.aS.length;
+        while (!r.equals(PolyNumber.ZERO) && q.aS.length < maxTerms) {
+            var t = r.div(p.aS[0]);
+            r = r.sub(p.mul(t));
+            q = q.add(t);
+        }
+        return q;
+    }
+    
+    public PolyNumber div(Rational x) {
+        List<Rational> q = new List<>();
+        int j = 0;
+        while (j < aS.length && aS[j].equals(Rational.ZERO)) {
+            q.add(Rational.ZERO);
+            j++;
+        }
+        if (j < aS.length) {
+            q.add(aS[j].div(x));
+        }
+        return new PolyNumber(q);
+    }
+    
     public Rational eval(Rational x) {
         Rational result = Rational.ZERO;
         for (int i = aS.length-1; i >= 0; i--) {
@@ -187,5 +214,6 @@ public class PolyNumber {
             return false;
         }
     }
+    
         
 }

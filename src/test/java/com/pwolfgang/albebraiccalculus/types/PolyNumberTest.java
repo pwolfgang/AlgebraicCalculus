@@ -5,8 +5,13 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -15,6 +20,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PolyNumberTest {
     
     public PolyNumberTest() {
+    }
+    
+    @BeforeEach
+    public void init() {
+        try {
+            System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new InternalError("VM does not support UTF-8");
+        }
     }
 
     @Test
@@ -97,6 +111,23 @@ public class PolyNumberTest {
         var p = new PolyNumber(-2, -1, 2, 3, 1);
         System.out.println(p.D());
         System.out.println(p.S());
+    }
+    
+    @Test
+    public void testDiv() {
+        var a = new PolyNumber(2, 7, 2, -3);
+        var b = new PolyNumber(1, 3);
+        var c = new PolyNumber(2, 1, -1);
+        assertEquals(c, a.div(b));
+        assertEquals(b, a.div(c));
+    }
+    
+    @Test
+    public void testDiv2() {
+        System.out.println("Test div with remainger");
+        var a = new PolyNumber(1);
+        var b = new PolyNumber(1, 3);
+        System.out.println(a.div(b));
     }
    
 }
