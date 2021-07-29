@@ -122,12 +122,12 @@ public class PolyNumberTest {
         assertEquals(b, a.div(c));
     }
     
-    @Test
-    public void testDiv2() {
-        System.out.println("Test div with remainger");
-        var a = new PolyNumber(1);
-        var b = new PolyNumber(1, 3);
-        System.out.println(a.div(b));
+    @Test void testDiv2() {
+        var a = new PolyNumber(12, 8, -7, -2, 1);
+        var b = new PolyNumber(4, 0, -1);
+        var c = new PolyNumber(3, 2, -1);
+        assertEquals(c, a.div(b));
+        assertEquals(b, a.div(c));
     }
-   
+
 }
