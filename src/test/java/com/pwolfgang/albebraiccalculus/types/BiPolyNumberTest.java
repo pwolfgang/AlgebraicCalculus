@@ -165,4 +165,21 @@ public class BiPolyNumberTest {
         assertEquals(expected, curve.tangentAt(p));
     }
     
+    @Test
+    public void testMulByAlphaPlusBeta () {
+        var p = new BiPolyNumber(new long[][]{{3, 1, 2},{0, 4,5}});
+        var ab = new BiPolyNumber(new long[][]{{0, 1},{1}});
+        var c = new BiPolyNumber(new long[][]{{0, 3, 1, 2},{3, 1, 6, 5},{0, 4, 5}});
+        assertEquals(c, p.mul(ab));
+        assertEquals(c, ab.mul(p));
+    }
+    
+    @Test
+    public void testMul2() {
+        var p = new BiPolyNumber(new long[][]{{1, 2},{5, 3}});
+        var q = new BiPolyNumber(new long[][]{{4, 5, 1},{2, 1, 3}});
+        var r = new BiPolyNumber(new long[][]{{4, 13, 11, 2},{22, 42, 25, 9},{10, 11, 18, 9}});
+        assertEquals(r, p.mul(q));
+    }
+    
 }
