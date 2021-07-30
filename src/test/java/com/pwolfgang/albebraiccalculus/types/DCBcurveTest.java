@@ -90,7 +90,7 @@ public class DCBcurveTest {
         var p2 = new Point(Rational.ONE, rationalA);
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
-        var lambda = new Rational(416,1024);
+        var lambda = new Rational(2,5);
         var r = curve.r3(lambda);
         System.out.println("r = " + r);
         System.out.println("x = " + r.getX().toDouble() + " y = " + r.getY().toDouble());
