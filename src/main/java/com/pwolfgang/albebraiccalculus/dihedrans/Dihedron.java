@@ -18,6 +18,7 @@ public class Dihedron {
     public static final Matrix I = new Matrix(new long[]{0, 1, -1, 0}, 2);
     public static final Matrix J = new Matrix(new long[]{0, 1, 1, 0},2);
     public static final Matrix K = new Matrix(new long[]{1, 0, 0, -1},2);
+    public static final Matrix E = new Matrix(new long[]{0, 0, 1, 0},2);
     
     public final Rational t, x, y, z;
     
