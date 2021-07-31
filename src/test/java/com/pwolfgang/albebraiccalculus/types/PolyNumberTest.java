@@ -129,5 +129,23 @@ public class PolyNumberTest {
         assertEquals(c, a.div(b));
         assertEquals(b, a.div(c));
     }
+    
+    @Test
+    public void testDiv3(){
+        var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
+        var b = new PolyNumber(1, -1, 1);
+        var c = new PolyNumber(1, 1, 0, -1, -1);
+        assertEquals(c, a.div(b));
+        assertEquals(b, a.div(c));
+    }
+    
+    @Test
+    public void testDiv4() {
+        var a = new PolyNumber(1, 0, 0, 0, 0, -1);
+        var b = new PolyNumber(1, -1, 1);
+        System.out.println(a + " div " + b);
+        System.out.println(a.div(b));
+        
+    }
 
 }

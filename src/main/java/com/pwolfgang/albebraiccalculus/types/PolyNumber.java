@@ -79,7 +79,7 @@ public class PolyNumber {
             result.add(aS[i++]);
         }
         while (j < maxOther) {
-            result.add(p.aS[j++]);
+            result.add(p.aS[j++].neg());
         }
         return new PolyNumber(result);
     }
