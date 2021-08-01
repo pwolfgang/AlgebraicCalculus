@@ -94,6 +94,36 @@ public class DCBcurveTest {
         var r = curve.r3(lambda);
         System.out.println("r = " + r);
         System.out.println("x = " + r.getX().toDouble() + " y = " + r.getY().toDouble());
+        PolyNumber[] pn = curve.toPolyNumber();
+        System.out.println("pnX = " + pn[0]);
+        System.out.println("pnY = " + pn[1]);
+    }
+    
+    @Test
+    public void testToPolyNumber2() {
+        var p0 = new Point(-1,2);
+        var p1 = new Point(4,3);
+        var p2 = new Point(5,1);
+        var curve = new DCBcurve(p0, p1, p2);
+        PolyNumber[] pn = curve.toPolyNumber();
+        var pnX = new PolyNumber(-1, 10, -4);
+        var pnY = new PolyNumber(2, 2, -3);
+        assertEquals(pnX, pn[0]);
+        assertEquals(pnY, pn[1]);   
+    }
+    
+    @Test
+    public void testToPolyNumber3() {
+        var p0 = new Point(-1, 0);
+        var p1 = new Point(Rational.ONE.neg(), new Rational(-1, 3));
+        var p2 = new Point(new Rational(-2,3), new Rational(-2,3));
+        var p3 = new Point(0,0);
+        var curve = new DCBcurve(p0, p1, p2, p3);
+        var pnX = new PolyNumber(-1, 0, 1);
+        var pnY = new PolyNumber(0, -1, 0, 1);
+        PolyNumber[] pn = curve.toPolyNumber();
+        assertEquals(pnX, pn[0]);
+        assertEquals(pnY, pn[1]);
     }
 
 }
