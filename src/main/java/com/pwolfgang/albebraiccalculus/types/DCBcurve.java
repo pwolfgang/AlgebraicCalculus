@@ -5,12 +5,20 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import com.pwolfgang.albebraiccalculus.Matrix;
+
 /**
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
  */
 public class DCBcurve {
     
+        
+    private static final Matrix M2 = new Matrix(new long[]{1, 0, 0, -2, 2, 0, 1, -2, 1},3);
+    private static final Matrix M2_INV = M2.inv();
+    private static final Matrix M3 = new Matrix(new long[]{1, 0, 0, 0, -3, 3, 0, 0, 3, -6, 3, 0, -1, 3, -3, 1}, 4);
+    private static final Matrix M3_INV = M3.inv();
+ 
     public final Point p0;
     public final Point p1;
     public final Point p2;
@@ -70,33 +78,70 @@ public class DCBcurve {
     
     PolyNumber[] toPolyNumber2() {
         PolyNumber[] r = new PolyNumber[2];
-        r[0] = B02.mul(p0.getX()).add(B12.mul(p1.getX())).add(B22.mul(p2.getX()));
-        r[1] = B02.mul(p0.getY()).add(B12.mul(p1.getY())).add(B22.mul(p2.getY()));
+        r[0] = new PolyNumber(M2.mul(p0.getX(), p1.getX(), p2.getX()));
+        r[1] = new PolyNumber(M2.mul(p0.getY(), p1.getY(), p2.getY()));
         return r;
     }
     
     
     PolyNumber[] toPolyNumber3() {
         PolyNumber[] r = new PolyNumber[2];
-        r[0] = B03.mul(p0.getX()).add(B13.mul(p1.getX())).add(B23.mul(p2.getX())).add(B33.mul(p3.getX()));
-        r[1] = B03.mul(p0.getY()).add(B13.mul(p1.getY())).add(B23.mul(p2.getY())).add(B33.mul(p3.getY()));
+        r[0] = new PolyNumber(M3.mul(p0.getX(), p1.getX(), p2.getX(), p3.getX()));
+        r[1] = new PolyNumber(M3.mul(p0.getY(), p1.getY(), p2.getY(), p3.getY()));
         return r;
     }
     
-    private static final PolyNumber LAMBDA = new PolyNumber(0, 1);
-    private static final PolyNumber LAMBDA_2 = new PolyNumber(0,0,1);
-    private static final PolyNumber LAMBDA_3 = new PolyNumber(0,0,0,1);
-    private static final PolyNumber ONE_MINUS_LAMBDA = new PolyNumber(1, -1);
-    private static final PolyNumber ONE_MINUS_LAMBDA_2 = ONE_MINUS_LAMBDA.mul(ONE_MINUS_LAMBDA);
-    private static final PolyNumber ONE_MINUS_LAMBDA_3 = ONE_MINUS_LAMBDA_2.mul(ONE_MINUS_LAMBDA);
-    private static final PolyNumber B03 = ONE_MINUS_LAMBDA_3;
-    private static final PolyNumber B13 = ONE_MINUS_LAMBDA_2.mul(LAMBDA).mul(new Rational(3));
-    private static final PolyNumber B23 = ONE_MINUS_LAMBDA.mul(LAMBDA_2).mul(new Rational(3));
-    private static final PolyNumber B33 = LAMBDA_3;
-    private static final PolyNumber B02 = ONE_MINUS_LAMBDA_2;
-    private static final PolyNumber B12 = ONE_MINUS_LAMBDA.mul(LAMBDA).mul(Rational.TWO);
-    private static final PolyNumber B22 = LAMBDA_2;
+    static Rational[] createVector(Rational[] aS, int size) {
+        Rational[] v = new Rational[size];
+        for (int i = 0; i < aS.length; i++) {
+            v[i] = aS[i];
+        }
+        for (int j = aS.length; j < size; j++) {
+            v[j] = Rational.ZERO;
+        }
+        return v;
+    }
     
+    public static DCBcurve fromPolyNumber2(PolyNumber[] p) {
+        Rational[] pX = createVector(p[0].aS,3);
+        Rational[] pY = createVector(p[1].aS,3);
+        Rational[] xS = M2_INV.mul(pX);
+        Rational[] yS = M2_INV.mul(pY);
+        return new DCBcurve(new Point(xS[0], yS[0]), new Point(xS[1], yS[1]), new Point(xS[2], yS[2]));
+    }
+
+    public static DCBcurve fromPolyNumber3(PolyNumber[] p) {
+        Rational[] pX = createVector(p[0].aS,4);
+        Rational[] pY = createVector(p[1].aS,4);
+        Rational[] xS = M3_INV.mul(pX);
+        Rational[] yS = M3_INV.mul(pY);
+        return new DCBcurve(new Point(xS[0], yS[0]), new Point(xS[1], yS[1]), new Point(xS[2], yS[2]), new Point(xS[3], yS[3]));
+    }
+   
+    public String toString() {
+        var sB = new StringBuilder();
+        sB.append(String.format("p0 = %s", p0.toString()));
+        sB.append(String.format(" p1 = %s", p1.toString()));
+        sB.append(String.format(" p2 = %s", p2.toString()));
+        if (p3 != null) {
+            sB.append(String.format(" p3 = %s%n", p3.toString()));
+        }
+        return sB.toString();
+    }
     
-    
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (this == other) return true;
+        if (this.getClass() == other.getClass()) {
+            DCBcurve c = (DCBcurve)other;
+            if (!p0.equals(c.p0)) return false;
+            if (!p1.equals(c.p1)) return false;
+            if (!p2.equals(c.p2)) return false;
+            if (p3 != null && !p3.equals(c.p3)) return false;
+            if (p3 == null && c.p3 != null) return false;
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

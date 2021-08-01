@@ -161,7 +161,10 @@ public class Matrix {
         return new Matrix(r, n);
     }
     
-    public Rational[] mul(Rational[] v) {
+    public Rational[] mul(Rational... v) {
+        if (v.length != n) {
+            throw new IllegalArgumentException("Vector and matrix not the same size");
+        }
         Rational[] r = new Rational[n];
         int j = 0;
         for (int i = 0; i < n; i++) {

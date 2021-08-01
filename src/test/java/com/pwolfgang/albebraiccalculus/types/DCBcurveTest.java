@@ -5,8 +5,12 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -16,6 +20,18 @@ public class DCBcurveTest {
     
     public DCBcurveTest() {
     }
+    
+        @BeforeEach
+    public void init() {
+        try {
+            PrintStream p = new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8");
+            System.setOut(p);          
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        
+    }
+
 
     @Test
     public void testR2() {
@@ -125,5 +141,40 @@ public class DCBcurveTest {
         assertEquals(pnX, pn[0]);
         assertEquals(pnY, pn[1]);
     }
+    
+    @Test
+    public void testFromPolyNumber2() {
+        var aX = new PolyNumber(new long[]{1, 1});
+        var aY = new PolyNumber(new long[]{1, 0, -1});
+        var p0 = new Point(1, 1);
+        var p2 = new Point(2, 0);
+        var p1 = new Point(new Rational(3, 2), Rational.ONE);
+        var c = new DCBcurve(p0, p1, p2);
+        assertEquals(c, DCBcurve.fromPolyNumber2(new PolyNumber[]{aX, aY}));
+    }
 
+    @Test
+    public void testFromPolyNumber3() {
+        var aX = new PolyNumber(new long[]{-1, 0, 1});
+        var aY = new PolyNumber(new long[]{0, -1, 0, 1});
+        var p0 = new Point(-1, 0);
+        var p3 = new Point(0, 0);
+        var p1 = new Point(new Rational(-1), new Rational(-1, 3));
+        var p2 = new Point(new Rational(-2,3), new Rational(-2,3));
+        var c = new DCBcurve(p0, p1, p2, p3);
+        assertEquals(c, DCBcurve.fromPolyNumber3(new PolyNumber[]{aX, aY}));
+    }
+
+    @Test
+    public void testFromPolyNumber3B() {
+        var aX = new PolyNumber(new long[]{2, 1, -3});
+        var aY = new PolyNumber(new long[]{1, 0, 1, -1});
+        var p0 = new Point(2,1);
+        var p3 = new Point(0,1);
+        var p1 = new Point(new Rational(7,3), Rational.ONE);
+        var p2 = new Point(new Rational(5,3), new Rational(4,3));
+        var c = new DCBcurve(p0, p1, p2, p3);
+        assertEquals(c, DCBcurve.fromPolyNumber3(new PolyNumber[]{aX, aY}));
+    }
+    
 }

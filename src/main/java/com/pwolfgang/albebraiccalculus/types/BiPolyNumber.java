@@ -15,7 +15,7 @@ import java.util.StringJoiner;
  */
 public class BiPolyNumber {
 
-    private final Rational[][] aS;
+    final Rational[][] aS;
 
     public BiPolyNumber(Rational[][] r) {
         List<List<Rational>> tempList = new List<>();
