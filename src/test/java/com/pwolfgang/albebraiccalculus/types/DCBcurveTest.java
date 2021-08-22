@@ -177,4 +177,13 @@ public class DCBcurveTest {
         assertEquals(c, DCBcurve.fromPolyNumber3(new PolyNumber[]{aX, aY}));
     }
     
+    @Test
+    public void testFromPolyNumberX() {
+        System.out.println("testPolyNumberX");
+        var aX = new PolyNumber(new Rational[]{Rational.ZERO, new Rational(1.65), new Rational(-0.314), new Rational(-0.343)});
+        var aY = new PolyNumber(new Rational[]{Rational.ONE, Rational.ZERO, new Rational(-1.343), new Rational(0.343)});
+        var c = DCBcurve.fromPolyNumber3(new PolyNumber[]{aX, aY});
+        System.out.println(c);
+    }
+    
 }

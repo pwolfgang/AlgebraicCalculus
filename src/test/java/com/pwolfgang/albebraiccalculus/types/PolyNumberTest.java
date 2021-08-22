@@ -147,5 +147,43 @@ public class PolyNumberTest {
         System.out.println(a.div(b));
         
     }
+    
+    @Test
+    public void testDelta() {
+        var p = new PolyNumber(0,0,0,1);
+        var q = new PolyNumber(1,3,3);
+        assertEquals(q, p.delta());
+    }
+    
+    @Test
+    public void testDel() {
+        var p = new PolyNumber(0,0,0,1);
+        var q = new PolyNumber(1, -3, 3);
+        assertEquals(q, p.del());
+    }
+    
+    @Test
+    public void testDeltaLoweringPowers() {
+        var alpha = new PolyNumber(0,1);
+        var alphaMinusOne = new PolyNumber(-1, 1);
+        var alphaMinusTwo = new PolyNumber(-2, 1);
+        var p = alpha.mul(alphaMinusOne).mul(alphaMinusTwo);
+        var q = alpha.mul(alphaMinusOne).mul(3);
+        assertEquals(q, p.delta());
+        var r = alphaMinusOne.mul(alphaMinusTwo).mul(3);
+        assertEquals(r, p.del());
+    }
+    
+    @Test
+    public void testDeltaRaisingPowers() {
+        var alpha = new PolyNumber(0,1);
+        var alphaPlusOne = alpha.add(PolyNumber.ONE);
+        var alphaPlusTwo = alpha.add(new PolyNumber(2));
+        var p = alpha.mul(alphaPlusOne).mul(alphaPlusTwo);
+        var q = alphaPlusOne.mul(alphaPlusTwo).mul(3);
+        var r = alpha.mul(alphaPlusOne).mul(3);
+        assertEquals(q, p.delta());
+        assertEquals(r, p.del());       
+    }
 
 }

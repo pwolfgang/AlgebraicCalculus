@@ -13,6 +13,8 @@ import com.pwolfgang.albebraiccalculus.types.Rational;
 import com.pwolfgang.albebraiccalculus.Canvas;
 import com.pwolfgang.albebraiccalculus.types.DCBcurve;
 import com.pwolfgang.albebraiccalculus.types.Point;
+import com.pwolfgang.albebraiccalculus.types.PolyNumber;
+import java.io.PrintStream;
 
 /**
  *
@@ -20,7 +22,8 @@ import com.pwolfgang.albebraiccalculus.types.Point;
  */
 public class Main {
     
-    public static void main(String... args) {
+    public static void main(String... args) throws Exception {
+        System.setOut(new PrintStream(System.out, true, "UTF-8"));
         int numSteps;
         int radius;
         Rational scaleFactor;
@@ -70,12 +73,18 @@ public class Main {
             canvas.plotPixel(-p1 + offset, p2 + offset, Color.BLUE, 2);
             canvas.plotPixel(-p2 + offset, p1 + offset, Color.BLUE, 2);
         }
-        Rational rationalA = (new Rational(Math.sqrt(2)).mul(new Rational(4))).sub(new Rational(4)).div(new Rational(3));
+//        Rational rationalA = (new Rational(Math.sqrt(2)).mul(new Rational(4))).sub(new Rational(4)).div(new Rational(3));
+        var rationalA = new Rational(11,20);
         var p0 = new Point(1, 0, 1);
         var p1 = new Point(rationalA, Rational.ONE);
         var p2 = new Point(Rational.ONE, rationalA);
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
+        PolyNumber[] pn = curve.toPolyNumber();
+        System.out.printf("x{t} = %s%n", pn[0].toStringDouble());
+        System.out.printf("y[t] = %s%n", pn[1].toStringDouble());
+        System.out.printf("x{t} = %s%n", pn[0].toString());
+        System.out.printf("y[t] = %s%n", pn[1].toString());
         Rational deltaLambda = lambdaMax.sub(lambdaMin);
         for (int i = 0; i <= deltaLambda.intValue()*numSteps; i++) {
             var lambda = new Rational(i, numSteps).add(lambdaMin);
@@ -91,7 +100,7 @@ public class Main {
             canvas.plotPixel(i, offset, Color.BLACK);
             canvas.plotPixel(offset, i, Color.BLACK);
         }
-        canvas.writeImage("ExtendedCircle2.png");
+        canvas.writeImage("ExtendedCircle3.png");
         SwingUtilities.invokeLater(() -> frame.setVisible(true));
     }
     

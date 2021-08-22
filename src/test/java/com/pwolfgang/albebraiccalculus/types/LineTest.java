@@ -95,4 +95,12 @@ public class LineTest {
                 
     }
     
+    @Test
+    public void paramCircle() {
+        var p0 = new Point(-1, 0);
+        var p1 = new Point(Rational.ZERO, new Rational(2,5));
+        var line = new Line(p0, p1);
+        System.out.println(line);
+    }
+    
 }

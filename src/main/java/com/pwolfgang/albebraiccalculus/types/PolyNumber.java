@@ -18,6 +18,7 @@ public class PolyNumber {
     final Rational[] aS;
     
     public static final PolyNumber ZERO = new PolyNumber(0);
+    public static final PolyNumber ONE = new PolyNumber(1);
     
     public PolyNumber(Rational... r) {
         List<Rational> tempList = new List<>(Arrays.asList(r));
@@ -92,6 +93,10 @@ public class PolyNumber {
         return new PolyNumber(result);
     }
     
+    public PolyNumber mul(long k) {
+        return mul(new Rational(k));
+    }
+    
     public PolyNumber shift(int k) {
         Rational[] result = new Rational[aS.length + k];
         for (int i = 0; i < k; i++) {
@@ -164,6 +169,14 @@ public class PolyNumber {
         return new PolyNumber(result);
     }
     
+    public PolyNumber delta() {
+        return eval(new PolyNumber(1,1)).sub(this);
+    }
+    
+    public PolyNumber del() {
+        return this.sub(eval(new PolyNumber(-1,1)));
+    }
+    
     public PolyNumber S() {
         Rational[] result = new Rational[aS.length+1];
         result[0] = Rational.ZERO;
@@ -203,6 +216,38 @@ public class PolyNumber {
         } else {
             return s;
         }
+    }
+    
+    public String toStringDouble() {
+         var sj = new StringJoiner(" + ");
+        for (int i = 0; i < aS.length; i++) {
+            Rational term = aS[i];
+            if (!Rational.ZERO.equals(term)) {
+                if (Rational.ONE.equals(term)) {
+                    if (i == 0) {
+                        sj.add("1");
+                    } else if (i == 1) {
+                        sj.add("α");
+                    } else {
+                        sj.add(String.format("α^%d",i));
+                    }
+                } else {
+                    if (i == 0) {
+                        sj.add(String.format("%f", term.toDouble()));
+                    } else if (i == 1) {
+                        sj.add(String.format("%fα", term.toDouble()));
+                    } else {
+                        sj.add(String.format("%fα^%d",term.toDouble(), i));
+                    }
+                }
+            }
+        }
+        var s = sj.toString();
+        if (s.isBlank()) {
+            return "0";
+        } else {
+            return s;
+        }       
     }
     
     public boolean equals(Object o) {

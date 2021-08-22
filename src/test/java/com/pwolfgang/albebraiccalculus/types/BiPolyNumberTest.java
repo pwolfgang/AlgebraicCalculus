@@ -182,4 +182,25 @@ public class BiPolyNumberTest {
         assertEquals(r, p.mul(q));
     }
     
+    @Test
+    public void p6p2p16() {
+        System.out.println("P6.2.16");
+        var p = new BiPolyNumber(new long[][]{{-7, -5},{-1, 1, -2},{4}});
+        System.out.println(p);
+        System.out.println(p.eval(new Point(2,1)));
+        var x = new BiPolyNumber(new long[][]{{2},{1}});
+        var y = new BiPolyNumber(new long[][]{{1,1}});
+        var d = p.eval(x, y);
+        System.out.println(d);
+        System.out.println(p.tangentAt(new Point(2,1)));
+    }
+    
+    @Test
+    public void p6p2p23() {
+        System.out.println("P6.2.23");
+        var p = new BiPolyNumber(new long[][]{{-1, 0, 0, 1},{0},{0},{1}});
+        System.out.println(p);
+        System.out.println(p.tangentAt(new Point(0,1)));
+    }
+    
 }

@@ -222,7 +222,6 @@ public class BiPolyNumber {
     }
 
     public Rational eval(Rational x, Rational y) {
-        System.out.println("eval_Rational_Rational");
         Rational result = Rational.ZERO;
         for (int i = aS.length - 1; i >= 0; i--) {
             PolyNumber row = new PolyNumber(aS[i]);
@@ -247,8 +246,10 @@ public class BiPolyNumber {
     
     public BiPolyNumber tangentAt(Point p) {
         var evalAtp = eval(p);
-        if (!eval(p).equals(Rational.ZERO)) {
-            throw new IllegalArgumentException(String.format("%s is not on the curve %s%n", p.toString(), this.toString()));
+        if (!evalAtp.equals(Rational.ZERO)) {
+            throw new IllegalArgumentException(
+                    String.format("%s is not on the curve %s%n", 
+                            p.toString(), this.toString()));
         }
         var pX = p.getX();
         var pY = p.getY();
