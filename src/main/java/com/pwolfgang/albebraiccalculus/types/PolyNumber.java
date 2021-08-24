@@ -5,6 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import com.pwolfgang.albebraiccalculus.Matrix;
 import com.pwolfgang.albebraiccalculus.datastructures.List;
 import java.util.Arrays;
 import java.util.StringJoiner;
@@ -47,6 +48,32 @@ public class PolyNumber {
             list.remove(i);
             i--;
         }
+    }
+    
+    public static PolyNumber fromPoints(Point... points) {
+        if (points.length == 0) {
+            throw new IllegalArgumentException("Number of points is zero");
+        }
+        if (points.length == 1) {
+            return new PolyNumber(points[0].getY().div(points[0].getX()));
+        }
+        int numPoints = points.length;
+        Rational[] xS = new Rational[numPoints*numPoints];
+        Rational[] yS = new Rational[numPoints];
+        for (int i = 0; i < numPoints; i++) {
+            var point = points[i];
+            var x = point.getX();
+            var y = point.getY();
+            yS[i] = y;
+            int row = numPoints*i;
+            xS[row] = Rational.ONE;
+            for (int j = row+1; j < row+numPoints; j++) {
+                xS[j] = xS[j-1].mul(x);
+            }
+        }
+        var m = new Matrix(xS, numPoints);
+        Rational[] aS = m.inv().mul(yS);
+        return new PolyNumber(aS);
     }
     
     public PolyNumber add(PolyNumber p) {
@@ -140,6 +167,10 @@ public class PolyNumber {
             q.add(aS[j].div(x));
         }
         return new PolyNumber(q);
+    }
+    
+    public Rational eval(long x) {
+        return eval(new Rational(x));
     }
     
     public Rational eval(Rational x) {

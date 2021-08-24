@@ -185,5 +185,41 @@ public class PolyNumberTest {
         assertEquals(q, p.delta());
         assertEquals(r, p.del());       
     }
+    
+    @Test
+    public void testFromPoints2() {
+        var p1 = new Point(-1,2);
+        var p2 = new Point(5,4);
+        var q = new PolyNumber(new Rational(7,3), new Rational(1,3));
+        assertEquals(q, PolyNumber.fromPoints(p1, p2));
+    }
+    
+    @Test
+    public void testFromPoints3() {
+        System.out.println("Parabola");
+        var p1 = new Point(-3, 4);
+        var p2 = new Point(0, -2);
+        var p3 = new Point(1, 5);
+        var poly = PolyNumber.fromPoints(p1, p2, p3);
+        System.out.println(poly);
+        assertEquals(new Rational(4), poly.eval(-3));
+        assertEquals(new Rational(-2), poly.eval(0));
+        assertEquals(new Rational(5), poly.eval(1));
+    }
+    
+    @Test
+    public void testFromPoints4() {
+        System.out.println("cubic");
+        var p1 = new Point(-1,2);
+        var p2 = new Point(0,0);
+        var p3 = new Point(1,4);
+        var p4 = new Point(2, 7);
+        var poly = PolyNumber.fromPoints(p1, p2, p3, p4);
+        System.out.println(poly);
+        assertEquals(new Rational(2), poly.eval(-1));
+        assertEquals(Rational.ZERO, poly.eval(0));
+        assertEquals(new Rational(4), poly.eval(1));
+        assertEquals(new Rational(7), poly.eval(2));
+    }
 
 }
