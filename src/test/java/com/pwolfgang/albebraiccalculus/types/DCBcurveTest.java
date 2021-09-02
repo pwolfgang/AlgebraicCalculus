@@ -214,5 +214,22 @@ public class DCBcurveTest {
         System.out.printf("x(t) = %s%n", p[0].toString());
         System.out.printf("y(t) = %s%n", p[1].toString());
     }
+    
+    @Test
+    public void testQuintic() {
+        System.out.println("Quintic");
+        var p0 = new Point(0,0);
+        var p1 = new Point(1,2);
+        var p2 = new Point(3,3);
+        var p3 = new Point(4, -1);
+        var p4 = new Point(6,1);
+        var c = new DCBcurve(p0, p1, p2, p3, p4);
+        PolyNumber[] p = c.toPolyNumber();
+        PolyNumber[] expected = new PolyNumber[]{new PolyNumber(0, 4, 6, -8, 4), new PolyNumber(0, 8, -6, -16, 15)};
+        assertArrayEquals(expected, p);
+        System.out.printf("p[0] = %s%n", p[0].toString());
+        System.out.printf("p[1] = %s%n", p[1].toString());
+        
+    }
         
 }
