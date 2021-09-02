@@ -5,36 +5,103 @@
  */
 package com.pwolfgang.albebraiccalculus;
 
+import com.pwolfgang.albebraiccalculus.types.Rational;
+import java.util.Arrays;
+
 /**
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
  */
 public class Pascal {
     
-    long[][] triangle;
-    int maxN;
+    private static long[][] triangle;
+    private static int maxN;
     
-    public Pascal(int maxN) {
-        this.maxN = maxN;
+    static {
+        maxN = 5;
         buildTriangle();
     }
-    
-    public Pascal() {
-        this(5);
-    }
-    
-    private void buildTriangle() {
+       
+    private static void buildTriangle() {
         triangle = new long[maxN+1][];
         triangle[0] = new long[]{1};
         triangle[1] = new long[]{1,1};
-        for (int i = 2; i < maxN+1; i++) {
+        fillRows(2, maxN+1);
+    }
+
+    private static void fillRows(int start, int end) {
+        for (int i = start; i < end; i++) {
             triangle[i] = new long[i+1];
             triangle[i][0] = 1;
             for (int j = 1; j < i; j++) {
                 triangle[i][j] = triangle[i-1][j-1] + triangle[i-1][j];
             }
-            triangle[i][i+1] = 1;
+            triangle[i][i] = 1;
         }
     }
     
+    private static void expandTriangle(int n) {
+        long[][] oldTriangle = triangle;
+        triangle = Arrays.copyOf(oldTriangle, n+1);
+        fillRows(maxN+1, n+1);
+        maxN = n;
+    }
+    
+    public static long nChooseK(int n, int k) {
+        if (n > maxN) {
+            expandTriangle(n);
+        }
+        return triangle[n][k];
+    }
+    
+    public static Matrix getP(int n) {
+        Rational[] m = new Rational[n*n];
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (j <= i) {
+                    m[k++] = new Rational(Pascal.nChooseK(i, j));
+                } else {
+                    m[k++] = Rational.ZERO;
+                }
+            }
+        }
+        return new Matrix(m, n);
+    }
+    
+    public static Matrix getQ(int n) {
+        Rational[] m = new Rational[n*n];
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (j <= i) {
+                    if (((i & 1) == 0) && ((j & 1) == 1)) {
+                        m[k++] = new Rational(-Pascal.nChooseK(i, j));
+                    } else if (((i & 1) == 1) && ((j & 1) == 0)) {
+                        m[k++] = new Rational(-Pascal.nChooseK(i, j));
+                    } else {
+                        m[k++] = new Rational(Pascal.nChooseK(i, j));
+                    }
+                } else {
+                    m[k++] = Rational.ZERO;
+                }
+            }
+        }
+        return new Matrix(m, n);        
+    }
+    
+    public static Matrix getDiagonal(int n) {
+        long[] m = new long[n*n];
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    m[k++] = Pascal.nChooseK(n-1, i);
+                } else {
+                    m[k++] = 0;
+                }
+            }
+        }
+        return new Matrix(m, n);
+    }
 }
