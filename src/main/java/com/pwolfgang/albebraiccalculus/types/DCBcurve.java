@@ -6,6 +6,7 @@
 package com.pwolfgang.albebraiccalculus.types;
 
 import com.pwolfgang.albebraiccalculus.Matrix;
+import com.pwolfgang.albebraiccalculus.Pascal;
 import java.util.Arrays;
 import java.util.StringJoiner;
 
@@ -17,6 +18,7 @@ public class DCBcurve {
     
     private final Point[][] points;
     private final int n;
+    private final Matrix m;
     
     public DCBcurve(Point... points) {
         n = points.length;
@@ -25,13 +27,27 @@ public class DCBcurve {
         for (int i = 1; i < n; i++) {
             this.points[i] = new Point[n-i];
         }
+        m = Pascal.getDiagonal(n).mul(Pascal.getQ(n));
     }
-        
-    private static final Matrix M2 = new Matrix(new long[]{1, 0, 0, -2, 2, 0, 1, -2, 1},3);
-    private static final Matrix M2_INV = M2.inv();
-    private static final Matrix M3 = new Matrix(new long[]{1, 0, 0, 0, -3, 3, 0, 0, 3, -6, 3, 0, -1, 3, -3, 1}, 4);
-    private static final Matrix M3_INV = M3.inv();
- 
+    
+    public DCBcurve(PolyNumber[] p) {
+        int maxN = p[0].aS.length;
+        if (maxN < p[1].aS.length) {
+            maxN = p[1].aS.length;
+        }
+        n = maxN;
+        m = Pascal.getDiagonal(n).mul(Pascal.getQ(n));
+        Rational[] pX = createVector(p[0].aS,n);
+        Rational[] pY = createVector(p[1].aS,n);
+        Rational[] xS = m.inv().mul(pX);
+        Rational[] yS = m.inv().mul(pY);
+        points = new Point[n][];
+        points[0] = createPoints(xS, yS);
+        for (int i = 1; i < n; i++) {
+            this.points[i] = new Point[n-i];
+        }
+    }
+
     public Point r(Rational t) {
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < n-i; j++) {
@@ -60,26 +76,33 @@ public class DCBcurve {
         return v;
     }
     
-    public PolyNumber[] toPolyNumber() {
-        return null;
+    static Point[] createPoints(Rational[] xS, Rational[] yS) {
+        int numPoints = xS.length;
+        Point[] points = new Point[numPoints];
+        for (int i = 0; i < numPoints; i++) {
+            points[i] = new Point(xS[i], yS[i]);
+        }
+        return points;
     }
     
-    public static DCBcurve fromPolyNumber2(PolyNumber[] p) {
-        Rational[] pX = createVector(p[0].aS,3);
-        Rational[] pY = createVector(p[1].aS,3);
-        Rational[] xS = M2_INV.mul(pX);
-        Rational[] yS = M2_INV.mul(pY);
-        return new DCBcurve(new Point(xS[0], yS[0]), new Point(xS[1], yS[1]), new Point(xS[2], yS[2]));
+    private Rational[][] getCoordinates() {
+        int numPoints = points[0].length;
+        Rational[][] c = new Rational[2][numPoints];
+        for (int i = 0; i < numPoints; i++) {
+            c[0][i] = points[0][i].getX();
+            c[1][i] = points[0][i].getY();
+        }
+        return c;
     }
-
-    public static DCBcurve fromPolyNumber3(PolyNumber[] p) {
-        Rational[] pX = createVector(p[0].aS,4);
-        Rational[] pY = createVector(p[1].aS,4);
-        Rational[] xS = M3_INV.mul(pX);
-        Rational[] yS = M3_INV.mul(pY);
-        return new DCBcurve(new Point(xS[0], yS[0]), new Point(xS[1], yS[1]), new Point(xS[2], yS[2]), new Point(xS[3], yS[3]));
+    
+    public PolyNumber[] toPolyNumber(){
+        Rational[][] pS = getCoordinates();
+        Rational[] xS = m.mul(pS[0]);
+        Rational[] yS = m.mul(pS[1]);
+        PolyNumber[] p = new PolyNumber[]{new PolyNumber(xS), new PolyNumber(yS)};
+        return p;
     }
-   
+       
     public String toString() {
         var sJ = new StringJoiner(", ");
         for (int i = 0; i < n; i++) {
