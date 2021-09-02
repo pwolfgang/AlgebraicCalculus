@@ -21,7 +21,7 @@ public class DCBcurveTest {
     public DCBcurveTest() {
     }
     
-        @BeforeEach
+    @BeforeEach
     public void init() {
         try {
             PrintStream p = new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8");
@@ -61,7 +61,7 @@ public class DCBcurveTest {
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(1,2);
-        var r = curve.r3(lambda);
+        var r = curve.r(lambda);
         assertEquals(new Point(1000, 707, 707), r);
     }
 
@@ -74,7 +74,7 @@ public class DCBcurveTest {
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(1,2);
-        var r = curve.r3(lambda);
+        var r = curve.r(lambda);
         assertEquals(new Point(100000000000L, 70710678125L, 70710678125L), r);
     }
 
@@ -89,7 +89,7 @@ public class DCBcurveTest {
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(1,2);
-        var r = curve.r3(lambda);
+        var r = curve.r(lambda);
         Rational ratSqrt2Over2 = new Rational(sqrt2over2);
         assertEquals(new Point(ratSqrt2Over2,ratSqrt2Over2), r);
     }
@@ -107,40 +107,40 @@ public class DCBcurveTest {
         var p3 = new Point(1, 1, 0);
         var curve = new DCBcurve(p0, p1, p2, p3);
         var lambda = new Rational(2,5);
-        var r = curve.r3(lambda);
+        var r = curve.r(lambda);
         System.out.println("r = " + r);
         System.out.println("x = " + r.getX().toDouble() + " y = " + r.getY().toDouble());
-        PolyNumber[] pn = curve.toPolyNumber();
-        System.out.println("pnX = " + pn[0]);
-        System.out.println("pnY = " + pn[1]);
+//        PolyNumber[] pn = curve.toPolyNumber();
+//        System.out.println("pnX = " + pn[0]);
+//        System.out.println("pnY = " + pn[1]);
     }
     
-    @Test
-    public void testToPolyNumber2() {
-        var p0 = new Point(-1,2);
-        var p1 = new Point(4,3);
-        var p2 = new Point(5,1);
-        var curve = new DCBcurve(p0, p1, p2);
-        PolyNumber[] pn = curve.toPolyNumber();
-        var pnX = new PolyNumber(-1, 10, -4);
-        var pnY = new PolyNumber(2, 2, -3);
-        assertEquals(pnX, pn[0]);
-        assertEquals(pnY, pn[1]);   
-    }
+//    @Test
+//    public void testToPolyNumber2() {
+//        var p0 = new Point(-1,2);
+//        var p1 = new Point(4,3);
+//        var p2 = new Point(5,1);
+//        var curve = new DCBcurve(p0, p1, p2);
+//        PolyNumber[] pn = curve.toPolyNumber();
+//        var pnX = new PolyNumber(-1, 10, -4);
+//        var pnY = new PolyNumber(2, 2, -3);
+//        assertEquals(pnX, pn[0]);
+//        assertEquals(pnY, pn[1]);   
+//    }
     
-    @Test
-    public void testToPolyNumber3() {
-        var p0 = new Point(-1, 0);
-        var p1 = new Point(Rational.ONE.neg(), new Rational(-1, 3));
-        var p2 = new Point(new Rational(-2,3), new Rational(-2,3));
-        var p3 = new Point(0,0);
-        var curve = new DCBcurve(p0, p1, p2, p3);
-        var pnX = new PolyNumber(-1, 0, 1);
-        var pnY = new PolyNumber(0, -1, 0, 1);
-        PolyNumber[] pn = curve.toPolyNumber();
-        assertEquals(pnX, pn[0]);
-        assertEquals(pnY, pn[1]);
-    }
+//    @Test
+//    public void testToPolyNumber3() {
+//        var p0 = new Point(-1, 0);
+//        var p1 = new Point(Rational.ONE.neg(), new Rational(-1, 3));
+//        var p2 = new Point(new Rational(-2,3), new Rational(-2,3));
+//        var p3 = new Point(0,0);
+//        var curve = new DCBcurve(p0, p1, p2, p3);
+//        var pnX = new PolyNumber(-1, 0, 1);
+//        var pnY = new PolyNumber(0, -1, 0, 1);
+//        PolyNumber[] pn = curve.toPolyNumber();
+//        assertEquals(pnX, pn[0]);
+//        assertEquals(pnY, pn[1]);
+//    }
     
     @Test
     public void testFromPolyNumber2() {
@@ -185,5 +185,32 @@ public class DCBcurveTest {
         var c = DCBcurve.fromPolyNumber3(new PolyNumber[]{aX, aY});
         System.out.println(c);
     }
+    
+//    @Test
+//    public void testToPolyNumber_5p4p13() {
+//        System.out.println("Q5.4.13");
+//        var p0 = new Point(0,4);
+//        var p1 = new Point(new Rational(8,9), new Rational(9));
+//        var p2 = new Point(6,2);
+//        var p3 = new Point(4,0);
+//        var c = new DCBcurve(p0, p1, p2, p3);
+//        PolyNumber[] p = c.toPolyNumber();
+//        System.out.printf("x(t) = %s%n", p[0].toString());
+//        System.out.printf("y(t) = %s%n", p[1].toString());
+//        
+//    }
+//    
+//    @Test
+//    public void testFolium() {
+//        System.out.println("Q5.4.17");
+//        var p0 = new Point(2,4);
+//        var p1 = new Point(new Rational(11,3), new Rational(16,3));
+//        var p2 = new Point(new Rational(16,3), new Rational(11,3));
+//        var p3 = new Point(4,2);
+//        var folium = new DCBcurve(p0, p1, p2, p3);
+//        PolyNumber[] p = folium.toPolyNumber();
+//        System.out.printf("x(t) = %s%n", p[0].toString());
+//        System.out.printf("y(t) = %s%n", p[1].toString());
+//    }
     
 }

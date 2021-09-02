@@ -163,7 +163,7 @@ public class PolyNumberTest {
     }
     
     @Test
-    public void testDeltaLoweringPowers() {
+    public void testDeltaFallingPowers() {
         var alpha = new PolyNumber(0,1);
         var alphaMinusOne = new PolyNumber(-1, 1);
         var alphaMinusTwo = new PolyNumber(-2, 1);
@@ -175,7 +175,7 @@ public class PolyNumberTest {
     }
     
     @Test
-    public void testDeltaRaisingPowers() {
+    public void testDeltaRisingPowers() {
         var alpha = new PolyNumber(0,1);
         var alphaPlusOne = alpha.add(PolyNumber.ONE);
         var alphaPlusTwo = alpha.add(new PolyNumber(2));
@@ -220,6 +220,17 @@ public class PolyNumberTest {
         assertEquals(Rational.ZERO, poly.eval(0));
         assertEquals(new Rational(4), poly.eval(1));
         assertEquals(new Rational(7), poly.eval(2));
+    }
+    
+    @Test
+    public void testFromPointsCircle() {
+        System.out.println("circle?");
+        var p1 = new Point(0, 1);
+        var p2 = new Point(new Rational(3,5), new Rational(4,5));
+        var p3 = new Point(new Rational(4,5), new Rational(3,5));
+        var p4 = new Point(1, 0);
+        var poly = PolyNumber.fromPoints(p1,p2,p3,p4);
+        System.out.println(poly);
     }
 
 }

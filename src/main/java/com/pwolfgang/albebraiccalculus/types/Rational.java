@@ -123,11 +123,15 @@ public class Rational implements Comparable<Rational> {
     public static final Rational TWO = new Rational(2, 1);
     public static final Rational HALF = new Rational(1, 2);
 
-    public static long gcd(long d1, long d2) {
-        if (d2 == 0) {
-            return d1;
+    public static long gcd(long a, long b) {
+        if (a < 0) a = -a;
+        if (b < 0) b = -b;
+        while (b > 0) {
+            long t = a % b;
+            a = b;
+            b = t;
         }
-        return gcd(d2, d1 % d2);
+        return a;
     }
 
     public static long lcm(long d1, long d2) {
@@ -190,12 +194,9 @@ public class Rational implements Comparable<Rational> {
         if (o == this) {
             return true;
         }
-
         if (o.getClass() == Rational.class) {
             Rational r = (Rational) o;
-            return num
-                    * r.den == den
-                    * r.num;
+            return num * r.den == den * r.num;
         } else {
             return false;
         }

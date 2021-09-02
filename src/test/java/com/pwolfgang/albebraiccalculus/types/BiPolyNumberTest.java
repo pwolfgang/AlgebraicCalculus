@@ -166,6 +166,25 @@ public class BiPolyNumberTest {
     }
     
     @Test
+    public void testFolium() {
+        var folium = new BiPolyNumber(new Rational[][]
+        {
+            {Rational.ZERO, Rational.ZERO, Rational.ZERO, new Rational(1,27)},
+            {Rational.ZERO, new Rational(-1,3)},
+            {Rational.ZERO},
+            {new Rational(1,27)}
+        });
+        System.out.printf("f = %s%n", folium.toString());
+        var p1 = new Point(new Rational(4), new Rational(2));
+        var p2 = new Point(new Rational(2), new Rational(4));
+        var p3 = new Point(new Rational(9,2),new Rational(9,2));
+        System.out.printf("Tangent at %s is %s%n", p1.toString(), folium.tangentAt(p1).toString());
+        System.out.printf("Tangent at %s is %s%n", p2.toString(), folium.tangentAt(p2).toString());
+        System.out.printf("Tangent at %s is %s%n", p3.toString(), folium.tangentAt(p3).toString());
+        
+    }
+    
+    @Test
     public void testMulByAlphaPlusBeta () {
         var p = new BiPolyNumber(new long[][]{{3, 1, 2},{0, 4,5}});
         var ab = new BiPolyNumber(new long[][]{{0, 1},{1}});

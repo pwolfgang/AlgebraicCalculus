@@ -21,6 +21,10 @@ public class PolyNumber {
     public static final PolyNumber ZERO = new PolyNumber(0);
     public static final PolyNumber ONE = new PolyNumber(1);
     
+    PolyNumber() {
+        aS = null;
+    }
+    
     public PolyNumber(Rational... r) {
         List<Rational> tempList = new List<>(Arrays.asList(r));
         trimTrailingZeros(tempList);
