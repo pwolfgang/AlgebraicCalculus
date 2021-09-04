@@ -231,5 +231,32 @@ public class DCBcurveTest {
         System.out.printf("p[1] = %s%n", p[1].toString());
         
     }
+    
+    @Test
+    public void testSplitAt() {
+        var p0 = new Point(6,-12);
+        var p1 = new Point(12,2);
+        var p2 = new Point(34,-2);
+        var p3 = new Point(8,-14);
+        var p4 = new Point(38,-12);
+        var p10 = p0;
+        var p11 = new Point(new Rational(78,10),new Rational(-78,10));
+        var p12 = new Point(new Rational(1104,100), new Rational(-522,100));
+        var p13 = new Point(new Rational(1749,125), new Rational(-399,100));
+        var p14 = new Point(new Rational(20361,1250), new Rational(-9357,2500));
+        var p20 = p14;
+        var p21 = new Point(new Rational(2706,125),new Rational(-1583,500));
+        var p22 = new Point(new Rational(2344,100),new Rational(-794,100));
+        var p23 = new Point(new Rational(17), new Rational(-134,10));
+        var p24 = p4;
+        var curve = new DCBcurve(p0, p1, p2, p3, p4);
+        DCBcurve[] split = curve.splitAt(new Rational(3,10));
+        var left = split[0];
+        var right = split[1];
+        var expectedLeft = new DCBcurve(p10, p11, p12, p13, p14);
+        var expectedRight = new DCBcurve(p20, p21, p22, p23, p24);
+        assertEquals(expectedLeft, left);
+        assertEquals(expectedRight, right); 
+    }
         
 }

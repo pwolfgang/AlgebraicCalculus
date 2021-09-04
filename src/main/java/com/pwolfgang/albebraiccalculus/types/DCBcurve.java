@@ -56,6 +56,19 @@ public class DCBcurve {
         }
         return points[n-1][0];
     }
+    
+    public DCBcurve[] splitAt(Rational t) {
+        r(t);
+        Point[] left = new Point[n];
+        Point[] right = new Point[n];
+        for (int i=0; i < points.length; i++) {
+            left[i] = points[i][0];
+        }
+        for (int i = n-1; i >=0; i--) {
+            right[n-1-i] = points[i][n-1-i];
+        }
+        return new DCBcurve[]{new DCBcurve(left), new DCBcurve(right)};
+    }
  
     private static Point scale(Rational lambda, Point p0, Point p1) {
         Rational oneMinusLambda = Rational.ONE.sub(lambda);
