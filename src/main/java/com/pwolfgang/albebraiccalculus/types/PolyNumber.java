@@ -221,6 +221,18 @@ public class PolyNumber {
         return new PolyNumber(result);
     }
     
+    public Rational[] expandToDegree(int d) {
+        Rational[] r = new Rational[d];
+        int n = aS.length;
+        for (int i = 0; i < n && i < d; i++) {
+            r[i] = aS[i];
+        }
+        for (int i = n; i < d; i++) {
+            r[i] = Rational.ZERO;
+        }
+        return r;
+    }
+    
     public String toString() {
         var sj = new StringJoiner(" + ");
         for (int i = 0; i < aS.length; i++) {

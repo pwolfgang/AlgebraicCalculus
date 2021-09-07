@@ -69,6 +69,19 @@ public class Pascal {
         return new Matrix(m, n);
     }
     
+    public static Matrix getP(int n, Rational c) {
+        var P = getP(n);
+        Rational factor = Rational.ONE;
+        Rational[] m = P.getContents();
+        for (int i = n; i < n*n; i+=n) {
+            factor = factor.mul(c);
+            for (int j = i; j < n*n; j+=(n+1)) {
+                m[j] = m[j].mul(factor);
+            }
+        }
+        return new Matrix(m,n);
+    }
+    
     public static Matrix getQ(int n) {
         Rational[] m = new Rational[n*n];
         int k = 0;

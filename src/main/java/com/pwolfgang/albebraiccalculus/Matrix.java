@@ -43,6 +43,10 @@ public class Matrix {
         System.arraycopy(m, 0, this.m, 0,  n*n);
     }
     
+    public Rational[] getContents() {
+        return Arrays.copyOf(m, n*n);
+    }
+    
     public Matrix subMatrix(int r, int c) {
         int newN = n-1;
         Rational[] newM = new Rational[newN * newN];

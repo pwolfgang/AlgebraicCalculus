@@ -5,9 +5,9 @@
  */
 package com.pwolfgang.albebraiccalculus;
 
+import com.pwolfgang.albebraiccalculus.types.Rational;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -48,4 +48,16 @@ public class PascalTest {
         
     }
     
+    @Test
+    public void testGetPsubC() {
+        Matrix expected = new Matrix(
+        new long[]{
+            1, 0, 0, 0,
+            4, 1, 0, 0,
+            16,8, 1, 0,
+            64,48,12,1
+        },4);
+        assertEquals(expected, Pascal.getP(4,new Rational(4)));
+    }
+
 }
