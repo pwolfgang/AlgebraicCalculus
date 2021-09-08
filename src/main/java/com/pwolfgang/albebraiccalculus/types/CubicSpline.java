@@ -74,7 +74,7 @@ public class CubicSpline {
          Rational.ONE, x1, x1Sq, x1Cu
         },4);
         Rational[] p = m.inv().mul(new Rational[]{y0, dOf0, dOf1, y1});
-        return new PolyNumber(p);
+        return new PolyNumber(p).eval(new PolyNumber(x0, Rational.ONE));
     }
     
 }
