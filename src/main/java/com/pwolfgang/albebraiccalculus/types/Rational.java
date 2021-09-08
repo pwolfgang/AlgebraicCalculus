@@ -118,9 +118,10 @@ public class Rational implements Comparable<Rational> {
         return new Rational(left.num + right.num, left.den + right.den);
     }
     
-    public static final Rational ONE = new Rational(1, 1);
     public static final Rational ZERO = new Rational(0, 1);
+    public static final Rational ONE = new Rational(1, 1);
     public static final Rational TWO = new Rational(2, 1);
+    public static final Rational THREE = new Rational(3,1);
     public static final Rational HALF = new Rational(1, 2);
 
     public static long gcd(long a, long b) {
