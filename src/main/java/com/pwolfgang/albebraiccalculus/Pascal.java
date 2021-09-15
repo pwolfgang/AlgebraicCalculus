@@ -54,7 +54,7 @@ public class Pascal {
         return triangle[n][k];
     }
     
-    public static Matrix getP(int n) {
+    public static SqMatrix getP(int n) {
         Rational[] m = new Rational[n*n];
         int k = 0;
         for (int i = 0; i < n; i++) {
@@ -66,10 +66,10 @@ public class Pascal {
                 }
             }
         }
-        return new Matrix(m, n);
+        return new SqMatrix(m, n);
     }
     
-    public static Matrix getP(int n, Rational c) {
+    public static SqMatrix getP(int n, Rational c) {
         var P = getP(n);
         Rational factor = Rational.ONE;
         Rational[] m = P.getContents();
@@ -79,10 +79,10 @@ public class Pascal {
                 m[j] = m[j].mul(factor);
             }
         }
-        return new Matrix(m,n);
+        return new SqMatrix(m,n);
     }
     
-    public static Matrix getQ(int n) {
+    public static SqMatrix getQ(int n) {
         Rational[] m = new Rational[n*n];
         int k = 0;
         for (int i = 0; i < n; i++) {
@@ -100,10 +100,10 @@ public class Pascal {
                 }
             }
         }
-        return new Matrix(m, n);        
+        return new SqMatrix(m, n);        
     }
     
-    public static Matrix getDiagonal(int n) {
+    public static SqMatrix getDiagonal(int n) {
         long[] m = new long[n*n];
         int k = 0;
         for (int i = 0; i < n; i++) {
@@ -115,6 +115,6 @@ public class Pascal {
                 }
             }
         }
-        return new Matrix(m, n);
+        return new SqMatrix(m, n);
     }
 }

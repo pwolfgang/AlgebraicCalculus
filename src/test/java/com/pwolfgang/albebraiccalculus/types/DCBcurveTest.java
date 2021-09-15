@@ -5,7 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
-import com.pwolfgang.albebraiccalculus.Matrix;
+import com.pwolfgang.albebraiccalculus.SqMatrix;
 import com.pwolfgang.albebraiccalculus.Pascal;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;

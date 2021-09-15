@@ -5,7 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
-import com.pwolfgang.albebraiccalculus.Matrix;
+import com.pwolfgang.albebraiccalculus.SqMatrix;
 import com.pwolfgang.albebraiccalculus.Pascal;
 import java.util.Arrays;
 import java.util.StringJoiner;
@@ -18,7 +18,7 @@ public class DCBcurve {
     
     private final Point[][] points;
     private final int n;
-    private final Matrix m;
+    private final SqMatrix m;
     
     public DCBcurve(Point... points) {
         n = points.length;

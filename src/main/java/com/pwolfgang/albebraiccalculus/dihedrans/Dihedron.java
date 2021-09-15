@@ -5,7 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.dihedrans;
 
-import com.pwolfgang.albebraiccalculus.Matrix;
+import com.pwolfgang.albebraiccalculus.SqMatrix;
 import com.pwolfgang.albebraiccalculus.types.Rational;
 
 /**
@@ -14,11 +14,11 @@ import com.pwolfgang.albebraiccalculus.types.Rational;
  */
 public class Dihedron {
     
-    public static final Matrix ONE = new Matrix(new long[]{1, 0, 0, 1},2);
-    public static final Matrix I = new Matrix(new long[]{0, 1, -1, 0}, 2);
-    public static final Matrix J = new Matrix(new long[]{0, 1, 1, 0},2);
-    public static final Matrix K = new Matrix(new long[]{1, 0, 0, -1},2);
-    public static final Matrix E = new Matrix(new long[]{0, 0, 1, 0},2);
+    public static final SqMatrix ONE = new SqMatrix(new long[]{1, 0, 0, 1},2);
+    public static final SqMatrix I = new SqMatrix(new long[]{0, 1, -1, 0}, 2);
+    public static final SqMatrix J = new SqMatrix(new long[]{0, 1, 1, 0},2);
+    public static final SqMatrix K = new SqMatrix(new long[]{1, 0, 0, -1},2);
+    public static final SqMatrix E = new SqMatrix(new long[]{0, 0, 1, 0},2);
     
     public final Rational t, x, y, z;
     

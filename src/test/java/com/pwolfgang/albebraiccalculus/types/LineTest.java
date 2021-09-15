@@ -67,7 +67,8 @@ public class LineTest {
         System.out.println("point slope test");
         var p = new Point(-1, 0);
         var m = new Rational(3);
-        assertEquals(new Line(3, 3, -1), Line.pointSlope(p, m));
+        var line = Line.pointSlope(p, m);
+        assertEquals(new Line(3, 3, -1), line);
     }
     
     @Test

@@ -5,7 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
-import com.pwolfgang.albebraiccalculus.Matrix;
+import com.pwolfgang.albebraiccalculus.SqMatrix;
 import com.pwolfgang.albebraiccalculus.datastructures.List;
 import java.util.Arrays;
 import java.util.StringJoiner;
@@ -75,7 +75,7 @@ public class PolyNumber {
                 xS[j] = xS[j-1].mul(x);
             }
         }
-        var m = new Matrix(xS, numPoints);
+        var m = new SqMatrix(xS, numPoints);
         Rational[] aS = m.inv().mul(yS);
         return new PolyNumber(aS);
     }

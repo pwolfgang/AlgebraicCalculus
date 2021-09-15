@@ -28,21 +28,21 @@ public class PascalTest {
     
     @Test
     public void testGetP() {
-        Matrix expected = new Matrix(
+        SqMatrix expected = new SqMatrix(
         new long[]{1,0,0,0,1,1,0,0,1,2,1,0,1,3,3,1}, 4);
         assertEquals(expected, Pascal.getP(4));
     }
  
     @Test
     public void testGetQ() {
-        Matrix expected = new Matrix(
+        SqMatrix expected = new SqMatrix(
         new long[]{1,0,0,0,-1,1,0,0,1,-2,1,0,-1,3,-3,1}, 4);
         assertEquals(expected, Pascal.getQ(4));
     }
     
     @Test
     public void testGetDiagonal() {
-        Matrix expected = new Matrix(
+        SqMatrix expected = new SqMatrix(
         new long[]{1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 1}, 4);
         assertEquals(expected, Pascal.getDiagonal(4));
         
@@ -50,7 +50,7 @@ public class PascalTest {
     
     @Test
     public void testGetPsubC() {
-        Matrix expected = new Matrix(
+        SqMatrix expected = new SqMatrix(
         new long[]{
             1, 0, 0, 0,
             4, 1, 0, 0,

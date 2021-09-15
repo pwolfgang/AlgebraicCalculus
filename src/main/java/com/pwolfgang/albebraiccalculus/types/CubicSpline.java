@@ -5,7 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
-import com.pwolfgang.albebraiccalculus.Matrix;
+import com.pwolfgang.albebraiccalculus.SqMatrix;
 import com.pwolfgang.albebraiccalculus.Pascal;
 
 /**
@@ -38,7 +38,7 @@ public class CubicSpline {
         polies[0] = initialPoly;
         for (int i = 1; i < n; i++) {
             Rational c = points[i].getX().sub(points[i-1].getX());
-            Matrix P = Pascal.getP(4,c).trans();
+            SqMatrix P = Pascal.getP(4,c).trans();
             Rational[] coefs = P.mul(polies[i-1].expandToDegree(4));
             coefs[3] = Rational.ZERO;
             var pp = new PolyNumber(coefs);
@@ -67,7 +67,7 @@ public class CubicSpline {
         var x1Cu = x1Sq.mul(x1);
         var dOf0 = curvePrime.eval(x0);
         var dOf1 = curvePrime.eval(x1);
-        Matrix m = new Matrix(new Rational[] 
+        SqMatrix m = new SqMatrix(new Rational[] 
         {Rational.ONE, x0, x0Sq, x0Cu,
          Rational.ZERO,Rational.ONE, x0.mul(Rational.TWO), x0Sq.mul(Rational.THREE),
          Rational.ZERO,Rational.ONE, x1.mul(Rational.TWO), x1Sq.mul(Rational.THREE),

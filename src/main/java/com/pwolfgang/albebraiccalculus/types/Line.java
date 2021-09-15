@@ -82,7 +82,7 @@ public class Line {
         return r * p.a + s * p.b + t * p.c == 0;
     }
 
-    public boolean areCollinear(Point p1, Point p2, Point p3) {
+    public static boolean areCollinear(Point p1, Point p2, Point p3) {
         Line l1 = join(p1, p3);
         return l1.passesThrough(p3);
     }
