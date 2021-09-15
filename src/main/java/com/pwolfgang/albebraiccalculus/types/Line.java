@@ -20,6 +20,9 @@ public class Line {
     public Line(long r, long s, long t) {
         long gcd = Rational.gcd(r, s);
         gcd = Rational.gcd(gcd, t);
+        if (r > 0) {
+            gcd = -gcd;
+        }
         if (gcd == 0) {
             this.r = 0;
             this.s = 0;
