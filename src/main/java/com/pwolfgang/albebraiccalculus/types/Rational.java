@@ -120,6 +120,7 @@ public class Rational implements Comparable<Rational> {
     
     public static final Rational ZERO = new Rational(0, 1);
     public static final Rational ONE = new Rational(1, 1);
+    public static final Rational MINUS_ONE = new Rational(-1, 1);
     public static final Rational TWO = new Rational(2, 1);
     public static final Rational THREE = new Rational(3,1);
     public static final Rational HALF = new Rational(1, 2);

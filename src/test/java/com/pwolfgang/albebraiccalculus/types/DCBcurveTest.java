@@ -258,5 +258,16 @@ public class DCBcurveTest {
         assertEquals(expectedLeft, left);
         assertEquals(expectedRight, right); 
     }
+    
+    @Test
+    public void lecture4Example() {
+        System.out.println("lecture4 example");
+        var p0 = new Point(Rational.ZERO,Rational.HALF);
+        var p1 = new Point(-2,1);
+        var p2 = new Point(Rational.ZERO, Rational.HALF.neg());
+        var curve = new DCBcurve(p0, p1, p2);
+        PolyNumber[] p = curve.toPolyNumber();
+        System.out.printf("p[0] = %s, P[1] = %s%n", p[0].toString(), p[1].toString());
+    }
         
 }

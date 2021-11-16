@@ -222,4 +222,14 @@ public class BiPolyNumberTest {
         System.out.println(p.tangentAt(new Point(0,1)));
     }
     
+    @Test
+    public void lecture4Example() {
+        System.out.println("Lecture 4 example");
+        var p = new BiPolyNumber(new long[][]{{-1,0,4},{-1,4},{1}});
+        System.out.println(p);
+        System.out.println(p.tangentAt(new Point(Rational.ZERO, Rational.HALF)));
+        System.out.println((p.tangentAt(new Point(Rational.ZERO, Rational.HALF.neg()))));
+        System.out.println(p.tangentAt(new Point(new Rational(-51,100), new Rational(605,1000))));
+    }
+    
 }

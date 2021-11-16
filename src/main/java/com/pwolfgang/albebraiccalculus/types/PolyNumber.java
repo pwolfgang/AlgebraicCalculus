@@ -148,16 +148,27 @@ public class PolyNumber {
         return result;
     }
     
-    public PolyNumber div(PolyNumber p) {
+    public int deg() {
+        return aS.length-1;
+    }
+
+    
+    public PolyNumber[] div(PolyNumber g) {
         PolyNumber r = new PolyNumber(aS);
         PolyNumber q = new PolyNumber(0);
-        int maxTerms = aS.length + p.aS.length;
-        while (!r.equals(PolyNumber.ZERO) && q.aS.length < maxTerms) {
-            var t = r.div(p.aS[0]);
-            r = r.sub(p.mul(t));
-            q = q.add(t);
+        while (r.deg() >= g.deg()) {
+            var t = r.aS[r.deg()].div(g.aS[g.deg()]);
+            int d = r.deg() - g.deg();
+            Rational[] a = new Rational[d+1];
+            for (int i = 0; i < d; i++) {
+                a[i] = Rational.ZERO;
+            }
+            a[d] = t;
+            var p = new PolyNumber(a);
+            r = r.sub(p.mul(g));
+            q = q.add(p);
         }
-        return q;
+        return new PolyNumber[]{q, r};
     }
     
     public PolyNumber div(Rational x) {
@@ -245,6 +256,15 @@ public class PolyNumber {
                         sj.add("α");
                     } else {
                         sj.add(String.format("α^%d",i));
+                    }
+                }
+                else if (Rational.MINUS_ONE.equals(term)) {
+                    if (i == 0) {
+                        sj.add("-1");
+                    } else if (i == 1) {
+                        sj.add("-α");
+                    } else {
+                        sj.add(String.format("-α^%d",i));
                     }
                 } else {
                     if (i == 0) {

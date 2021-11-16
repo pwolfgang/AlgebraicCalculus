@@ -118,16 +118,16 @@ public class PolyNumberTest {
         var a = new PolyNumber(2, 7, 2, -3);
         var b = new PolyNumber(1, 3);
         var c = new PolyNumber(2, 1, -1);
-        assertEquals(c, a.div(b));
-        assertEquals(b, a.div(c));
+        assertEquals(c, a.div(b)[0]);
+        assertEquals(b, a.div(c)[0]);
     }
     
     @Test void testDiv2() {
         var a = new PolyNumber(12, 8, -7, -2, 1);
         var b = new PolyNumber(4, 0, -1);
         var c = new PolyNumber(3, 2, -1);
-        assertEquals(c, a.div(b));
-        assertEquals(b, a.div(c));
+        assertEquals(c, a.div(b)[0]);
+        assertEquals(b, a.div(c)[0]);
     }
     
     @Test
@@ -135,8 +135,8 @@ public class PolyNumberTest {
         var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
         var b = new PolyNumber(1, -1, 1);
         var c = new PolyNumber(1, 1, 0, -1, -1);
-        assertEquals(c, a.div(b));
-        assertEquals(b, a.div(c));
+        assertEquals(c, a.div(b)[0]);
+        assertEquals(b, a.div(c)[0]);
     }
     
     @Test
@@ -144,7 +144,13 @@ public class PolyNumberTest {
         var a = new PolyNumber(1, 0, 0, 0, 0, -1);
         var b = new PolyNumber(1, -1, 1);
         System.out.println(a + " div " + b);
-        System.out.println(a.div(b));
+        var qr = a.div(b);
+        System.out.printf("q: %s%n", qr[0].toString());
+        System.out.printf("r: %s%n", qr[1].toString());
+        var q = new PolyNumber(1, 0, -1, -1);
+        var r = new PolyNumber(0, 1);
+        assertEquals(q, qr[0]);
+        assertEquals(r, qr[1]);
         
     }
     
@@ -232,5 +238,5 @@ public class PolyNumberTest {
         var poly = PolyNumber.fromPoints(p1,p2,p3,p4);
         System.out.println(poly);
     }
-
+    
 }
