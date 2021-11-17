@@ -155,6 +155,28 @@ public class PolyNumberTest {
     }
     
     @Test
+    public void testDiv5() {
+        var f = new PolyNumber(3, 1, 2, 4);
+        var g = new PolyNumber(1, 2);
+        var q = new PolyNumber(Rational.HALF, Rational.ZERO, Rational.TWO);
+        var r = new PolyNumber(new Rational(5,2));
+        PolyNumber[] qr = f.div(g);
+        assertEquals(q, qr[0]);
+        assertEquals(r, qr[1]);
+    }
+    
+    @Test
+    public void testGCD() {
+        var a = new PolyNumber(1, 1, 1, 1, 1, 1, 1);
+        var b = new PolyNumber(1, 1, 1, 0, 1);
+        System.out.printf("a: %s%n", a.toString());
+        System.out.printf("b: %s%n", b.toString());
+        var g = PolyNumber.gcd(a,b);
+        System.out.printf("gcd: %s%n", g.toString());
+        assertEquals(PolyNumber.ONE, g);
+    }
+    
+    @Test
     public void testDelta() {
         var p = new PolyNumber(0,0,0,1);
         var q = new PolyNumber(1,3,3);

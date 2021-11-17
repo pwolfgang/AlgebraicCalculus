@@ -156,7 +156,7 @@ public class PolyNumber {
     public PolyNumber[] div(PolyNumber g) {
         PolyNumber r = new PolyNumber(aS);
         PolyNumber q = new PolyNumber(0);
-        while (r.deg() >= g.deg()) {
+        while (r.deg() >= g.deg() && !PolyNumber.ZERO.equals(r)) {
             var t = r.aS[r.deg()].div(g.aS[g.deg()]);
             int d = r.deg() - g.deg();
             Rational[] a = new Rational[d+1];
@@ -169,6 +169,16 @@ public class PolyNumber {
             q = q.add(p);
         }
         return new PolyNumber[]{q, r};
+    }
+    
+    public static PolyNumber gcd(PolyNumber a, PolyNumber b) {
+        System.out.printf("a: %s%n", a.toString());
+        System.out.printf("b: %s%n", b.toString());
+        if (b.equals(PolyNumber.ZERO)) {
+            return a;
+        }
+        var r = a.div(b)[1];
+        return gcd(b, r);
     }
     
     public PolyNumber div(Rational x) {
