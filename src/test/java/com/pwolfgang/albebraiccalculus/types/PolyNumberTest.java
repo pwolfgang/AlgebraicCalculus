@@ -177,6 +177,14 @@ public class PolyNumberTest {
     }
     
     @Test
+    public void testGCD2() {
+        var f = new PolyNumber(-2, -3, -2, 0, 1);
+        var g = new PolyNumber(1, 4, 4, 1);
+        var gcd = PolyNumber.gcd(f, g);
+        assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
+    }
+    
+    @Test
     public void testDelta() {
         var p = new PolyNumber(0,0,0,1);
         var q = new PolyNumber(1,3,3);
