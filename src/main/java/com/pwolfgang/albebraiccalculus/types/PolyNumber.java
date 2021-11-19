@@ -181,6 +181,32 @@ public class PolyNumber {
         return gcd(b, r);
     }
     
+    public static PolyNumber[] extendedGCD(PolyNumber a, PolyNumber b) {
+        return null;
+    }
+    
+    public static int[] div(int a, int b) {
+        int q = a/b;
+        int r = a - q*b;
+        return new int[]{q, r};
+    }
+    
+    public static int[] eGCD(int a, int b) {
+        return eGCD(a, b, 1, 0, 0, 1);
+    }
+    
+    public static int[] eGCD(int a, int b, int ax, int ay, int bx, int by) {
+        int[] qr = div(a, b);
+        int q = qr[0];
+        int r = qr[1];
+        if (r == 0) {
+            return new int[]{b, bx, by};
+        }
+        int x = ax - q*bx;
+        int y = ay - q*by;
+        return eGCD(b, r, bx, by, x, y);
+    }
+    
     public PolyNumber div(Rational x) {
         List<Rational> q = new List<>();
         int j = 0;
