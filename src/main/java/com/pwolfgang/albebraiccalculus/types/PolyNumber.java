@@ -182,7 +182,19 @@ public class PolyNumber {
     }
     
     public static PolyNumber[] extendedGCD(PolyNumber a, PolyNumber b) {
-        return null;
+        return eGCD(a, b, PolyNumber.ONE, PolyNumber.ZERO, PolyNumber.ZERO, PolyNumber.ONE);
+    }
+    
+    public static PolyNumber[]eGCD(PolyNumber a, PolyNumber b, PolyNumber ax, PolyNumber ay, PolyNumber bx, PolyNumber by) {
+        PolyNumber[] qr = a.div(b);
+        PolyNumber q = qr[0];
+        PolyNumber r = qr[1];
+        if (r.equals(PolyNumber.ZERO)) {
+            return new PolyNumber[]{b, bx, by};
+        }
+        PolyNumber x = ax.sub(q.mul(bx));
+        PolyNumber y = ay.sub(q.mul(by));
+        return eGCD(b, r, bx, by, x, y);        
     }
     
     public static int[] div(int a, int b) {

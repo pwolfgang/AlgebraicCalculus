@@ -274,5 +274,24 @@ public class PolyNumberTest {
         assertArrayEquals(new int[]{4, -11, 12}, PolyNumber.eGCD(196, 180));
         assertArrayEquals(new int[]{6, -2, 33}, PolyNumber.eGCD(888, 54));
         assertArrayEquals(new int[]{1, -4, 15}, PolyNumber.eGCD(56, 15));
-    } 
+    }
+    
+    @Test
+    public void testEGCD2() {
+        System.out.println("Extended PolyNumber GCD");
+        PolyNumber a = new PolyNumber(-2, -3, -2, 0, 1);
+        PolyNumber b = new PolyNumber(1, 4, 4, 1);
+        PolyNumber[] egcd = PolyNumber.extendedGCD(a, b);
+        PolyNumber gcd = egcd[0];
+        PolyNumber s = egcd[1];
+        PolyNumber t = egcd[2];
+        System.out.printf("%s = (%s)×(%s) + (%s)×(%s)%n",
+                gcd.toString(), s.toString(), a.toString(), t.toString(), b.toString());
+        assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
+        PolyNumber sExpected = new PolyNumber(new Rational(-7, 25), new Rational(-1, 10));
+        assertEquals(sExpected, s);
+        PolyNumber tExpected = new PolyNumber(new Rational(-3, 25), new Rational(-3,25), new Rational(1, 10));
+        System.out.printf("tExpected: %s%n", tExpected.toString());
+        assertEquals(tExpected, t);
+    }
 }
