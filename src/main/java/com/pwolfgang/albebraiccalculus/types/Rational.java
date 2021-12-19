@@ -135,16 +135,32 @@ public class Rational implements Comparable<Rational> {
         }
         return a;
     }
-
-    public static long lcm(long d1, long d2) {
-        long g = gcd(d1, d2);
-        long result = d1/g * d2;
-        if (result != 0) {
-            return result;
-        } else {
-            throw new IllegalArgumentException(String.format("d1 = %d d2 = %d g = %d, result = %d%n",
-                    d1, d2, g, result));
+    
+    public static long lcm(long X, long Y) {
+        long x = X;
+        long y = Y;
+        long u = Y;
+        long v = X;
+        while (x != y) {
+            if (x > y) {
+                long xOverY = x/y;
+                x = x - xOverY * y;
+                if (x == 0) {
+                    x = y;
+                    xOverY--;
+                }
+                v = v + xOverY * u;
+            } else {
+                long yOverX = y / x;
+                y = y - yOverX * x;
+                if (y == 0) {
+                    y = x;
+                    yOverX--;
+                }
+                u = u + yOverX * v;
+            }
         }
+        return (u + v)/2;
     }
 
     public Rational add(Rational other) {
