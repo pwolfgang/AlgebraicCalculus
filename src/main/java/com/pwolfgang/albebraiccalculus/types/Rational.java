@@ -230,9 +230,10 @@ public class Rational implements Comparable<Rational> {
     
     @Override
     public int hashCode() {
+        long[] norm = normalize(this.num, this.den);
         int hash = 5;
-        hash = 59 * hash + (int) (this.num ^ (this.num >>> 32));
-        hash = 59 * hash + (int) (this.den ^ (this.den >>> 32));
+        hash = 59 * hash + (int) (norm[0] ^ (norm[0] >>> 32));
+        hash = 59 * hash + (int) (norm[1] ^ (norm[1] >>> 32));
         return hash;
     }
 }
