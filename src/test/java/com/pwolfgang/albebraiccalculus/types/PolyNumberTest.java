@@ -141,16 +141,21 @@ public class PolyNumberTest {
     
     @Test
     public void testDiv4() {
+        System.out.println("********testDiv4********");
         var a = new PolyNumber(1, 0, 0, 0, 0, -1);
         var b = new PolyNumber(1, -1, 1);
         System.out.println(a + " div " + b);
         var qr = a.div(b);
-        System.out.printf("q: %s%n", qr[0].toString());
-        System.out.printf("r: %s%n", qr[1].toString());
-        var q = new PolyNumber(1, 0, -1, -1);
-        var r = new PolyNumber(0, 1);
-        assertEquals(q, qr[0]);
-        assertEquals(r, qr[1]);
+        var q = qr[0];
+        var r = qr[1];
+        System.out.printf("q: %s%n", q.toString());
+        System.out.printf("r: %s%n", r.toString());
+        var qMulB = q.mul(b);
+        var qMulBPlusR = qMulB.add(r);
+        System.out.printf("q × b: %s%n",qMulB);
+        System.out.printf("q × b + r: %s%n",qMulBPlusR);
+        System.out.println();
+        assertEquals(a, qMulBPlusR);
         
     }
     
@@ -158,11 +163,17 @@ public class PolyNumberTest {
     public void testDiv5() {
         var f = new PolyNumber(3, 1, 2, 4);
         var g = new PolyNumber(1, 2);
-        var q = new PolyNumber(Rational.HALF, Rational.ZERO, Rational.TWO);
-        var r = new PolyNumber(new Rational(5,2));
         PolyNumber[] qr = f.div(g);
-        assertEquals(q, qr[0]);
-        assertEquals(r, qr[1]);
+        var q = qr[0];
+        var r = qr[1];
+        System.out.printf("q: %s%n", q.toString());
+        System.out.printf("r: %s%n", r.toString());
+        var qMulB = q.mul(g);
+        var qMulBPlusR = qMulB.add(r);
+        System.out.printf("q × b: %s%n",qMulB);
+        System.out.printf("q × b + r: %s%n",qMulBPlusR);
+        System.out.println();
+        assertEquals(f, qMulBPlusR);
     }
     
     @Test
@@ -184,6 +195,87 @@ public class PolyNumberTest {
         assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
     }
     
+        @Test
+    public void testDiv21() {
+        var a = new PolyNumber(2, 7, 2, -3);
+        var b = new PolyNumber(1, 3);
+        var c = new PolyNumber(2, 1, -1);
+        assertEquals(c, a.div2(b)[0]);
+        assertEquals(b, a.div2(c)[0]);
+    }
+    
+    @Test void testDiv22() {
+        var a = new PolyNumber(12, 8, -7, -2, 1);
+        var b = new PolyNumber(4, 0, -1);
+        var c = new PolyNumber(3, 2, -1);
+        assertEquals(c, a.div2(b)[0]);
+        assertEquals(b, a.div2(c)[0]);
+    }
+    
+    @Test
+    public void testDiv23(){
+        var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
+        var b = new PolyNumber(1, -1, 1);
+        var c = new PolyNumber(1, 1, 0, -1, -1);
+        assertEquals(c, a.div2(b)[0]);
+        assertEquals(b, a.div2(c)[0]);
+    }
+    
+    @Test
+    public void testDiv24() {
+        System.out.println("********testDiv24********");
+        var a = new PolyNumber(1, 0, 0, 0, 0, -1);
+        var b = new PolyNumber(1, -1, 1);
+        System.out.println(a + " div2 " + b);
+        var qr = a.div2(b);
+        var q = qr[0];
+        var r = qr[1];
+        System.out.printf("q: %s%n", q.toString());
+        System.out.printf("r: %s%n", r.toString());
+        var qMulB = q.mul(b);
+        var qMulBPlusR = qMulB.add(r);
+        System.out.printf("q × b: %s%n",qMulB);
+        System.out.printf("q × b + r: %s%n",qMulBPlusR);
+        System.out.println();
+        assertEquals(a, qMulBPlusR);        
+    }
+    
+    @Test
+    public void testDiv25() {
+        var f = new PolyNumber(3, 1, 2, 4);
+        var g = new PolyNumber(1, 2);
+        PolyNumber[] qr = f.div2(g);
+        var q = qr[0];
+        var r = qr[1];
+        System.out.printf("q: %s%n", q.toString());
+        System.out.printf("r: %s%n", r.toString());
+        var qMulB = q.mul(g);
+        var qMulBPlusR = qMulB.add(r);
+        System.out.printf("q × b: %s%n",qMulB);
+        System.out.printf("q × b + r: %s%n",qMulBPlusR);
+        System.out.println();
+        assertEquals(f, qMulBPlusR);
+    }
+    
+    @Test
+    public void testGCD22() {
+        var a = new PolyNumber(1, 1, 1, 1, 1, 1, 1);
+        var b = new PolyNumber(1, 1, 1, 0, 1);
+        System.out.printf("a: %s%n", a.toString());
+        System.out.printf("b: %s%n", b.toString());
+        var g = PolyNumber.gcd(a,b);
+        System.out.printf("gcd: %s%n", g.toString());
+        assertEquals(PolyNumber.ONE, g);
+    }
+    
+    @Test
+    public void testGCD222() {
+        var f = new PolyNumber(-2, -3, -2, 0, 1);
+        var g = new PolyNumber(1, 4, 4, 1);
+        var gcd = PolyNumber.gcd(f, g);
+        assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
+    }
+
     @Test
     public void testDelta() {
         var p = new PolyNumber(0,0,0,1);
