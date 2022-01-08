@@ -258,6 +258,22 @@ public class PolyNumberTest {
     }
     
     @Test
+    public void testDiv6() {
+        System.out.println("testDiv6");
+        var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
+        var b = new PolyNumber(1, -1, 1);
+        PolyNumber[] qr = a.div(b);
+        PolyNumber[] qr2 = a.div2(b);
+        var q1 = qr[0];
+        var q2 = qr2[0];
+        System.out.printf("a: %s%n", a);
+        System.out.printf("a.div(b): %s%n", q1);
+        System.out.printf("a.div2(b): %s%n", q2);
+        System.out.printf("q1.mul(b): %s%n", q1.mul(b));
+        System.out.printf("q2.mul(b): %s%n", q2.mul(b));
+    }
+    
+    @Test
     public void testGCD22() {
         var a = new PolyNumber(1, 1, 1, 1, 1, 1, 1);
         var b = new PolyNumber(1, 1, 1, 0, 1);
