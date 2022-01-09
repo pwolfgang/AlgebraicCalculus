@@ -274,7 +274,7 @@ public class PolyNumber {
         PolyNumber q = new PolyNumber(0);
         int index = 0;
         int d = r.deg() - g.deg();
-        while (index <=d && !r.equals(ZERO)) {
+        while ((q.deg()+g.deg())<r.deg() && !PolyNumber.ZERO.equals(r)) {
             var t = r.aS[index].div(g.aS[0]);
             Rational[] a = new Rational[index+1];
             for (int i = 0; i < index; i++) {
@@ -297,6 +297,7 @@ public class PolyNumber {
      * @return gcd(a,b)
      */
     public static PolyNumber gcd(PolyNumber a, PolyNumber b) {
+        System.out.printf("gcd(%s,%s)%n",a, b);
         if (b.equals(PolyNumber.ZERO)) {
             return a;
         }
@@ -453,9 +454,9 @@ public class PolyNumber {
     }
 
     /**
-     * Compute the first derivative of the PolyNumber.
+     * Compute the Faulhaber derivative of the PolyNumber.
      *
-     * @return The first derivative of this PolyNumber.
+     * @return The Faulhaber derivative of this PolyNumber.
      */
     public PolyNumber D() {
         if (aS.length == 1) {
@@ -487,9 +488,9 @@ public class PolyNumber {
     }
 
     /**
-     * Compute the anti-derivative of this PolyNumber.
+     * Compute the Faulhaber integral of this PolyNumber.
      *
-     * @return The anti-derivative
+     * @return The Faulhaber integral
      */
     public PolyNumber S() {
         Rational[] result = new Rational[aS.length + 1];

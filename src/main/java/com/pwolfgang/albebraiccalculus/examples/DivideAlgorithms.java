@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.pwolfgang.albebraiccalculus.examples;
+
+import com.pwolfgang.albebraiccalculus.types.PolyNumber;
+import com.pwolfgang.albebraiccalculus.types.Rational;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+
+/**
+ *
+ * @author Paul Wolfgang <paul@pwolfgang.com>
+ */
+public class DivideAlgorithms {
+    
+    public static void main(String... args) {
+        try {
+            System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new InternalError("VM does not support UTF-8");
+        }
+        var p = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
+        var d = new PolyNumber(1, -1, 1);
+        PolyNumber[] qr1 = p.div(d);
+        PolyNumber[] qr2 = p.div2(d);
+        var q1 = qr1[0];
+        var r1 = qr1[1];
+        var q2 = qr2[0];
+        var r2 = qr2[1];
+        Rational pVal = p.eval(10);
+        Rational dVal = d.eval(10);
+        Rational q1Val = q1.eval(10);
+        Rational r1Val = r1.eval(10);
+        Rational q2Val = q2.eval(10);
+        Rational r2Val = r2.eval(10);
+        System.out.printf("%s = (%s × %s) + %s%n", p, d, q1, r1);
+        System.out.printf("%s = (%s × %s) + %s%n", pVal, dVal, q1Val, r1Val);
+        System.out.printf("%s = (%s × %s) + %s%n", p, d, q2, r2);
+        System.out.printf("%s = (%s × %s) + %s%n", pVal, dVal, q2Val, r2Val);
+        
+        
+    }
+    
+}
