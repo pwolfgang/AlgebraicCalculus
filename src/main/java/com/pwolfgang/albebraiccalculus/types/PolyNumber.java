@@ -8,6 +8,8 @@ package com.pwolfgang.albebraiccalculus.types;
 import com.pwolfgang.albebraiccalculus.SqMatrix;
 import com.pwolfgang.albebraiccalculus.datastructures.List;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 /**
@@ -288,6 +290,44 @@ public class PolyNumber {
         }
         return new PolyNumber[]{q,r};
     }
+    
+    public Iterator<PolyNumber> iterativeDiv(PolyNumber g) {
+        return new DivIterator(this, g);
+    }
+    
+    private static class DivIterator implements Iterator<PolyNumber> {
+        
+        private PolyNumber r;
+        private PolyNumber g;
+        private int index;
+        
+        public DivIterator(PolyNumber p, PolyNumber g) {
+            this.r = new PolyNumber(p.aS);
+            this.g = g;
+            this.index = 0;
+        }
+        
+        public PolyNumber next() {
+            if (hasNext()) {
+                var t = r.aS[index].div(g.aS[0]);
+                Rational[] a = new Rational[index+1];
+                for (int i = 0; i < index; i++) {
+                    a[i] = Rational.ZERO;
+                }
+                a[index] = t;
+                var p = new PolyNumber(a);
+                r = r.sub(p.mul(g));
+                index++;
+                return p;
+            } else {
+                throw new NoSuchElementException();
+            }
+        }
+        
+        public boolean hasNext() {
+            return !r.equals(PolyNumber.ZERO);
+        }
+    }
 
     /**
      * Compute the greatest common divisor of two PolyNumbers.
@@ -315,7 +355,8 @@ public class PolyNumber {
      * @return The values [g, x, y].
      */
     public static PolyNumber[] extendedGCD(PolyNumber a, PolyNumber b) {
-        return eGCD(a, b, PolyNumber.ONE, PolyNumber.ZERO, PolyNumber.ZERO, PolyNumber.ONE);
+        return eGCD(a, b, PolyNumber.ONE, PolyNumber.ZERO, 
+                PolyNumber.ZERO, PolyNumber.ONE);
     }
 
     /**
@@ -334,7 +375,8 @@ public class PolyNumber {
      * @param by The current value of by
      * @return The values [g, x, y].
      */
-    public static PolyNumber[] eGCD(PolyNumber a, PolyNumber b, PolyNumber ax, PolyNumber ay, PolyNumber bx, PolyNumber by) {
+    public static PolyNumber[] eGCD(PolyNumber a, PolyNumber b, PolyNumber ax, 
+            PolyNumber ay, PolyNumber bx, PolyNumber by) {
         PolyNumber[] qr = a.div(b);
         PolyNumber q = qr[0];
         PolyNumber r = qr[1];

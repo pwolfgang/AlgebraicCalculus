@@ -274,6 +274,37 @@ public class PolyNumberTest {
     }
     
     @Test
+    public void testIterativeDiv() {
+        System.out.println("testIterativeDiv");
+        var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
+        var b = new PolyNumber(1, -1, 1);
+        var itr = a.iterativeDiv(b);
+        var q = PolyNumber.ZERO;
+        while (itr.hasNext()) {
+            var p = itr.next();
+            q = q.add(p);
+            System.out.println(p);
+        }
+        assertEquals(new PolyNumber(1,1,0,-1,-1), q);
+    }
+
+    @Test
+    public void testIterativeDiv2() {
+        System.out.println("testIterativeDiv2");
+        var a = new PolyNumber(1, 0, 0, 0, 0, -1);
+        var b = new PolyNumber(1, -1, 1);
+        var itr = a.iterativeDiv(b);
+        var q = PolyNumber.ZERO;
+        int i = 0;
+        while (itr.hasNext() && i++ < 6) {
+            var p = itr.next();
+            q = q.add(p);
+            System.out.println(p);
+        }
+        assertEquals(new PolyNumber(1,1,0,-1,-1, -1), q);
+    }
+    
+    @Test
     public void testGCD22() {
         var a = new PolyNumber(1, 1, 1, 1, 1, 1, 1);
         var b = new PolyNumber(1, 1, 1, 0, 1);
