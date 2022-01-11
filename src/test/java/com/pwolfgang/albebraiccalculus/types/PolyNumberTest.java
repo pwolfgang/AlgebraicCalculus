@@ -195,82 +195,16 @@ public class PolyNumberTest {
         assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
     }
     
-        @Test
-    public void testDiv21() {
-        var a = new PolyNumber(2, 7, 2, -3);
-        var b = new PolyNumber(1, 3);
-        var c = new PolyNumber(2, 1, -1);
-        assertEquals(c, a.div2(b)[0]);
-        assertEquals(b, a.div2(c)[0]);
-    }
-    
-    @Test void testDiv22() {
-        var a = new PolyNumber(12, 8, -7, -2, 1);
-        var b = new PolyNumber(4, 0, -1);
-        var c = new PolyNumber(3, 2, -1);
-        assertEquals(c, a.div2(b)[0]);
-        assertEquals(b, a.div2(c)[0]);
-    }
-    
-    @Test
-    public void testDiv23(){
-        var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
-        var b = new PolyNumber(1, -1, 1);
-        var c = new PolyNumber(1, 1, 0, -1, -1);
-        assertEquals(c, a.div2(b)[0]);
-        assertEquals(b, a.div2(c)[0]);
-    }
-    
-    @Test
-    public void testDiv24() {
-        System.out.println("********testDiv24********");
-        var a = new PolyNumber(1, 0, 0, 0, 0, -1);
-        var b = new PolyNumber(1, -1, 1);
-        System.out.println(a + " div2 " + b);
-        var qr = a.div2(b);
-        var q = qr[0];
-        var r = qr[1];
-        System.out.printf("q: %s%n", q.toString());
-        System.out.printf("r: %s%n", r.toString());
-        var qMulB = q.mul(b);
-        var qMulBPlusR = qMulB.add(r);
-        System.out.printf("q × b: %s%n",qMulB);
-        System.out.printf("q × b + r: %s%n",qMulBPlusR);
-        System.out.println();
-        assertEquals(a, qMulBPlusR);        
-    }
-    
-    @Test
-    public void testDiv25() {
-        var f = new PolyNumber(3, 1, 2, 4);
-        var g = new PolyNumber(1, 2);
-        PolyNumber[] qr = f.div2(g);
-        var q = qr[0];
-        var r = qr[1];
-        System.out.printf("q: %s%n", q.toString());
-        System.out.printf("r: %s%n", r.toString());
-        var qMulB = q.mul(g);
-        var qMulBPlusR = qMulB.add(r);
-        System.out.printf("q × b: %s%n",qMulB);
-        System.out.printf("q × b + r: %s%n",qMulBPlusR);
-        System.out.println();
-        assertEquals(f, qMulBPlusR);
-    }
-    
     @Test
     public void testDiv6() {
         System.out.println("testDiv6");
         var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
         var b = new PolyNumber(1, -1, 1);
         PolyNumber[] qr = a.div(b);
-        PolyNumber[] qr2 = a.div2(b);
         var q1 = qr[0];
-        var q2 = qr2[0];
         System.out.printf("a: %s%n", a);
         System.out.printf("a.div(b): %s%n", q1);
-        System.out.printf("a.div2(b): %s%n", q2);
         System.out.printf("q1.mul(b): %s%n", q1.mul(b));
-        System.out.printf("q2.mul(b): %s%n", q2.mul(b));
     }
     
     @Test

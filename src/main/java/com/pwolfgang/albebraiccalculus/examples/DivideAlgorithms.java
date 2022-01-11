@@ -39,21 +39,14 @@ public class DivideAlgorithms {
 
     private static void compute(PolyNumber p, Rational alpha, PolyNumber d) {
         PolyNumber[] qr1 = p.div(d);
-        PolyNumber[] qr2 = p.div2(d);
         var q1 = qr1[0];
         var r1 = qr1[1];
-        var q2 = qr2[0];
-        var r2 = qr2[1];
         Rational pVal = p.eval(alpha);
         Rational dVal = d.eval(alpha);
         Rational q1Val = q1.eval(alpha);
         Rational r1Val = r1.eval(alpha);
-        Rational q2Val = q2.eval(alpha);
-        Rational r2Val = r2.eval(alpha);
-        System.out.printf("%s = (%s × %s) + %s%n", p, d, q1, r1);
+       System.out.printf("%s = (%s × %s) + %s%n", p, d, q1, r1);
         System.out.printf("%s = (%s × %s) + %s%n", pVal, dVal, q1Val, r1Val);
-        System.out.printf("%s = (%s × %s) + %s%n", p, d, q2, r2);
-        System.out.printf("%s = (%s × %s) + %s%n", pVal, dVal, q2Val, r2Val);
     }
     
 }

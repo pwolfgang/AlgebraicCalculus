@@ -267,30 +267,7 @@ public class PolyNumber {
         }
         return new PolyNumber[]{q, r};
     }
-    
-    /**
-     * Alternate version of divide.
-     */
-    public PolyNumber[] div2 (PolyNumber g) {
-        PolyNumber r = new PolyNumber(aS);
-        PolyNumber q = new PolyNumber(0);
-        int index = 0;
-        int d = r.deg() - g.deg();
-        while ((q.deg()+g.deg())<r.deg() && !PolyNumber.ZERO.equals(r)) {
-            var t = r.aS[index].div(g.aS[0]);
-            Rational[] a = new Rational[index+1];
-            for (int i = 0; i < index; i++) {
-                a[i] = Rational.ZERO;
-            }
-            a[index] = t;
-            var p = new PolyNumber(a);
-            r = r.sub(p.mul(g));
-            q = q.add(p);
-            index++;
-        }
-        return new PolyNumber[]{q,r};
-    }
-    
+       
     public Iterator<PolyNumber> iterativeDiv(PolyNumber g) {
         return new DivIterator(this, g);
     }
