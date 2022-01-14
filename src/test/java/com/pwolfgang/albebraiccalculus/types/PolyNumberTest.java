@@ -367,4 +367,44 @@ public class PolyNumberTest {
         System.out.printf("tExpected: %s%n", tExpected.toString());
         assertEquals(tExpected, t);
     }
+    
+    @Test
+    public void testSqrt() {
+        System.out.println("Test sqrt");
+        PolyNumber q = new PolyNumber(1,1);
+        var itr = q.sqrt();
+        int index = 0;
+        PolyNumber alphaN = PolyNumber.ALPHA;
+        PolyNumber p = PolyNumber.ONE;
+        while (index++ < 5 && itr.hasNext()) {
+            var c = itr.next();
+            p = p.add(alphaN.mul(c));
+            alphaN = alphaN.mul(PolyNumber.ALPHA);
+        }
+        var expected = new PolyNumber(Rational.ONE, new Rational(1,2), 
+                new Rational(-1, 8), new Rational(1,16), new Rational(-5,128), 
+                new Rational(7,256));
+        System.out.printf("Sqrt(%s) is %s + ...%n", q, p);
+        assertEquals(expected, p);
+    }
+
+    @Test
+    public void testSqrt2() {
+        System.out.println("Test sqrt2");
+        PolyNumber q = new PolyNumber(1,1,-1);
+        var itr = q.sqrt();
+        int index = 0;
+        PolyNumber alphaN = PolyNumber.ALPHA;
+        PolyNumber p = PolyNumber.ONE;
+        while (index++ < 5 && itr.hasNext()) {
+            var c = itr.next();
+            p = p.add(alphaN.mul(c));
+            alphaN = alphaN.mul(PolyNumber.ALPHA);
+        }
+        var expected = new PolyNumber(Rational.ONE, new Rational(1,2), 
+                new Rational(-5, 8), new Rational(5,16), new Rational(-45,128), 
+                new Rational(95,256));
+        System.out.printf("Sqrt(%s) is %s + ...%n", q, p);
+        assertEquals(expected, p);
+    }
 }

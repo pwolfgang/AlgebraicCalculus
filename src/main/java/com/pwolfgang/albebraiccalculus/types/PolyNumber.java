@@ -37,6 +37,11 @@ public class PolyNumber {
      * The PolyNumber one.
      */
     public static final PolyNumber ONE = new PolyNumber(1);
+    
+    /**
+     * The PolyNumber alpha.
+     */
+    public static final PolyNumber ALPHA = new PolyNumber(0, 1);
 
     /**
      * Package private constructor. Creates an empty PolyNumber.
@@ -89,6 +94,19 @@ public class PolyNumber {
         while (i > 0 && list.get(i).equals(Rational.ZERO)) {
             list.remove(i);
             i--;
+        }
+    }
+    
+    /**
+     * Return the ith coefficient.
+     * @param i The index of the coefficient
+     * @return  The coefficient or ZERO if i &gt; degree.
+     */
+    public Rational getCoef(int i) {
+        if (i < aS.length) {
+            return aS[i];
+        } else {
+            return Rational.ZERO;
         }
     }
 
@@ -303,6 +321,35 @@ public class PolyNumber {
         
         public boolean hasNext() {
             return !r.equals(PolyNumber.ZERO);
+        }
+    }
+    
+    public Iterator<Rational> sqrt() {
+            if (!aS[0].equals(Rational.ONE)) {
+                throw new IllegalArgumentException("Zeroth codfficient not equal to one");
+            }
+        return new SqrtIterator();
+    }
+    
+    private class SqrtIterator implements Iterator<Rational> {
+        
+        private PolyNumber p;
+        private PolyNumber pSq;
+
+        public SqrtIterator() {
+            p = ONE;
+            pSq = ONE;
+        }
+        
+        public boolean hasNext() {
+            return (!pSq.equals(PolyNumber.this));
+        }
+        
+        public Rational next() {
+            var pp = PolyNumber.this.sub(pSq);
+            p = p.add(pp.div(Rational.TWO));
+            pSq = p.mul(p);
+            return p.aS[p.aS.length-1];
         }
     }
 
