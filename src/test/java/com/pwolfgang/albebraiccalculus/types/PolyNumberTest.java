@@ -407,4 +407,22 @@ public class PolyNumberTest {
         System.out.printf("Sqrt(%s) is %s + ...%n", q, p);
         assertEquals(expected, p);
     }
+
+    @Test
+    public void testSqrt3() {
+        System.out.println("Test sqrt3");
+        PolyNumber q = new PolyNumber(1,2,1);
+        var itr = q.sqrt();
+        int index = 0;
+        PolyNumber alphaN = PolyNumber.ALPHA;
+        PolyNumber p = PolyNumber.ONE;
+        while (index++ < 5 && itr.hasNext()) {
+            var c = itr.next();
+            p = p.add(alphaN.mul(c));
+            alphaN = alphaN.mul(PolyNumber.ALPHA);
+        }
+        var expected = new PolyNumber(1,1); 
+        System.out.printf("Sqrt(%s) is %s%n", q, p);
+        assertEquals(expected, p);
+    }
 }
