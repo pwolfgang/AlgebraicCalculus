@@ -286,22 +286,52 @@ public class PolyNumber {
         return new PolyNumber[]{q, r};
     }
        
+    /**
+     * Divide this PolyNumber by another PolyNumber. The result is returned
+     * as an Iterator&lt;PolyNumber&gt; Each call to next on the iterator
+     * returns the next term in the quotient. The hasNext returns false if
+     * the division is exact and the last term has been returned.
+     * @param g The divisor
+     * @return The quotient as an Iterator.
+     */
     public Iterator<PolyNumber> iterativeDiv(PolyNumber g) {
         return new DivIterator(this, g);
     }
     
+    /**
+     * Class to implement the Iterator returned by dividing one polynumber
+     * by another.
+     */
     private static class DivIterator implements Iterator<PolyNumber> {
         
+        /**
+         * The current remainder.
+         */
         private PolyNumber r;
+        /**
+         * The divisor
+         */
         private PolyNumber g;
+        /**
+         * The index of the current term in the quotient
+         */
         private int index;
         
+        /**
+         * Constructor;
+         * @param p The dividend
+         * @param g The divisior
+         */
         public DivIterator(PolyNumber p, PolyNumber g) {
             this.r = new PolyNumber(p.aS);
             this.g = g;
             this.index = 0;
         }
         
+        /**
+         * Compute the next term in the quotient.
+         * @return The next term in the quotient.
+         */
         public PolyNumber next() {
             if (hasNext()) {
                 var t = r.aS[index].div(g.aS[0]);
@@ -319,6 +349,10 @@ public class PolyNumber {
             }
         }
         
+        /**
+         * Return true if the remainder is not zero.
+         * @return true if the remainder is not zero
+         */
         public boolean hasNext() {
             return !r.equals(PolyNumber.ZERO);
         }
