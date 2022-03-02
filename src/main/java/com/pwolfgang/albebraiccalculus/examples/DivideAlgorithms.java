@@ -38,7 +38,7 @@ public class DivideAlgorithms {
     }
 
     private static void compute(PolyNumber p, Rational alpha, PolyNumber d) {
-        PolyNumber[] qr1 = p.div(d);
+        PolyNumber[] qr1 = p.divWithRemainder(d);
         var q1 = qr1[0];
         var r1 = qr1[1];
         Rational pVal = p.eval(alpha);

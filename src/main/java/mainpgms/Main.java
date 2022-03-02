@@ -73,7 +73,7 @@ public class Main {
             canvas.plotPixel(-p1 + offset, p2 + offset, Color.BLUE, 2);
             canvas.plotPixel(-p2 + offset, p1 + offset, Color.BLUE, 2);
         }
-//        Rational rationalA = (new Rational(Math.sqrt(2)).mul(new Rational(4))).sub(new Rational(4)).div(new Rational(3));
+//        Rational rationalA = (new Rational(Math.sqrt(2)).mul(new Rational(4))).sub(new Rational(4)).divWithRemainder(new Rational(3));
         var rationalA = new Rational(11,20);
         var p0 = new Point(1, 0, 1);
         var p1 = new Point(rationalA, Rational.ONE);

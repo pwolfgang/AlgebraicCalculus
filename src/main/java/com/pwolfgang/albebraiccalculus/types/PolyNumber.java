@@ -268,7 +268,7 @@ public class PolyNumber {
      * @return An array. The [0] entry is the quotient and the [1] entry is the
      * remainder.
      */
-    public PolyNumber[] div(PolyNumber g) {
+    public PolyNumber[] divWithRemainder(PolyNumber g) {
         PolyNumber r = new PolyNumber(aS);
         PolyNumber q = new PolyNumber(0);
         while (r.deg() >= g.deg() && !PolyNumber.ZERO.equals(r)) {
@@ -294,69 +294,10 @@ public class PolyNumber {
      * @param g The divisor
      * @return The quotient as an Iterator.
      */
-    public Iterator<PolyNumber> iterativeDiv(PolyNumber g) {
-        return new DivIterator(this, g);
+    public DivPolySeries div(PolyNumber g) {
+        return new DivPolySeries(this, g);
     }
     
-    /**
-     * Class to implement the Iterator returned by dividing one polynumber
-     * by another.
-     */
-    private static class DivIterator implements Iterator<PolyNumber> {
-        
-        /**
-         * The current remainder.
-         */
-        private PolyNumber r;
-        /**
-         * The divisor
-         */
-        private PolyNumber g;
-        /**
-         * The index of the current term in the quotient
-         */
-        private int index;
-        
-        /**
-         * Constructor;
-         * @param p The dividend
-         * @param g The divisior
-         */
-        public DivIterator(PolyNumber p, PolyNumber g) {
-            this.r = new PolyNumber(p.aS);
-            this.g = g;
-            this.index = 0;
-        }
-        
-        /**
-         * Compute the next term in the quotient.
-         * @return The next term in the quotient.
-         */
-        public PolyNumber next() {
-            if (hasNext()) {
-                var t = r.aS[index].div(g.aS[0]);
-                Rational[] a = new Rational[index+1];
-                for (int i = 0; i < index; i++) {
-                    a[i] = Rational.ZERO;
-                }
-                a[index] = t;
-                var p = new PolyNumber(a);
-                r = r.sub(p.mul(g));
-                index++;
-                return p;
-            } else {
-                throw new NoSuchElementException();
-            }
-        }
-        
-        /**
-         * Return true if the remainder is not zero.
-         * @return true if the remainder is not zero
-         */
-        public boolean hasNext() {
-            return !r.equals(PolyNumber.ZERO);
-        }
-    }
     
     public Iterator<Rational> sqrt() {
             if (!aS[0].equals(Rational.ONE)) {
@@ -399,7 +340,7 @@ public class PolyNumber {
         if (b.equals(PolyNumber.ZERO)) {
             return a;
         }
-        var r = a.div(b)[1];
+        var r = a.divWithRemainder(b)[1];
         return gcd(b, r);
     }
 
@@ -435,7 +376,7 @@ public class PolyNumber {
      */
     public static PolyNumber[] eGCD(PolyNumber a, PolyNumber b, PolyNumber ax, 
             PolyNumber ay, PolyNumber bx, PolyNumber by) {
-        PolyNumber[] qr = a.div(b);
+        PolyNumber[] qr = a.divWithRemainder(b);
         PolyNumber q = qr[0];
         PolyNumber r = qr[1];
         if (r.equals(PolyNumber.ZERO)) {

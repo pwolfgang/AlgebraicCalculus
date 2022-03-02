@@ -118,16 +118,16 @@ public class PolyNumberTest {
         var a = new PolyNumber(2, 7, 2, -3);
         var b = new PolyNumber(1, 3);
         var c = new PolyNumber(2, 1, -1);
-        assertEquals(c, a.div(b)[0]);
-        assertEquals(b, a.div(c)[0]);
+        assertEquals(c, a.divWithRemainder(b)[0]);
+        assertEquals(b, a.divWithRemainder(c)[0]);
     }
     
     @Test void testDiv2() {
         var a = new PolyNumber(12, 8, -7, -2, 1);
         var b = new PolyNumber(4, 0, -1);
         var c = new PolyNumber(3, 2, -1);
-        assertEquals(c, a.div(b)[0]);
-        assertEquals(b, a.div(c)[0]);
+        assertEquals(c, a.divWithRemainder(b)[0]);
+        assertEquals(b, a.divWithRemainder(c)[0]);
     }
     
     @Test
@@ -135,8 +135,8 @@ public class PolyNumberTest {
         var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
         var b = new PolyNumber(1, -1, 1);
         var c = new PolyNumber(1, 1, 0, -1, -1);
-        assertEquals(c, a.div(b)[0]);
-        assertEquals(b, a.div(c)[0]);
+        assertEquals(c, a.divWithRemainder(b)[0]);
+        assertEquals(b, a.divWithRemainder(c)[0]);
     }
     
     @Test
@@ -145,7 +145,7 @@ public class PolyNumberTest {
         var a = new PolyNumber(1, 0, 0, 0, 0, -1);
         var b = new PolyNumber(1, -1, 1);
         System.out.println(a + " div " + b);
-        var qr = a.div(b);
+        var qr = a.divWithRemainder(b);
         var q = qr[0];
         var r = qr[1];
         System.out.printf("q: %s%n", q.toString());
@@ -163,7 +163,7 @@ public class PolyNumberTest {
     public void testDiv5() {
         var f = new PolyNumber(3, 1, 2, 4);
         var g = new PolyNumber(1, 2);
-        PolyNumber[] qr = f.div(g);
+        PolyNumber[] qr = f.divWithRemainder(g);
         var q = qr[0];
         var r = qr[1];
         System.out.printf("q: %s%n", q.toString());
@@ -200,43 +200,13 @@ public class PolyNumberTest {
         System.out.println("testDiv6");
         var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
         var b = new PolyNumber(1, -1, 1);
-        PolyNumber[] qr = a.div(b);
+        PolyNumber[] qr = a.divWithRemainder(b);
         var q1 = qr[0];
         System.out.printf("a: %s%n", a);
         System.out.printf("a.div(b): %s%n", q1);
         System.out.printf("q1.mul(b): %s%n", q1.mul(b));
     }
     
-    @Test
-    public void testIterativeDiv() {
-        System.out.println("testIterativeDiv");
-        var a = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
-        var b = new PolyNumber(1, -1, 1);
-        var itr = a.iterativeDiv(b);
-        var q = PolyNumber.ZERO;
-        while (itr.hasNext()) {
-            var p = itr.next();
-            q = q.add(p);
-            System.out.println(p);
-        }
-        assertEquals(new PolyNumber(1,1,0,-1,-1), q);
-    }
-
-    @Test
-    public void testIterativeDiv2() {
-        System.out.println("testIterativeDiv2");
-        var a = new PolyNumber(1, 0, 0, 0, 0, -1);
-        var b = new PolyNumber(1, -1, 1);
-        var itr = a.iterativeDiv(b);
-        var q = PolyNumber.ZERO;
-        int i = 0;
-        while (itr.hasNext() && i++ < 6) {
-            var p = itr.next();
-            q = q.add(p);
-            System.out.println(p);
-        }
-        assertEquals(new PolyNumber(1,1,0,-1,-1, -1), q);
-    }
     
     @Test
     public void testGCD22() {
