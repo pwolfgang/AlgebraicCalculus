@@ -299,34 +299,12 @@ public class PolyNumber {
     }
     
     
-    public Iterator<Rational> sqrt() {
+    public SqrtPolySeries sqrt() {
             if (!aS[0].equals(Rational.ONE)) {
                 throw new IllegalArgumentException("Zeroth codfficient not equal to one");
             }
-        return new SqrtIterator();
-    }
-    
-    private class SqrtIterator implements Iterator<Rational> {
-        
-        private PolyNumber p;
-        private PolyNumber pSq;
-
-        public SqrtIterator() {
-            p = ONE;
-            pSq = ONE;
-        }
-        
-        public boolean hasNext() {
-            return (!pSq.equals(PolyNumber.this));
-        }
-        
-        public Rational next() {
-            var pp = PolyNumber.this.sub(pSq);
-            p = p.add(pp.div(Rational.TWO));
-            pSq = p.mul(p);
-            return p.aS[p.aS.length-1];
-        }
-    }
+        return new SqrtPolySeries(this);
+    }   
 
     /**
      * Compute the greatest common divisor of two PolyNumbers.

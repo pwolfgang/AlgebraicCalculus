@@ -342,14 +342,13 @@ public class PolyNumberTest {
     public void testSqrt() {
         System.out.println("Test sqrt");
         PolyNumber q = new PolyNumber(1,1);
-        var itr = q.sqrt();
+        var itr = q.sqrt().iterator();
         int index = 0;
         PolyNumber alphaN = PolyNumber.ALPHA;
         PolyNumber p = PolyNumber.ONE;
         while (index++ < 5 && itr.hasNext()) {
             var c = itr.next();
-            p = p.add(alphaN.mul(c));
-            alphaN = alphaN.mul(PolyNumber.ALPHA);
+            p = p.add(c);
         }
         var expected = new PolyNumber(Rational.ONE, new Rational(1,2), 
                 new Rational(-1, 8), new Rational(1,16), new Rational(-5,128), 
@@ -362,14 +361,13 @@ public class PolyNumberTest {
     public void testSqrt2() {
         System.out.println("Test sqrt2");
         PolyNumber q = new PolyNumber(1,1,-1);
-        var itr = q.sqrt();
+        var itr = q.sqrt().iterator();
         int index = 0;
         PolyNumber alphaN = PolyNumber.ALPHA;
         PolyNumber p = PolyNumber.ONE;
         while (index++ < 5 && itr.hasNext()) {
             var c = itr.next();
-            p = p.add(alphaN.mul(c));
-            alphaN = alphaN.mul(PolyNumber.ALPHA);
+            p = p.add(c);
         }
         var expected = new PolyNumber(Rational.ONE, new Rational(1,2), 
                 new Rational(-5, 8), new Rational(5,16), new Rational(-45,128), 
@@ -382,14 +380,13 @@ public class PolyNumberTest {
     public void testSqrt3() {
         System.out.println("Test sqrt3");
         PolyNumber q = new PolyNumber(1,2,1);
-        var itr = q.sqrt();
+        var itr = q.sqrt().iterator();
         int index = 0;
         PolyNumber alphaN = PolyNumber.ALPHA;
         PolyNumber p = PolyNumber.ONE;
         while (index++ < 5 && itr.hasNext()) {
             var c = itr.next();
-            p = p.add(alphaN.mul(c));
-            alphaN = alphaN.mul(PolyNumber.ALPHA);
+            p = p.add(c);
         }
         var expected = new PolyNumber(1,1); 
         System.out.printf("Sqrt(%s) is %s%n", q, p);
