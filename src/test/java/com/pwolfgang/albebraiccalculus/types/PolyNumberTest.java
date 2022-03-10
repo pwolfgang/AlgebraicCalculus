@@ -313,13 +313,6 @@ public class PolyNumberTest {
     }
     
     @Test
-    public void testEGCD1() {
-        assertArrayEquals(new int[]{4, -11, 12}, PolyNumber.eGCD(196, 180));
-        assertArrayEquals(new int[]{6, -2, 33}, PolyNumber.eGCD(888, 54));
-        assertArrayEquals(new int[]{1, -4, 15}, PolyNumber.eGCD(56, 15));
-    }
-    
-    @Test
     public void testEGCD2() {
         System.out.println("Extended PolyNumber GCD");
         PolyNumber a = new PolyNumber(-2, -3, -2, 0, 1);

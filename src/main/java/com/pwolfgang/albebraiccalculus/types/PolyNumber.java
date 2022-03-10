@@ -8,8 +8,6 @@ package com.pwolfgang.albebraiccalculus.types;
 import com.pwolfgang.albebraiccalculus.SqMatrix;
 import com.pwolfgang.albebraiccalculus.datastructures.List;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 /**
@@ -337,7 +335,7 @@ public class PolyNumber {
     }
 
     /**
-     * Recutsive function to compute the extended gcd of two PolyNumbers. The
+     * Recursive function to compute the extended gcd of two PolyNumbers. The
      * extended gcd results in three values: gcd(a,b) and the values x and y
      * such that ax + by = gcd(a,b). At each call to the recursive function the
      * following invariants are preserved. If A and B are the initial values of
@@ -365,55 +363,6 @@ public class PolyNumber {
         return eGCD(b, r, bx, by, x, y);
     }
 
-    /**
-     * Perform integer division of a and b
-     *
-     * @param a
-     * @param b
-     * @return the array [q, r] where q is the quotent and r is the remainder.
-     */
-    public static int[] div(int a, int b) {
-        int q = a / b;
-        int r = a - q * b;
-        return new int[]{q, r};
-    }
-
-    /**
-     * Compute the extended GCD of integers a and b.
-     *
-     * @param a
-     * @param b
-     * @return the array [g, x, y] where ax+by=g.
-     */
-    public static int[] eGCD(int a, int b) {
-        return eGCD(a, b, 1, 0, 0, 1);
-    }
-
-    /**
-     * Recursive extended GCD for integers. At each call to the recursive
-     * function the following invariants are preserved. If A and B are the
-     * initial values of a and b, then gcd(a,b)==gcd(A,B). a == A*ax + B*ay b ==
-     * A*bx + B*by The algorithm terminates when b divides a.
-     *
-     * @param a One PolyNumber
-     * @param b The other PolyNumber.
-     * @param ax The current value of ax
-     * @param ay The current value of ay
-     * @param bx The current value of bx
-     * @param by The current value of by
-     * @return The values [g, x, y].
-     */
-    public static int[] eGCD(int a, int b, int ax, int ay, int bx, int by) {
-        int[] qr = div(a, b);
-        int q = qr[0];
-        int r = qr[1];
-        if (r == 0) {
-            return new int[]{b, bx, by};
-        }
-        int x = ax - q * bx;
-        int y = ay - q * by;
-        return eGCD(b, r, bx, by, x, y);
-    }
 
     /**
      * Scale this PolyNumber by dividing each element by x
