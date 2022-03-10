@@ -17,7 +17,7 @@ public class Point {
     public static final Point O = new Point(new Rational(0), new Rational(0));
     
     public Point(Rational x, Rational y) {
-        Rational lcm = new Rational(Rational.lcm(x.den, y.den));
+        Rational lcm = new Rational(Int.lcm(x.den, y.den));
         this.a = lcm.num;
         this.b = x.mul(lcm).num;
         this.c = y.mul(lcm).num;

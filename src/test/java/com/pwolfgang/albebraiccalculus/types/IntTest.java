@@ -32,4 +32,9 @@ public class IntTest {
         assertArrayEquals(new long[]{1, 2, -11}, Int.eGCD(28, 5));
     }
     
+    @Test
+    public void testLcm() {
+        assertEquals(140,Int.lcm(28,5));
+    }
+    
 }

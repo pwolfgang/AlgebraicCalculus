@@ -23,7 +23,7 @@ public class Vector {
     }
     
     public Vector(Point p1, Point p2) {
-        long lcm = Rational.lcm(p1.a, p2.a);
+        long lcm = Int.lcm(p1.a, p2.a);
         long p1Scale = lcm/p1.a;
         long p2Scale = lcm/p2.a;
         long scaledP1b = p1Scale * p1.b;

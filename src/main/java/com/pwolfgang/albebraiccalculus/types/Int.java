@@ -31,13 +31,50 @@ public class Int {
      * @param b The other integer
      */
     public static long gcd(long a, long b) {
-        if (b == 0) {
-            return a;
-        } else {
-            return gcd(b, a%b);
+        if (a < 0) a = -a;
+        if (b < 0) b = -b;
+        while (b > 0) {
+            long t = a % b;
+            a = b;
+            b = t;
         }
+        return a;
     }
-
+    
+    /**
+     * Compute the least common multiple of two integers.
+     * 
+     * @param X The first integer
+     * @param Y The second integer
+     * @return the lcm of X and Y
+     */
+    public static long lcm(long X, long Y) {
+        long x = X;
+        long y = Y;
+        long u = Y;
+        long v = X;
+        while (x != y) {
+            if (x > y) {
+                long xOverY = x/y;
+                x = x - xOverY * y;
+                if (x == 0) {
+                    x = y;
+                    xOverY--;
+                }
+                v = v + xOverY * u;
+            } else {
+                long yOverX = y / x;
+                y = y - yOverX * x;
+                if (y == 0) {
+                    y = x;
+                    yOverX--;
+                }
+                u = u + yOverX * v;
+            }
+        }
+        return (u + v)/2;
+    }
+    
     /**
      * Compute the extended GCD of integers a and b.
      *

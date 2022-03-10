@@ -18,8 +18,8 @@ public class Line {
     }
 
     public Line(long r, long s, long t) {
-        long gcd = Rational.gcd(r, s);
-        gcd = Rational.gcd(gcd, t);
+        long gcd = Int.gcd(r, s);
+        gcd = Int.gcd(gcd, t);
         if (r > 0) {
             gcd = -gcd;
         }
@@ -35,8 +35,8 @@ public class Line {
     }
 
     public Line(Rational a, Rational b, Rational c) {
-        long lcm = Rational.lcm(a.den, b.den);
-        lcm = Rational.lcm(lcm, c.den);
+        long lcm = Int.lcm(a.den, b.den);
+        lcm = Int.lcm(lcm, c.den);
         Rational lcmR = new Rational(lcm);
         r = -c.mul(lcmR).num;
         s = a.mul(lcmR).num;

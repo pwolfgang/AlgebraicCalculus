@@ -28,7 +28,7 @@ public class Rational implements Comparable<Rational> {
     }
 
     private long[] normalize(long num1, long den1) {
-        long g = gcd(num1, den1);
+        long g = Int.gcd(num1, den1);
         long n = num1 / g;
         long d = den1 / g;
         if (d < 0) {
@@ -124,47 +124,10 @@ public class Rational implements Comparable<Rational> {
     public static final Rational TWO = new Rational(2, 1);
     public static final Rational THREE = new Rational(3,1);
     public static final Rational HALF = new Rational(1, 2);
-
-    public static long gcd(long a, long b) {
-        if (a < 0) a = -a;
-        if (b < 0) b = -b;
-        while (b > 0) {
-            long t = a % b;
-            a = b;
-            b = t;
-        }
-        return a;
-    }
     
-    public static long lcm(long X, long Y) {
-        long x = X;
-        long y = Y;
-        long u = Y;
-        long v = X;
-        while (x != y) {
-            if (x > y) {
-                long xOverY = x/y;
-                x = x - xOverY * y;
-                if (x == 0) {
-                    x = y;
-                    xOverY--;
-                }
-                v = v + xOverY * u;
-            } else {
-                long yOverX = y / x;
-                y = y - yOverX * x;
-                if (y == 0) {
-                    y = x;
-                    yOverX--;
-                }
-                u = u + yOverX * v;
-            }
-        }
-        return (u + v)/2;
-    }
 
     public Rational add(Rational other) {
-        long commonD = lcm(den, other.den);
+        long commonD = Int.lcm(den, other.den);
         long n1 = num * (commonD / den);
         long n2 = other.num * (commonD / other.den);
         return new Rational(n1 + n2, commonD);
