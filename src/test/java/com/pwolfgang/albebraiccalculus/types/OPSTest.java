@@ -28,10 +28,10 @@ public class OPSTest {
         OPS cd = new OPS(c, d);
         OPS abcd = new OPS(a, b, c, d);
         OPS abcbbc = new OPS(a, b, c, b, b,c);
-        assertEquals(new Rational(3), ab.area());
-        assertEquals(new Rational(1,2), cd.area());
-        assertEquals(new Rational(9,2), abcd.area(), abcd.toString());
-        assertEquals(new Rational(4), abcbbc.area(), abcbbc.toString());
+        assertEquals(Rational.of(3), ab.area());
+        assertEquals(Rational.of(1,2), cd.area());
+        assertEquals(Rational.of(9,2), abcd.area(), abcd.toString());
+        assertEquals(Rational.of(4), abcbbc.area(), abcbbc.toString());
     }
     
     @Test
@@ -41,14 +41,14 @@ public class OPSTest {
             p1to5.add(new Point(i-1, i*i));
         }
         OPS ops1to5 = new OPS(p1to5);
-        assertEquals(new Rational(8), ops1to5.area());
+        assertEquals(Rational.of(8), ops1to5.area());
         
         List<Point> p10to13 = new List<>();
         for (int i = 10; i <= 13; i++) {
             p10to13.add(new Point(i-1, i*i));
         }
         OPS ops10to13 = new OPS(p10to13);
-        assertEquals(new Rational(329,2), ops10to13.area());
+        assertEquals(Rational.of(329,2), ops10to13.area());
     }
     
 }

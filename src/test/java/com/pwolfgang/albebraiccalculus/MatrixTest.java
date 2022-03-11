@@ -15,19 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MatrixTest {
     
-    SqMatrix m = new SqMatrix(new Rational[]{new Rational(2), new Rational(-1), new Rational(-3), new Rational(5)}, 2);
+    SqMatrix m = new SqMatrix(new Rational[]{Rational.of(2), Rational.of(-1), Rational.of(-3), Rational.of(5)}, 2);
     
     public MatrixTest() {
     }
 
     @Test
     public void testDet() {
-        assertEquals(new Rational(7), m.det());
+        assertEquals(Rational.of(7), m.det());
     }
 
     @Test
     public void testInv() {
-        SqMatrix inv = new SqMatrix(new Rational[]{new Rational(5,7), new Rational(1,7), new Rational(3,7), new Rational(2,7)},2);
+        SqMatrix inv = new SqMatrix(new Rational[]{Rational.of(5,7), Rational.of(1,7), Rational.of(3,7), Rational.of(2,7)},2);
         assertEquals(inv, m.inv());
     }
 
@@ -37,8 +37,8 @@ public class MatrixTest {
 
     @Test
     public void testMul() {
-        Rational[] r = new Rational[]{new Rational(1), new Rational(2)};
-        Rational[] c = new Rational[]{new Rational(0), new Rational(7)};
+        Rational[] r = new Rational[]{Rational.of(1), Rational.of(2)};
+        Rational[] c = new Rational[]{Rational.of(0), Rational.of(7)};
         assertArrayEquals(r, m.inv().mul(c));
     }
 
@@ -70,13 +70,13 @@ public class MatrixTest {
     @Test
     public void testMinor() {
         SqMatrix m = new SqMatrix(new long[]{3, 5, 0, 2, -1, -7, 6, -1, 5}, 3);
-        assertEquals(new Rational(25), m.minor(1, 0));
+        assertEquals(Rational.of(25), m.minor(1, 0));
     }
     
     @Test
     public void testDet4x4() {
         SqMatrix m = new SqMatrix(new long[]{-2, -8, 3, 5, -3, 1, 7, 3, 1, 2, -9, 6, -6, 7, 7, -9}, 4);
-        assertEquals(new Rational(-4071), m.det());
+        assertEquals(Rational.of(-4071), m.det());
     }
     
     @Test

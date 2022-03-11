@@ -85,7 +85,7 @@ public class CubicSplineTest {
         var p2 = new Point(2,2);
         var p3 = new Point(3,2);
         var p4 = new Point(4,1);
-        var p = new PolyNumber(Rational.ONE, new Rational(19,3), new Rational(-6), new Rational(5,3));
+        var p = new PolyNumber(Rational.ONE, Rational.of(19,3), Rational.of(-6), Rational.of(5,3));
         var s = new CubicSpline(p, p0, p1, p2, p3, p4);
         for (int i = 0; i < s.polies.length; i++) {
             System.out.printf("p[%d] = %s%n", i, s.polies[i].toString());

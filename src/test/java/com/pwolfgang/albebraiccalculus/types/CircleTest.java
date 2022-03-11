@@ -19,8 +19,8 @@ public class CircleTest {
 
     @Test
     public void testTriangle() {
-        assertEquals(new Rational(6,10), Circle.triangle(new Rational(-1), 
-                new Rational(2), new Rational(-3)).area());
+        assertEquals(Rational.of(6,10), Circle.triangle(Rational.of(-1), 
+                Rational.of(2), Rational.of(-3)).area());
     }
     
 }

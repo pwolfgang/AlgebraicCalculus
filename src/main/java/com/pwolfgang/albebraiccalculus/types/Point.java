@@ -14,10 +14,10 @@ public class Point {
    
     public final long a, b, c;
     
-    public static final Point O = new Point(new Rational(0), new Rational(0));
+    public static final Point O = new Point(Rational.ZERO, Rational.ZERO);
     
     public Point(Rational x, Rational y) {
-        Rational lcm = new Rational(Int.lcm(x.den, y.den));
+        Rational lcm = Rational.of(Int.lcm(x.den, y.den));
         this.a = lcm.num;
         this.b = x.mul(lcm).num;
         this.c = y.mul(lcm).num;
@@ -35,8 +35,8 @@ public class Point {
         this.c = c;
     }
     
-    public Rational getX() {return new Rational(b,a);}
-    public Rational getY() {return new Rational(c,a);}
+    public Rational getX() {return Rational.of(b,a);}
+    public Rational getY() {return Rational.of(c,a);}
     
     public Point mul(Rational lambda) {
         return new Point(getX().mul(lambda), getY().mul(lambda));

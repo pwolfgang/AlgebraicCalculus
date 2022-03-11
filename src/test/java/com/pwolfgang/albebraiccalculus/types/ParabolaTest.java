@@ -27,8 +27,8 @@ public class ParabolaTest {
 
     @Test
     public void testTriangle() {
-        assertEquals(new Rational(10125,1000), Parabola.triangle(new Rational(-1), 
-                new Rational(2), new Rational(-25,10)).area());
+        assertEquals(Rational.of(10125,1000), Parabola.triangle(Rational.of(-1), 
+                Rational.of(2), Rational.of(-25,10)).area());
     }
     
 }

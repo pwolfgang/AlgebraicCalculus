@@ -26,9 +26,9 @@ public class VectorTest {
     
     @Test
     public void vectorTest2() {
-        var p1 = new Point(new Rational(2,3), Rational.ONE);
+        var p1 = new Point(Rational.of(2,3), Rational.ONE);
         var p2 = new Point(5, 3);
-        assertEquals(new Vector(new Rational(13, 3), new Rational(2)), new Vector(p1, p2));
+        assertEquals(new Vector(Rational.of(13, 3), Rational.of(2)), new Vector(p1, p2));
     }
     
     @Test

@@ -42,13 +42,14 @@ public class DCBcurveTestPlus {
     public void testR3_5() {
         System.out.println("testR3_5");
         RationalPlus sqrt2 = new RationalPlus(0,1);
-        RationalPlus a = sqrt2.mul(new Rational(4,3)).sub(new Rational(4,3));
+        RationalPlus a = sqrt2.mul(Rational.of(4,3)).sub(Rational.of(4,3));
         var p0 = new PointPlus(0,1);
         var p1 = new PointPlus(a, new RationalPlus(1));
         var p2 = new PointPlus(new RationalPlus(1),a);
         var p3 = new PointPlus(1,0);
         var curve = new DCBcurvePlus(p0, p1, p2, p3);
-        var lambda = new RationalPlus(Rational.ZERO, new Rational(1,5));
+        var lambda = new RationalPlus(Rational.HALF,Rational.ZERO);
+//        var lambda = new RationalPlus(Rational.ZERO, Rational.of(1,5));
         var r = curve.r3(lambda);
         System.out.println(r);
     }

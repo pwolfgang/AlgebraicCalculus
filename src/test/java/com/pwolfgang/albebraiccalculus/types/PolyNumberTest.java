@@ -51,11 +51,11 @@ public class PolyNumberTest {
     public void testEval_Rational() {
         PolyNumber p = new PolyNumber(3, 2, 1);
         Rational r1 = Rational.ONE;
-        Rational r2 = new Rational(2);
-        Rational r5 = new Rational(5);
-        Rational r6 = new Rational(6);
-        Rational r11 = new Rational(11);
-        Rational r38 = new Rational(38);
+        Rational r2 = Rational.of(2);
+        Rational r5 = Rational.of(5);
+        Rational r6 = Rational.of(6);
+        Rational r11 = Rational.of(11);
+        Rational r38 = Rational.of(38);
         assertEquals(r6, p.eval(r1));
         assertEquals(r11, p.eval(r2));
         assertEquals(r38, p.eval(r5));
@@ -192,7 +192,7 @@ public class PolyNumberTest {
         var f = new PolyNumber(-2, -3, -2, 0, 1);
         var g = new PolyNumber(1, 4, 4, 1);
         var gcd = PolyNumber.gcd(f, g);
-        assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
+        assertEquals(new PolyNumber(Rational.of(11,25), Rational.of(11,25)), gcd);
     }
     
     @Test
@@ -224,7 +224,7 @@ public class PolyNumberTest {
         var f = new PolyNumber(-2, -3, -2, 0, 1);
         var g = new PolyNumber(1, 4, 4, 1);
         var gcd = PolyNumber.gcd(f, g);
-        assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
+        assertEquals(new PolyNumber(Rational.of(11,25), Rational.of(11,25)), gcd);
     }
 
     @Test
@@ -269,7 +269,7 @@ public class PolyNumberTest {
     public void testFromPoints2() {
         var p1 = new Point(-1,2);
         var p2 = new Point(5,4);
-        var q = new PolyNumber(new Rational(7,3), new Rational(1,3));
+        var q = new PolyNumber(Rational.of(7,3), Rational.of(1,3));
         assertEquals(q, PolyNumber.fromPoints(p1, p2));
     }
     
@@ -281,9 +281,9 @@ public class PolyNumberTest {
         var p3 = new Point(1, 5);
         var poly = PolyNumber.fromPoints(p1, p2, p3);
         System.out.println(poly);
-        assertEquals(new Rational(4), poly.eval(-3));
-        assertEquals(new Rational(-2), poly.eval(0));
-        assertEquals(new Rational(5), poly.eval(1));
+        assertEquals(Rational.of(4), poly.eval(-3));
+        assertEquals(Rational.of(-2), poly.eval(0));
+        assertEquals(Rational.of(5), poly.eval(1));
     }
     
     @Test
@@ -295,18 +295,18 @@ public class PolyNumberTest {
         var p4 = new Point(2, 7);
         var poly = PolyNumber.fromPoints(p1, p2, p3, p4);
         System.out.println(poly);
-        assertEquals(new Rational(2), poly.eval(-1));
+        assertEquals(Rational.of(2), poly.eval(-1));
         assertEquals(Rational.ZERO, poly.eval(0));
-        assertEquals(new Rational(4), poly.eval(1));
-        assertEquals(new Rational(7), poly.eval(2));
+        assertEquals(Rational.of(4), poly.eval(1));
+        assertEquals(Rational.of(7), poly.eval(2));
     }
     
     @Test
     public void testFromPointsCircle() {
         System.out.println("circle?");
         var p1 = new Point(0, 1);
-        var p2 = new Point(new Rational(3,5), new Rational(4,5));
-        var p3 = new Point(new Rational(4,5), new Rational(3,5));
+        var p2 = new Point(Rational.of(3,5), Rational.of(4,5));
+        var p3 = new Point(Rational.of(4,5), Rational.of(3,5));
         var p4 = new Point(1, 0);
         var poly = PolyNumber.fromPoints(p1,p2,p3,p4);
         System.out.println(poly);
@@ -323,10 +323,10 @@ public class PolyNumberTest {
         PolyNumber t = egcd[2];
         System.out.printf("%s = (%s)×(%s) + (%s)×(%s)%n",
                 gcd.toString(), s.toString(), a.toString(), t.toString(), b.toString());
-        assertEquals(new PolyNumber(new Rational(11,25), new Rational(11,25)), gcd);
-        PolyNumber sExpected = new PolyNumber(new Rational(-7, 25), new Rational(-1, 10));
+        assertEquals(new PolyNumber(Rational.of(11,25), Rational.of(11,25)), gcd);
+        PolyNumber sExpected = new PolyNumber(Rational.of(-7, 25), Rational.of(-1, 10));
         assertEquals(sExpected, s);
-        PolyNumber tExpected = new PolyNumber(new Rational(-3, 25), new Rational(-3,25), new Rational(1, 10));
+        PolyNumber tExpected = new PolyNumber(Rational.of(-3, 25), Rational.of(-3,25), Rational.of(1, 10));
         System.out.printf("tExpected: %s%n", tExpected.toString());
         assertEquals(tExpected, t);
     }
@@ -343,9 +343,9 @@ public class PolyNumberTest {
             var c = itr.next();
             p = p.add(c);
         }
-        var expected = new PolyNumber(Rational.ONE, new Rational(1,2), 
-                new Rational(-1, 8), new Rational(1,16), new Rational(-5,128), 
-                new Rational(7,256));
+        var expected = new PolyNumber(Rational.ONE, Rational.of(1,2), 
+                Rational.of(-1, 8), Rational.of(1,16), Rational.of(-5,128), 
+                Rational.of(7,256));
         System.out.printf("Sqrt(%s) is %s + ...%n", q, p);
         assertEquals(expected, p);
     }
@@ -362,9 +362,9 @@ public class PolyNumberTest {
             var c = itr.next();
             p = p.add(c);
         }
-        var expected = new PolyNumber(Rational.ONE, new Rational(1,2), 
-                new Rational(-5, 8), new Rational(5,16), new Rational(-45,128), 
-                new Rational(95,256));
+        var expected = new PolyNumber(Rational.ONE, Rational.of(1,2), 
+                Rational.of(-5, 8), Rational.of(5,16), Rational.of(-45,128), 
+                Rational.of(95,256));
         System.out.printf("Sqrt(%s) is %s + ...%n", q, p);
         assertEquals(expected, p);
     }

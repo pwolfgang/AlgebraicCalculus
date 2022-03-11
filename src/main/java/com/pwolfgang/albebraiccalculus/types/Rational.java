@@ -13,21 +13,30 @@ public class Rational implements Comparable<Rational> {
 
     public final long num;
     public final long den;
+    
+    private Rational(long num, long den) {
+        this.num = num;
+        this.den = den;
+    }
 
-    public Rational(long num, long den) { 
+    public static Rational of(long num, long den) { 
         if (den == 0) {
             throw new ArithmeticException("Div by Zero");
         }
         long[] norm = normalize(num, den);
-        this.num = norm[0];
-        if (this.num == 0) {
-            this.den = 1;
+        num = norm[0];
+        if (num == 0) {
+            return ZERO;
         } else {
-            this.den = norm[1];
+            den = norm[1];
         }
+        if (num == 1 && den == 2) {
+            return HALF;
+        }
+        return new Rational(num, den);
     }
 
-    private long[] normalize(long num1, long den1) {
+    private static long[] normalize(long num1, long den1) {
         long g = Int.gcd(num1, den1);
         long n = num1 / g;
         long d = den1 / g;
@@ -38,12 +47,21 @@ public class Rational implements Comparable<Rational> {
         return new long[]{n, d};
     }
 
-    public Rational(long num) {
-        this(num, 1);
+    public static Rational of(long num) {
+        switch ((int)num) {
+            case 0: return ZERO;
+            case 1: return ONE;
+            case 2: return TWO;
+            case 3: return THREE;
+            case -1: return MINUS_ONE;
+            default: return new Rational(num, 1);
+        }
     }
     
-    public Rational(String s) {
+    public static Rational of(String s) {
         String[] tokens = s.split("/");
+        long num;
+        long den;
         if (tokens.length == 1) {
             num = Long.parseLong(s);
             den = 1;
@@ -51,14 +69,15 @@ public class Rational implements Comparable<Rational> {
             long n = Long.parseLong(tokens[0]);
             long d = Long.parseLong(tokens[1]);
             long[] norm = normalize(n, d);
-            this.num = norm[0];
-            this.den = norm[1];
+            num = norm[0];
+            den = norm[1];
         } else {
             throw new NumberFormatException(String.format("Cannot parse %s as Rational", s));
         }
+        return new Rational(num, den);
     }
 
-    public Rational(Double d) {
+    public static Rational of(Double d) {
         long bits = Double.doubleToLongBits(d);
         long mantissa = (bits & 0x000fffffffffffffL) + 0x0010000000000000L;
         long sign = bits & 0x8000000000000000L;
@@ -97,8 +116,7 @@ public class Rational implements Comparable<Rational> {
             norm[0] >>= 1;
             norm[1] >>= 1;
         }
-        this.num = norm[0];
-        this.den = norm[1];
+        return new Rational(norm[0], norm[1]);
    }
 
     public double toDouble() {
@@ -130,11 +148,11 @@ public class Rational implements Comparable<Rational> {
         long commonD = Int.lcm(den, other.den);
         long n1 = num * (commonD / den);
         long n2 = other.num * (commonD / other.den);
-        return new Rational(n1 + n2, commonD);
+        return of(n1 + n2, commonD);
     }
 
     public Rational neg() {
-        return new Rational(-num, den);
+        return of(-num, den);
     }
 
     public Rational sub(Rational other) {
@@ -145,14 +163,14 @@ public class Rational implements Comparable<Rational> {
         Rational x = new Rational(num, other.den);
         Rational y = new Rational(other.num, den);
         try {
-            return new Rational(x.num*y.num, x.den*y.den);
+            return of(x.num*y.num, x.den*y.den);
         } catch (ArithmeticException ex) {
             throw new IllegalArgumentException(String.format("%s.mul(%s)", this.toString(), other.toString()), ex); 
         }
     }
 
     public Rational div(Rational other) {
-        return new Rational(num * other.den, den * other.num);
+        return of(num * other.den, den * other.num);
     }
 
     @Override

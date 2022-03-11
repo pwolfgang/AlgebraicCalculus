@@ -19,7 +19,7 @@ public class Vector {
     }
     
     public Vector(long x, long y){
-        this(new Rational(x), new Rational(y));
+        this(Rational.of(x), Rational.of(y));
     }
     
     public Vector(Point p1, Point p2) {
@@ -30,8 +30,8 @@ public class Vector {
         long scaledP1c = p1Scale * p1.c;
         long scaledP2b = p2Scale * p2.b;
         long scaledP2c = p2Scale * p2.c;
-        this.x = new Rational(scaledP2b - scaledP1b, lcm);
-        this.y = new Rational(scaledP2c - scaledP1c, lcm);
+        this.x = Rational.of(scaledP2b - scaledP1b, lcm);
+        this.y = Rational.of(scaledP2c - scaledP1c, lcm);
     }
     
     public Vector add(Vector other) {

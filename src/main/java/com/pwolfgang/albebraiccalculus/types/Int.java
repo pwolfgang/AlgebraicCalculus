@@ -72,7 +72,11 @@ public class Int {
                 u = u + yOverX * v;
             }
         }
-        return (u + v)/2;
+        long uLB = u & 1L;
+        long vLB = u & 1L;
+        long uPvOver2 = u/2 + v/2;
+        if (uLB==1 && vLB==1) uPvOver2++;
+        return uPvOver2;
     }
     
     /**

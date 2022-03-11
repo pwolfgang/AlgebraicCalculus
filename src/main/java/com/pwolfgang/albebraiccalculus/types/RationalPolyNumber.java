@@ -24,7 +24,7 @@ public class RationalPolyNumber extends PolyNumber {
         Rational n = num.eval(x);
         Rational d = den.eval(x);
         if (Rational.ZERO.equals(d)) {
-            return new Rational(Long.MAX_VALUE);
+            return Rational.of(Long.MAX_VALUE);
         }
         return n.div(d);
     }

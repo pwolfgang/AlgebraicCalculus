@@ -25,7 +25,7 @@ public abstract class Matrix {
         this.nRows = nRows;
         this.nCols = nCols;
         for (int i = 0; i < nRows*nCols; i++) {
-            this.d[i] = new Rational(d[i]);
+            this.d[i] = Rational.of(d[i]);
         }
         
     }

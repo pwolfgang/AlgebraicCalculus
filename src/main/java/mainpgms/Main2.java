@@ -34,22 +34,22 @@ public class Main2 {
         if (args.length < 6) {
             numSteps = 1024;
             radius = 512;
-            scaleFactor = new Rational(1, 16);
-            offsetFactor = new Rational(3, 4);
-            lambdaMin = new Rational(-3);
-            lambdaMax = new Rational(4);
+            scaleFactor = Rational.of(1, 16);
+            offsetFactor = Rational.of(3, 4);
+            lambdaMin = Rational.of(-3);
+            lambdaMax = Rational.of(4);
         } else {
             numSteps = Integer.parseInt(args[0]);
             radius = Integer.parseInt(args[1])/2;
-            scaleFactor = new Rational(args[2]);
-            offsetFactor = new Rational(args[3]);
-            lambdaMin = new Rational(args[4]);
-            lambdaMax = new Rational(args[5]);
+            scaleFactor = Rational.of(args[2]);
+            offsetFactor = Rational.of(args[3]);
+            lambdaMin = Rational.of(args[4]);
+            lambdaMax = Rational.of(args[5]);
         }
         double log2radius = Math.log(radius)/Math.log(2);
         int canvasSize = 1 << ((int)Math.ceil(log2radius)+1);
-        int offset = new Rational(canvasSize).mul(offsetFactor).intValue();
-        radius = new Rational(radius).mul(scaleFactor).intValue();
+        int offset = Rational.of(canvasSize).mul(offsetFactor).intValue();
+        radius = Rational.of(radius).mul(scaleFactor).intValue();
         Canvas canvas = Canvas.newInstance(0., canvasSize-1, 0., canvasSize-1, canvasSize, canvasSize);
         JFrame frame = new JFrame();
         frame.getContentPane().add(canvas);
@@ -65,10 +65,10 @@ public class Main2 {
             new RationalPolyNumber(yTerm, den)
         };
         plotCurve(lambdaMax, lambdaMin, numSteps, folium, radius, offset, canvas, Color.BLACK);
-        var rationalA = new Rational(11,20);
+        var rationalA = Rational.of(11,20);
         var p0 = new Point(2,4);
-        var p1 = new Point(new Rational(11,3), new Rational(16,3));
-        var p2 = new Point(new Rational(16,3), new Rational(11,3));
+        var p1 = new Point(Rational.of(11,3), Rational.of(16,3));
+        var p2 = new Point(Rational.of(16,3), Rational.of(11,3));
         var p3 = new Point(4,2);
         var curve = new DCBcurve(p0, p1, p2, p3);
         PolyNumber[] pn = curve.toPolyNumber();
@@ -91,11 +91,11 @@ public class Main2 {
     private static void plotCurve(Rational lambdaMax, Rational lambdaMin, int numSteps, PolyNumber[] curve, int radius, int offset, Canvas canvas, Color c) {
         Rational deltaLambda = lambdaMax.sub(lambdaMin);
         for (int i = 0; i <= deltaLambda.intValue()*numSteps; i++) {
-            var lambda = new Rational(i, numSteps).add(lambdaMin);
+            var lambda = Rational.of(i, numSteps).add(lambdaMin);
             var x = curve[0].eval(lambda);
             var y = curve[1].eval(lambda);
-            double px = x.mul(new Rational(radius)).add(new Rational(offset)).toDouble();
-            double py = y.mul(new Rational(radius)).add(new Rational(offset)).toDouble();
+            double px = x.mul(Rational.of(radius)).add(Rational.of(offset)).toDouble();
+            double py = y.mul(Rational.of(radius)).add(Rational.of(offset)).toDouble();
             canvas.plotPixel(px, py, c, 2);
         }
     }

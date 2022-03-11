@@ -26,8 +26,8 @@ public class LineTest {
     
     @Test
     public void testLine2() {
-        Line l1 = new Line(new Rational(1,2), new Rational(1,3), new Rational(1));
-        Line l2 = new Line(new Rational(1), new Rational(2,3), new Rational(2));
+        Line l1 = new Line(Rational.of(1,2), Rational.of(1,3), Rational.of(1));
+        Line l2 = new Line(Rational.of(1), Rational.of(2,3), Rational.of(2));
         assertEquals(l2, l1);
     }
     
@@ -66,7 +66,7 @@ public class LineTest {
     public void pointSlopeTest() {
         System.out.println("point slope test");
         var p = new Point(-1, 0);
-        var m = new Rational(3);
+        var m = Rational.of(3);
         var line = Line.pointSlope(p, m);
         assertEquals(new Line(3, 3, -1), line);
     }
@@ -79,12 +79,12 @@ public class LineTest {
         var c = new Point(3, -2);
         var d = new Point(-4, 0);
         var e = new Point(3, 2);
-        assertEquals(new Rational(2), new Line(a, p).slope());
-        assertEquals(new Rational(4), new Line(b, p).slope());
-        assertEquals(new Rational(-1,2), new Line(c, p).slope());
-        assertEquals(new Rational(0), new Line(d, p).slope());
-        assertEquals(new Rational(1,2), new Line(e, p).slope());
-        assertEquals(new Rational(2), new Line(p, a).slope());
+        assertEquals(Rational.of(2), new Line(a, p).slope());
+        assertEquals(Rational.of(4), new Line(b, p).slope());
+        assertEquals(Rational.of(-1,2), new Line(c, p).slope());
+        assertEquals(Rational.of(0), new Line(d, p).slope());
+        assertEquals(Rational.of(1,2), new Line(e, p).slope());
+        assertEquals(Rational.of(2), new Line(p, a).slope());
     }
     
     @Test
@@ -99,7 +99,7 @@ public class LineTest {
     @Test
     public void paramCircle() {
         var p0 = new Point(-1, 0);
-        var p1 = new Point(Rational.ZERO, new Rational(2,5));
+        var p1 = new Point(Rational.ZERO, Rational.of(2,5));
         var line = new Line(p0, p1);
         System.out.println(line);
     }

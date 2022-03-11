@@ -19,7 +19,7 @@ public class OSetTest {
     OSet<Rational> oSet;
     
     public OSetTest() {
-        oSet = new OSet<>(Arrays.asList(new Rational(1), new Rational(4), new Rational(2)));
+        oSet = new OSet<>(Arrays.asList(Rational.of(1), Rational.of(4), Rational.of(2)));
     }
 
     @Test

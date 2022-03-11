@@ -169,15 +169,15 @@ public class BiPolyNumberTest {
     public void testFolium() {
         var folium = new BiPolyNumber(new Rational[][]
         {
-            {Rational.ZERO, Rational.ZERO, Rational.ZERO, new Rational(1,27)},
-            {Rational.ZERO, new Rational(-1,3)},
+            {Rational.ZERO, Rational.ZERO, Rational.ZERO, Rational.of(1,27)},
+            {Rational.ZERO, Rational.of(-1,3)},
             {Rational.ZERO},
-            {new Rational(1,27)}
+            {Rational.of(1,27)}
         });
         System.out.printf("f = %s%n", folium.toString());
-        var p1 = new Point(new Rational(4), new Rational(2));
-        var p2 = new Point(new Rational(2), new Rational(4));
-        var p3 = new Point(new Rational(9,2),new Rational(9,2));
+        var p1 = new Point(Rational.of(4), Rational.of(2));
+        var p2 = new Point(Rational.of(2), Rational.of(4));
+        var p3 = new Point(Rational.of(9,2),Rational.of(9,2));
         System.out.printf("Tangent at %s is %s%n", p1.toString(), folium.tangentAt(p1).toString());
         System.out.printf("Tangent at %s is %s%n", p2.toString(), folium.tangentAt(p2).toString());
         System.out.printf("Tangent at %s is %s%n", p3.toString(), folium.tangentAt(p3).toString());
@@ -229,7 +229,7 @@ public class BiPolyNumberTest {
         System.out.println(p);
         System.out.println(p.tangentAt(new Point(Rational.ZERO, Rational.HALF)));
         System.out.println((p.tangentAt(new Point(Rational.ZERO, Rational.HALF.neg()))));
-        System.out.println(p.tangentAt(new Point(new Rational(-51,100), new Rational(605,1000))));
+        System.out.println(p.tangentAt(new Point(Rational.of(-51,100), Rational.of(605,1000))));
     }
     
 }

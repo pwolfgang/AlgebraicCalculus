@@ -52,6 +52,7 @@ public class DCBcurve {
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < n-i; j++) {
                 points[i][j] = scale(t, points[i-1][j],points[i-1][j+1]);
+                System.out.printf("points[%d][%d] : %f,%f%n", i, j, points[i][j].getX().toDouble(),points[i][j].getY().toDouble());
             }
         }
         return points[n-1][0];

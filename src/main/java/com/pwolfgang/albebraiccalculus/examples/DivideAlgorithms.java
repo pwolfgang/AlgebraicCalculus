@@ -29,8 +29,8 @@ public class DivideAlgorithms {
         var d = new PolyNumber(1, -1, 1);
         var p2 = new PolyNumber(-1, 0, 0, 0, 0, 0, 1);
         var p4 = new PolyNumber(1, 0, 0, 0, 0, 0, -1);
-        var alpha1 = new Rational(10);        
-        var alpha2 = new Rational(1,10);        
+        var alpha1 = Rational.of(10);        
+        var alpha2 = Rational.of(1,10);        
         compute(p1, alpha1, d);
         compute(p2, alpha1, d);
         compute(p3, alpha2, d);

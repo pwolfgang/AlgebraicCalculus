@@ -57,7 +57,7 @@ public class PascalTest {
             16,8, 1, 0,
             64,48,12,1
         },4);
-        assertEquals(expected, Pascal.getP(4,new Rational(4)));
+        assertEquals(expected, Pascal.getP(4,Rational.of(4)));
     }
 
 }

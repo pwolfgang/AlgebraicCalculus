@@ -21,7 +21,7 @@ public class ListTest {
 
     @Test
     public void testToString() {
-        List<Rational> list = new List<>(Arrays.asList(new Rational(1), new Rational(1,2)));
+        List<Rational> list = new List<>(Arrays.asList(Rational.of(1), Rational.of(1,2)));
         assertEquals("[1,1/2]", list.toString());
     }
     

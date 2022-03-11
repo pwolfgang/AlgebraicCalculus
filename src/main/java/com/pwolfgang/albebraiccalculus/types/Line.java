@@ -37,7 +37,7 @@ public class Line {
     public Line(Rational a, Rational b, Rational c) {
         long lcm = Int.lcm(a.den, b.den);
         lcm = Int.lcm(lcm, c.den);
-        Rational lcmR = new Rational(lcm);
+        Rational lcmR = Rational.of(lcm);
         r = -c.mul(lcmR).num;
         s = a.mul(lcmR).num;
         t = b.mul(lcmR).num;
@@ -95,7 +95,7 @@ public class Line {
     }
     
     public Rational slope() {
-        return new Rational(-s, t);
+        return Rational.of(-s, t);
     }
     
     public static Line pointSlope(Point p, Rational m) {

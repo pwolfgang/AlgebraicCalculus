@@ -60,7 +60,7 @@ public class Pascal {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (j <= i) {
-                    m[k++] = new Rational(Pascal.nChooseK(i, j));
+                    m[k++] = Rational.of(Pascal.nChooseK(i, j));
                 } else {
                     m[k++] = Rational.ZERO;
                 }
@@ -89,11 +89,11 @@ public class Pascal {
             for (int j = 0; j < n; j++) {
                 if (j <= i) {
                     if (((i & 1) == 0) && ((j & 1) == 1)) {
-                        m[k++] = new Rational(-Pascal.nChooseK(i, j));
+                        m[k++] = Rational.of(-Pascal.nChooseK(i, j));
                     } else if (((i & 1) == 1) && ((j & 1) == 0)) {
-                        m[k++] = new Rational(-Pascal.nChooseK(i, j));
+                        m[k++] = Rational.of(-Pascal.nChooseK(i, j));
                     } else {
-                        m[k++] = new Rational(Pascal.nChooseK(i, j));
+                        m[k++] = Rational.of(Pascal.nChooseK(i, j));
                     }
                 } else {
                     m[k++] = Rational.ZERO;

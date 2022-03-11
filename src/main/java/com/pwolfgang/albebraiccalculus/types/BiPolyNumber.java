@@ -37,7 +37,7 @@ public class BiPolyNumber {
         for (int i = 0; i < n.length; i++) {
             List<Rational> rowList = new List<>();
             for (int j = 0; j < n[i].length; j++) {
-                rowList.add(new Rational(n[i][j]));
+                rowList.add(Rational.of(n[i][j]));
             }
             trimTrailingZeros(rowList);
             tempList.add(rowList);
@@ -50,7 +50,7 @@ public class BiPolyNumber {
     }
 
     public BiPolyNumber(long n) {
-        this(new Rational[][]{{new Rational(n)}});
+        this(new Rational[][]{{Rational.of(n)}});
     }
 
     public BiPolyNumber(Rational r) {
@@ -173,7 +173,7 @@ public class BiPolyNumber {
     }
     
     public BiPolyNumber mul(long lambda) {      
-            return mul(new Rational(lambda));
+            return mul(Rational.of(lambda));
     }
 
     public BiPolyNumber mul(Rational lambda) {

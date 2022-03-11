@@ -27,8 +27,8 @@ public class COPSTest {
         Point d = new Point(0, -1);
         COPS abcd = new COPS(Arrays.asList(a, b, c, d));
         COPS abcbbc = new COPS(Arrays.asList(a, b, c, b, b,c));
-        verifyArea(abcd, new Rational(6));
-        verifyArea(abcbbc, new Rational(3));
+        verifyArea(abcd, Rational.of(6));
+        verifyArea(abcbbc, Rational.of(3));
         System.out.println();
     }
     
@@ -43,10 +43,10 @@ public class COPSTest {
         var cdb = new COPS(c, d, b);
         var abc = new COPS(a, b, c);
         var abd = new COPS(a, b, d);
-        verifyArea(cda, new Rational(3));
-        verifyArea(cdb, new Rational(27));
-        verifyArea(abc, new Rational(11,2));
-        verifyArea(abd, new Rational(-37, 2));
+        verifyArea(cda, Rational.of(3));
+        verifyArea(cdb, Rational.of(27));
+        verifyArea(abc, Rational.of(11,2));
+        verifyArea(abd, Rational.of(-37, 2));
         System.out.println();
     }
     

@@ -69,7 +69,7 @@ public class PolyNumber {
     public PolyNumber(long... n) {
         List<Rational> tempList = new List<>();
         for (int i = 0; i < n.length; i++) {
-            tempList.add(new Rational(n[i]));
+            tempList.add(Rational.of(n[i]));
         }
         trimTrailingZeros(tempList);
         aS = tempList.toArray(new Rational[tempList.size()]);
@@ -213,7 +213,7 @@ public class PolyNumber {
      * @return A new PolyNumber where each entry is multiplied by lambda.
      */
     public PolyNumber mul(long k) {
-        return mul(new Rational(k));
+        return mul(Rational.of(k));
     }
 
     /**
@@ -390,7 +390,7 @@ public class PolyNumber {
      * @return Value of this PolyNumber as if alpha was replaced by x.
      */
     public Rational eval(long x) {
-        return eval(new Rational(x));
+        return eval(Rational.of(x));
     }
 
     /**
@@ -432,7 +432,7 @@ public class PolyNumber {
         }
         Rational[] result = new Rational[aS.length - 1];
         for (int i = 1; i < aS.length; i++) {
-            result[i - 1] = aS[i].mul(new Rational(i));
+            result[i - 1] = aS[i].mul(Rational.of(i));
         }
         return new PolyNumber(result);
     }
@@ -464,7 +464,7 @@ public class PolyNumber {
         Rational[] result = new Rational[aS.length + 1];
         result[0] = Rational.ZERO;
         for (int i = 0; i < aS.length; i++) {
-            result[i + 1] = aS[i].mul(new Rational(1, i + 1));
+            result[i + 1] = aS[i].mul(Rational.of(1, i + 1));
         }
         return new PolyNumber(result);
     }

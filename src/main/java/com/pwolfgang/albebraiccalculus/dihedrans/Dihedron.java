@@ -30,10 +30,10 @@ public class Dihedron {
     }
     
     public Dihedron(long t, long x, long y, long z) {
-        this.t = new Rational(t);
-        this.x = new Rational(x);
-        this.y = new Rational(y);
-        this.z = new Rational(z);
+        this.t = Rational.of(t);
+        this.x = Rational.of(x);
+        this.y = Rational.of(y);
+        this.z = Rational.of(z);
     }
     
     public Dihedron add(Dihedron d) {

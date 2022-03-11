@@ -25,12 +25,12 @@ public class RationalPlus {
     }
     
     public RationalPlus(long a, long b) {
-        this.a = new Rational(a);
-        this.b = new Rational(b);
+        this.a = Rational.of(a);
+        this.b = Rational.of(b);
     }
     
     public RationalPlus(long a) {
-        this.a = new Rational(a);
+        this.a = Rational.of(a);
         this.b = Rational.ZERO;
     }
     
