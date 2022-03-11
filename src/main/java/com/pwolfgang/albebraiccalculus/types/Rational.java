@@ -160,8 +160,8 @@ public class Rational implements Comparable<Rational> {
     }
 
     public Rational mul(Rational other) {
-        Rational x = new Rational(num, other.den);
-        Rational y = new Rational(other.num, den);
+        Rational x = of(num, other.den);
+        Rational y = of(other.num, den);
         try {
             return of(x.num*y.num, x.den*y.den);
         } catch (ArithmeticException ex) {
