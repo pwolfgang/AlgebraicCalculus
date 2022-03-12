@@ -170,7 +170,13 @@ public class Rational implements Comparable<Rational> {
     }
 
     public Rational div(Rational other) {
-        return of(num * other.den, den * other.num);
+        Rational x = of(num, other.num);
+        Rational y = of(other.den, den);
+        try {
+            return of(x.num*y.num, x.den*y.den);
+        } catch (ArithmeticException ex) {
+            throw new IllegalArgumentException(String.format("%s.mul(%s)", this.toString(), other.toString()), ex); 
+        }
     }
 
     @Override
