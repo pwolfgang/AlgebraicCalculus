@@ -145,6 +145,8 @@ public class Rational implements Comparable<Rational> {
     
 
     public Rational add(Rational other) {
+        if (this == ZERO) return other;
+        if (other == ZERO) return this;
         long commonD = Int.lcm(den, other.den);
         long n1 = num * (commonD / den);
         long n2 = other.num * (commonD / other.den);
@@ -160,6 +162,10 @@ public class Rational implements Comparable<Rational> {
     }
 
     public Rational mul(Rational other) {
+        if (this == ONE) return other;
+        if (other == ONE) return this;
+        if (this == ZERO) return ZERO;
+        if (other == ZERO) return ZERO;
         Rational x = of(num, other.den);
         Rational y = of(other.num, den);
         try {
@@ -170,6 +176,11 @@ public class Rational implements Comparable<Rational> {
     }
 
     public Rational div(Rational other) {
+        if (other == ZERO) {
+            throw new ArithmeticException("Div by Zero");
+        }
+        if (other == ONE) return this;
+        if (this == ONE) return of(other.den, other.num);
         Rational x = of(num, other.num);
         Rational y = of(other.den, den);
         try {
