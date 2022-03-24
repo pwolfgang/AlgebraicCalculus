@@ -48,13 +48,43 @@ public class NaiveMatrixTest {
          {1, 2, 4, -1},
          {1, 3, 9, 5}
         });
-        System.out.println(m.convertToRowEchelonForm());
+        m.convertToRowEchelonForm();
         var expected = new NaiveMatrix(new long[][]
         {{1, 1, 1, 3},
          {0, 1, 3, -4},
          {0, 0, 2, 10}
         });
         assertEquals(expected, m);
+    }
+    
+    @Test
+    public void testReduce() {
+        var m = new NaiveMatrix(new long[][]
+        {   {1, 2, 3, -1,  5},
+            {0, 4,  0, 8, 12},
+            {0, 0,  0, 3, -3}
+        });
+        var e = new NaiveMatrix(new long[][]
+        {   {1, 0, 3, 0, -6},
+            {0, 1, 0, 0,  5},
+            {0, 0, 0, 1, -1}
+        });
+        assertEquals(e, m.reduce());
+    }
+    
+    @Test
+    public void testSolve() {
+        var m = new NaiveMatrix(new long[][]
+        {   {1, 4,  6,  48},
+            {2, 3, 20, 113},
+            {3, 5, 15, 111}
+        });
+        var e = new NaiveMatrix(new long[][]
+        {   {1, 0, 0, 12},
+            {0, 1, 0, 3},
+            {0, 0, 1, 4}
+        });
+        assertEquals(e, m.convertToRowEchelonForm().reduce()); 
     }
     
 }

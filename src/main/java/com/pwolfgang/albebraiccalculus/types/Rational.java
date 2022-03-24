@@ -156,6 +156,10 @@ public class Rational implements Comparable<Rational> {
     public Rational neg() {
         return of(-num, den);
     }
+    
+    public Rational inv() {
+        return of(den, num);
+    }
 
     public Rational sub(Rational other) {
         return add(other.neg());

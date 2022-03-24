@@ -167,6 +167,27 @@ public class NaiveMatrix {
         return this;
     }
     
+    /**
+     * Convert a row-echelon matrix to a reduced row-echelon form. After
+     * performing this operation the leading entry in each nonzero row is 1.
+     * Each column containing a leading 1 has zeros in all other entries.
+     * @return 
+     */
+    NaiveMatrix reduce() {
+        for (int row = nRows-1; row >= 0; row--) {
+            int col = findFirstNonZero(m[row]);
+            if (col < nCols) {
+                if (m[row][col]!=Rational.ONE) {
+                    scaleRow(m[row][col].inv(), row);
+                }
+                for (int i = row-1; i >= 0; i--) {
+                    scaleAndAddRow(m[i][col].neg(),row,i);
+                }
+            }
+        }
+        return this;
+    }
+
     public String toString() {
         var rowSJ = new StringJoiner("\n");
         for (int i = 0; i < nRows; i++) {
