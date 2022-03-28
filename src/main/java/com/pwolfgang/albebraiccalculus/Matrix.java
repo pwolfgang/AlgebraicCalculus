@@ -34,5 +34,12 @@ public abstract class Matrix {
         return Arrays.copyOf(d, nRows*nCols);
     }
     
-
+    public Rational[] getRow(int r) {
+        int rowIndex = r*nCols;
+        return Arrays.copyOfRange(d, rowIndex, rowIndex+nCols);
+    }
+    
+    public int getNrows() {return nRows;}
+    public int getNcols() {return nCols;}
+    
 }

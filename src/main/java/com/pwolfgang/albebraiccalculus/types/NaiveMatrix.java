@@ -5,6 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import com.pwolfgang.albebraiccalculus.SqMatrix;
 import java.util.Arrays;
 import java.util.StringJoiner;
 
@@ -211,6 +212,31 @@ public class NaiveMatrix {
             solution[i] = augmentedMatrix.m[i][nCols];
         }
         return solution;  
+    }
+    
+    public static SqMatrix invert(SqMatrix m) {
+        int nRows = m.getNrows();
+        int nCols = m.getNcols();
+        Rational[][] augmentedArray = new Rational[nRows][];
+        for (int i = 0; i < nRows; i++) {
+            augmentedArray[i] = Arrays.copyOf(m.getRow(i), 2*nCols);
+        }
+        for (int i = 0; i < nRows; i++) {
+            for (int j = 0; j < nCols; j++) {
+                augmentedArray[i][j+nCols] = i == j ? Rational.ONE : Rational.ZERO;
+            }
+        }
+        var augmentedMatrix = new NaiveMatrix(augmentedArray);
+        augmentedMatrix.convertToRowEchelonForm();
+        augmentedMatrix.reduce();
+        Rational[] solution = new Rational[nRows*nCols];
+        for (int i = 0; i < nRows; i++) {
+            int rowIndex = i * nCols;
+            for (int j = 0; j < nCols; j++) {
+                solution[rowIndex+j] = augmentedMatrix.m[i][j+nCols];
+            }
+        }
+        return new SqMatrix(solution,nRows);   
     }
     
 

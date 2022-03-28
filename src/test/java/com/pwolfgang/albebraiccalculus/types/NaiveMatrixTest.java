@@ -5,6 +5,7 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import com.pwolfgang.albebraiccalculus.SqMatrix;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -133,5 +134,13 @@ public class NaiveMatrixTest {
         Rational[] b = new Rational[]{Rational.of(5), Rational.of(12), Rational.of(-3)};
         Rational[] x = new Rational[]{Rational.of(-6), Rational.of(5), Rational.of(-1)};
         assertArrayEquals(x, A.solve(b));
+    }
+    
+    @Test
+    public void testInvert() {
+        var a = new SqMatrix(new long[]{2,0,0,1,2,1,0,1,2},3);
+        var aI = NaiveMatrix.invert(a);
+        var aInv = a.inv();
+        assertEquals(aInv, aI);
     }
 }
