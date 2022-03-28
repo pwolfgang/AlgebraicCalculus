@@ -87,4 +87,51 @@ public class NaiveMatrixTest {
         assertEquals(e, m.convertToRowEchelonForm().reduce()); 
     }
     
+    @Test
+    public void testSolve2() {
+        NaiveMatrix A = new NaiveMatrix(new long[][]
+        {   {1, 1, 1},
+            {1, 2, 4},
+            {1, 3, 9}
+        });
+        Rational[] b = new Rational[]{Rational.of(3), Rational.of(-1), Rational.of(5)};
+        Rational[] x = new Rational[]{Rational.of(17), Rational.of(-19), Rational.of(5)};
+        assertArrayEquals(x, A.solve(b));
+    }
+
+    @Test
+    public void testSolve3() {
+        NaiveMatrix A = new NaiveMatrix(new long[][]
+        {   {1, 4, 6},
+            {2, 3, 20},
+            {3, 5, 15}
+        });
+        Rational[] b = new Rational[]{Rational.of(48), Rational.of(113), Rational.of(111)};
+        Rational[] x = new Rational[]{Rational.of(12), Rational.of(3), Rational.of(4)};
+        assertArrayEquals(x, A.solve(b));
+    }
+
+    @Test
+    public void testSolve4() {
+        NaiveMatrix A = new NaiveMatrix(new long[][]
+        {   {2, 7, 4},
+            {1, 2, -1},
+            {-1, 4, 13}
+        });
+        Rational[] b = new Rational[]{Rational.of(2), Rational.of(1), Rational.of(-1)};
+        Rational[] x = new Rational[]{Rational.of(1), Rational.of(0), Rational.of(0)};
+        assertArrayEquals(x, A.solve(b));
+    }
+    
+    @Test
+    public void testSolve5() {
+        NaiveMatrix A = new NaiveMatrix(new long[][]
+        {   {1, 2, 3, -1},
+            {0, 4, 0, 8},
+            {0, 0, 0, 3}
+        });
+        Rational[] b = new Rational[]{Rational.of(5), Rational.of(12), Rational.of(-3)};
+        Rational[] x = new Rational[]{Rational.of(-6), Rational.of(5), Rational.of(-1)};
+        assertArrayEquals(x, A.solve(b));
+    }
 }

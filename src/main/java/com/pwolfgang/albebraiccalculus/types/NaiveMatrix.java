@@ -132,7 +132,7 @@ public class NaiveMatrix {
      * @param row A row in the matrix.
      * @return index of first non-zero entry or row.length if none.
      */
-    private int findFirstNonZero(Rational[] row) {
+    private static int findFirstNonZero(Rational[] row) {
         for (int i = 0; i < row.length; i++) {
             if (!Rational.ZERO.equals(row[i])) {
                 return i;
@@ -187,6 +187,32 @@ public class NaiveMatrix {
         }
         return this;
     }
+    
+    /**
+     * Solve a liner equation
+     * @param b The vector of constant terms
+     * @return The solution vector. null if no solution possible.
+     */
+    public Rational[] solve(Rational[] b) {
+        Rational[][] newM = new Rational[nRows][];
+        for (int i = 0; i < nRows; i++) {
+            newM[i] = Arrays.copyOf(m[i], nCols+1);
+            newM[i][nCols] = b[i];
+        }
+        var augmentedMatrix = new NaiveMatrix(newM);
+        augmentedMatrix.convertToRowEchelonForm();
+        int leadingCol = findFirstNonZero(augmentedMatrix.m[nRows-1]);
+        if (leadingCol == nCols) {
+            return null;
+        }
+        augmentedMatrix.reduce();
+        Rational[] solution = new Rational[nRows];
+        for (int i = 0; i < nRows; i++) {
+            solution[i] = augmentedMatrix.m[i][nCols];
+        }
+        return solution;  
+    }
+    
 
     public String toString() {
         var rowSJ = new StringJoiner("\n");
