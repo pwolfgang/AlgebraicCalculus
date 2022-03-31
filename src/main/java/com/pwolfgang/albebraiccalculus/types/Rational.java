@@ -5,6 +5,9 @@
  */
 package com.pwolfgang.albebraiccalculus.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>
@@ -228,6 +231,29 @@ public class Rational implements Comparable<Rational> {
     
     public int intValue() {
         return (int)longValue();
+    }
+    
+    public Rational[] egyptianFraction() {
+        List<Rational> result = new ArrayList<>();
+        var current = this;
+        while (current.num != 1) {
+            long x = current.num;
+            long y = current.den;
+            long den = ciel(y,x);
+            result.add(of(1,den));
+            long num = (-y)%x;
+            if (num < 0) num += x;
+            current = of(num, y*den);
+        }
+        result.add(current);
+        return result.toArray(new Rational[result.size()]);
+    }
+    
+    private static long ciel(long x, long y) {
+        var q = x/y;
+        var r = x - q*y;
+        if (r == 0) return q;
+        return q+1;
     }
     
     @Override

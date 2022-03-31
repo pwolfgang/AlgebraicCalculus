@@ -80,6 +80,13 @@ public class RationalTest {
         Rational smallRational = Rational.of(smallDouble);
         assertEquals(small, Rational.of(small.toDouble()), "small");
     }
+    
+    @Test
+    public void testEgyptianFraction() {
+        assertArrayEquals(new Rational[]{Rational.of(1,2), Rational.of(1,3)}, Rational.of(5,6).egyptianFraction());
+        var expected = new Rational[]{Rational.of(1,2), Rational.of(1,7), Rational.of(1,75), Rational.of(1,16800)};
+        assertArrayEquals(expected, Rational.of(21,32).egyptianFraction());
+    }
 
     
 }
