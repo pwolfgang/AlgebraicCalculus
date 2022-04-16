@@ -385,4 +385,17 @@ public class PolyNumberTest {
         System.out.printf("Sqrt(%s) is %s%n", q, p);
         assertEquals(expected, p);
     }
+    
+    @Test
+    public void testDivPolyseries() {
+        System.out.println("Test Div Polyseries");
+        PolyNumber x = new PolyNumber(1, 0, -1);
+        PolyNumber y = new PolyNumber(1, 0, 1);
+        System.out.printf("x: %s%n", x);
+        System.out.printf("y: %s%n", y);
+        var itr = x.div(y).iterator();
+        for (int i = 0; i < 5 && itr.hasNext(); i++) {
+            System.out.println(itr.next());
+        }
+    }
 }

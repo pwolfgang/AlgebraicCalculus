@@ -217,4 +217,33 @@ public class CubicSplineTest {
         
         System.out.printf("curve = %s%n", PolyNumber.fromPoints(p0, p1, p2, p3, p4, p5).toString());
     }
+
+    @Test
+    public void circle() {
+        System.out.println("circle");
+        var p0 = new Point(0,5);
+        var p1 = new Point(3,4);
+        var p2 = new Point(4,3);
+        var p3 = new Point(5,0);
+        var curve = PolyNumber.fromPoints(p0, p1, p2, p3);
+        var curvePrime = curve.D();
+        var slopeAtXZero = curvePrime.eval(p0.getX());
+        var slopeAtX1 = curvePrime.eval(p1.getX());      
+        var s = new CubicSpline(p0, p1, p2, p3);
+        for (int i = 0; i < s.polies.length; i++) {
+            System.out.printf("p[%d] = %s%n", i, s.polies[i].toString());
+        }
+        for (int i = 0; i < s.polies.length; i++) {
+            System.out.printf("p[%d] = %s%n", i, s.pFinal[i].toString());
+        }
+        for (int i = 0; i < s.polies.length; i++) {
+            PolyNumber xOft = new PolyNumber(i, 1);
+            PolyNumber yOft = s.pFinal[i].eval(xOft);
+            PolyNumber[] pp = new PolyNumber[]{xOft, yOft};
+            var c = new DCBcurve(pp);
+            System.out.printf("c[%d] = %s%n", i, c);
+        }
+        
+        System.out.printf("cubic = %s%n", PolyNumber.fromPoints(p0, p1, p2, p3).toString());
+    }
 }

@@ -272,5 +272,15 @@ public class DCBcurveTest {
         PolyNumber[] p = curve.toPolyNumber();
         System.out.printf("p[0] = %s, P[1] = %s%n", p[0].toString(), p[1].toString());
     }
+    
+    @Test
+    public void testCircle() {
+        PolyNumber x = new PolyNumber(0, 2, 0, 2);
+        PolyNumber y = new PolyNumber(1, 0, -2);
+        System.out.printf("x: %s%n", x);
+        System.out.printf("y: %s%n", y);
+        var c = new DCBcurve(new PolyNumber[]{x,y});
+        System.out.println(c);
+    }
         
 }
