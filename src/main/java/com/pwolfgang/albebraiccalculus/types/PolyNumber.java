@@ -96,6 +96,14 @@ public class PolyNumber {
     }
     
     /**
+     * Truncate a PolyNumber to a maximum degree.
+     */
+    public PolyNumber truncate(int deg) {
+        Rational[] newAs = Arrays.copyOf(aS, deg);
+        return new PolyNumber(newAs);
+    }
+    
+    /**
      * Return the ith coefficient.
      * @param i The index of the coefficient
      * @return  The coefficient or ZERO if i &gt; degree.

@@ -15,11 +15,13 @@ import java.util.Arrays;
 public class Pascal {
     
     private static long[][] triangle;
+    private static long[] fact;
     private static int maxN;
     
     static {
         maxN = 5;
         buildTriangle();
+        buildFact();
     }
        
     private static void buildTriangle() {
@@ -28,7 +30,7 @@ public class Pascal {
         triangle[1] = new long[]{1,1};
         fillRows(2, maxN+1);
     }
-
+    
     private static void fillRows(int start, int end) {
         for (int i = start; i < end; i++) {
             triangle[i] = new long[i+1];
@@ -54,6 +56,31 @@ public class Pascal {
         return triangle[n][k];
     }
     
+    private static void buildFact() {
+        fact = new long[maxN];
+        fact[0] = 1;
+        fact[1] = 1;
+        for (int i = 2; i < maxN; i++) {
+            fact[i] = i * fact[i=1];
+        }
+    }
+    
+    private static void expandFact() {
+        long[] oldFact = fact;
+        fact = Arrays.copyOf(oldFact, 2*maxN);
+        for (int i = maxN; i < 2*maxN; i++) {
+            fact[i] = i * fact[i-1];
+        }
+        maxN = 2*maxN;
+    }
+    
+    public static long factorial(int n) {
+        while (n >= maxN) {
+            expandFact();
+        }
+        return fact[n];
+    }
+
     public static SqMatrix getP(int n) {
         Rational[] m = new Rational[n*n];
         int k = 0;
@@ -116,5 +143,13 @@ public class Pascal {
             }
         }
         return new SqMatrix(m, n);
+    }
+    
+    public static long multiChoose(int n, int... kS) {
+        long num = factorial(n);
+        for (int i = 0; i < kS.length; i++) {
+            num = num/factorial(kS[i]);
+        }
+        return num;
     }
 }

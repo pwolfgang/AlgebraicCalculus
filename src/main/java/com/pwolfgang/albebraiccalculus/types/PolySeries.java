@@ -17,4 +17,19 @@ public abstract class PolySeries {
     
     public abstract Iterator<PolyNumber> iterator();
     
+    public PolyNumber truncate(int deg) {
+        PolyNumber result = PolyNumber.ZERO;
+        int n = 0;
+        var itr = this.iterator();
+        while (n < deg && itr.hasNext()) {
+            result = result.add(itr.next());
+            n++;
+        }
+        return result;
+    }
+    
+    public PolySeries add(PolySeries q) {
+        return new SumPolySeries(this, q);
+    }
+    
 }
