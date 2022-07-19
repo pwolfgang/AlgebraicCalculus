@@ -17,15 +17,15 @@ public abstract class PolySeries {
     
     public abstract Iterator<PolyNumber> iterator();
     
-    public PolyNumber truncate(int deg) {
+    public KPoly truncate(int deg) {
         PolyNumber result = PolyNumber.ZERO;
         int n = 0;
         var itr = this.iterator();
-        while (n < deg && itr.hasNext()) {
+        while (n < deg+1 && itr.hasNext()) {
             result = result.add(itr.next());
             n++;
         }
-        return result;
+        return result.truncate(deg);
     }
     
     public PolySeries add(PolySeries q) {

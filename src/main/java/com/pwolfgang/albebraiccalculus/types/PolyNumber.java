@@ -47,6 +47,13 @@ public class PolyNumber {
     PolyNumber() {
         aS = null;
     }
+    
+    /**
+     * Package private constructor to create a KPoly.
+     */
+    PolyNumber(int deg, Rational[] aS) {
+        this.aS = aS;
+    }
 
     /**
      * Construct a PolyNumber from an array of Rational numbers. Trailing zeros
@@ -98,9 +105,14 @@ public class PolyNumber {
     /**
      * Truncate a PolyNumber to a maximum degree.
      */
-    public PolyNumber truncate(int deg) {
-        Rational[] newAs = Arrays.copyOf(aS, deg);
-        return new PolyNumber(newAs);
+    public KPoly truncate(int deg) {
+        Rational[] newAs = Arrays.copyOf(aS, deg+1);
+        for (int i = deg; i >= 0; i--) {
+            if (newAs[i] == null) {
+                newAs[i] = Rational.ZERO;
+            }
+        }
+        return new KPoly(deg, newAs);
     }
     
     /**

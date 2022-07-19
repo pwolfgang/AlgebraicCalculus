@@ -398,4 +398,20 @@ public class PolyNumberTest {
             System.out.println(itr.next());
         }
     }
+    
+    @Test
+    public void testTruncateShortens() {
+        var p = new PolyNumber(1, 2, 3, 4, 5);
+        var tP = p.truncate(2);
+        var q = new KPoly(2, new Rational[]{Rational.of(1), Rational.of(2), Rational.of(3)});
+        assertEquals(q,tP);
+    }
+        @Test
+    public void testTruncateExpands() {
+        var p = new PolyNumber(1, 2);
+        var tP = p.truncate(2);
+        var q = new KPoly(2, new Rational[]{Rational.of(1), Rational.of(2), Rational.ZERO});
+        assertEquals(q,tP);
+    }
+
 }
