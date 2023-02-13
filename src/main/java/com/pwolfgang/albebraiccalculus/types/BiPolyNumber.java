@@ -19,8 +19,8 @@ public class BiPolyNumber {
 
     public BiPolyNumber(Rational[][] r) {
         List<List<Rational>> tempList = new List<>();
-        for (int i = 0; i < r.length; i++) {
-            List<Rational> rowList = new List<>(Arrays.asList(r[i]));
+        for (Rational[] r1 : r) {
+            List<Rational> rowList = new List<>(Arrays.asList(r1));
             trimTrailingZeros(rowList);
             tempList.add(rowList);
         }
@@ -28,16 +28,16 @@ public class BiPolyNumber {
         aS = new Rational[tempList.size()][];
         for (int i = 0; i < tempList.size(); i++) {
             var rowList = tempList.get(i);
-            aS[i] = rowList.toArray(new Rational[rowList.size()]);
+            aS[i] = rowList.toArray(Rational[]::new);
         }
     }
 
     public BiPolyNumber(long[][] n) {
         List<List<Rational>> tempList = new List<>();
-        for (int i = 0; i < n.length; i++) {
+        for (long[] n1 : n) {
             List<Rational> rowList = new List<>();
-            for (int j = 0; j < n[i].length; j++) {
-                rowList.add(Rational.of(n[i][j]));
+            for (int j = 0; j < n1.length; j++) {
+                rowList.add(Rational.of(n1[j]));
             }
             trimTrailingZeros(rowList);
             tempList.add(rowList);
@@ -45,7 +45,7 @@ public class BiPolyNumber {
         aS = new Rational[tempList.size()][];
         for (int i = 0; i < tempList.size(); i++) {
             var rowList = tempList.get(i);
-            aS[i] = rowList.toArray(new Rational[rowList.size()]);
+            aS[i] = rowList.toArray(Rational[]::new);
         }
     }
 
@@ -66,15 +66,15 @@ public class BiPolyNumber {
         aS = new Rational[list.size()][];
         for (int j = 0; j < list.size(); j++) {
             var row = list.get(j);
-            if (row.size()==0) {
+            if (row.isEmpty()) {
                 aS[j] = new Rational[]{Rational.ZERO};
             } else {
-                aS[j] = row.toArray(new Rational[row.size()]);
+                aS[j] = row.toArray(Rational[]::new);
             }
         }
     }
 
-    void trimTrailingZeros(List<?> list) {
+    private void trimTrailingZeros(List<?> list) {
         int i = list.size() - 1;
         while (i > 0) {
             Object o = list.get(i);
@@ -199,9 +199,7 @@ public class BiPolyNumber {
             for (int j = 0; j < l; j++) {
                 result[i+k][j] = Rational.ZERO;
             }
-            for (int j = 0; j < row.length; j++) {
-                result[i+k][j + l] = row[j];
-            }
+            System.arraycopy(row, 0, result[i+k], l, row.length);
         }
         return new BiPolyNumber(result);
     }
@@ -266,6 +264,7 @@ public class BiPolyNumber {
         return tanget.eval(xP, yP);
     }
     
+    @Override
     public String toString() {
         var sj = new StringJoiner(" + ");
         for (int i = 0; i < aS.length; i++) {
@@ -309,6 +308,7 @@ public class BiPolyNumber {
         return sb.toString();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
@@ -326,6 +326,13 @@ public class BiPolyNumber {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Arrays.deepHashCode(this.aS);
+        return hash;
     }
 
 }
