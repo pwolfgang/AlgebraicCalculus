@@ -73,6 +73,16 @@ public class BiPolyNumber {
             }
         }
     }
+    
+    public Rational get(int alpha, int beta) {
+        if (alpha >= aS.length) {
+            return Rational.ZERO;
+        }
+        if (beta >= aS[0].length) {
+            return Rational.ZERO;
+        }
+        return aS[alpha][beta];
+    }
 
     private void trimTrailingZeros(List<?> list) {
         int i = list.size() - 1;
@@ -244,11 +254,6 @@ public class BiPolyNumber {
     
     public BiPolyNumber tangentAt(Point p) {
         var evalAtp = eval(p);
-        if (!evalAtp.equals(Rational.ZERO)) {
-            throw new IllegalArgumentException(
-                    String.format("%s is not on the curve %s%n", 
-                            p.toString(), this.toString()));
-        }
         var pX = p.getX();
         var pY = p.getY();
         var x = new BiPolyNumber(new Rational[][]{{pX},{Rational.ONE}});

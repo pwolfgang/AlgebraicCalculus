@@ -45,7 +45,7 @@ public class DivideAlgorithms {
         Rational dVal = d.eval(alpha);
         Rational q1Val = q1.eval(alpha);
         Rational r1Val = r1.eval(alpha);
-       System.out.printf("%s = (%s × %s) + %s%n", p, d, q1, r1);
+        System.out.printf("%s = (%s × %s) + %s%n", p, d, q1, r1);
         System.out.printf("%s = (%s × %s) + %s%n", pVal, dVal, q1Val, r1Val);
     }
     
