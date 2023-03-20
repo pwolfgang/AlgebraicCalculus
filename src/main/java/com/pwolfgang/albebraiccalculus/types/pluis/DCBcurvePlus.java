@@ -5,8 +5,6 @@
  */
 package com.pwolfgang.albebraiccalculus.types.pluis;
 
-import com.pwolfgang.albebraiccalculus.types.*;
-
 /**
  *
  * @author Paul Wolfgang <paul@pwolfgang.com>

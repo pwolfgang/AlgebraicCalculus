@@ -240,6 +240,7 @@ public class NaiveMatrix {
     }
     
 
+    @Override
     public String toString() {
         var rowSJ = new StringJoiner("\n");
         for (int i = 0; i < nRows; i++) {
@@ -252,6 +253,7 @@ public class NaiveMatrix {
         return rowSJ.toString();
     }
     
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;

@@ -18,6 +18,10 @@ public class Newton {
     
     /**
      * Method to perform one iteration
+     * @param c1 The first curve
+     * @param c2 The second curve
+     * @param a  The start point
+     * @return The next point
      */
     public static Point newtonIteration(BiPolyNumber c1, BiPolyNumber c2, Point a) {
         // Find the tangent planes

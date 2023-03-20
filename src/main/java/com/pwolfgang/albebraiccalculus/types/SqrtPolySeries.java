@@ -14,19 +14,20 @@ import java.util.Iterator;
  */
 public class SqrtPolySeries extends PolySeries {
 
-    private PolyNumber polyNumber;
+    private final PolyNumber polyNumber;
 
     public SqrtPolySeries(PolyNumber polyNumber) {
         this.polyNumber = polyNumber;
     }
 
+    @Override
     public Iterator<PolyNumber> iterator() {
         return new SqrtIterator(polyNumber);
     }
 
     private static class SqrtIterator implements Iterator<PolyNumber> {
 
-        private PolyNumber polyNumber;
+        private final PolyNumber polyNumber;
         private PolyNumber p;
         private PolyNumber pSq;
 
@@ -36,10 +37,12 @@ public class SqrtPolySeries extends PolySeries {
             pSq = ONE;
         }
 
+        @Override
         public boolean hasNext() {
             return (!pSq.equals(polyNumber));
         }
 
+        @Override
         public PolyNumber next() {
             var pp = polyNumber.sub(pSq);
             var r = pp.div(Rational.TWO);

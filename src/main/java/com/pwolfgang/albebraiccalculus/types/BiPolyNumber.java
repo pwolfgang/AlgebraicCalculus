@@ -253,7 +253,6 @@ public class BiPolyNumber {
     }
     
     public BiPolyNumber tangentAt(Point p) {
-        var evalAtp = eval(p);
         var pX = p.getX();
         var pY = p.getY();
         var x = new BiPolyNumber(new Rational[][]{{pX},{Rational.ONE}});

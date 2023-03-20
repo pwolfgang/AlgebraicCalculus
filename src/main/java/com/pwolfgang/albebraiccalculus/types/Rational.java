@@ -51,31 +51,33 @@ public class Rational implements Comparable<Rational> {
     }
 
     public static Rational of(long num) {
-        switch ((int)num) {
-            case 0: return ZERO;
-            case 1: return ONE;
-            case 2: return TWO;
-            case 3: return THREE;
-            case -1: return MINUS_ONE;
-            default: return new Rational(num, 1);
-        }
+        return switch ((int)num) {
+            case 0 -> ZERO;
+            case 1 -> ONE;
+            case 2 -> TWO;
+            case 3 -> THREE;
+            case -1 -> MINUS_ONE;
+            default -> new Rational(num, 1);
+        };
     }
     
     public static Rational of(String s) {
         String[] tokens = s.split("/");
         long num;
         long den;
-        if (tokens.length == 1) {
-            num = Long.parseLong(s);
-            den = 1;
-        } else if (tokens.length == 2) {
-            long n = Long.parseLong(tokens[0]);
-            long d = Long.parseLong(tokens[1]);
-            long[] norm = normalize(n, d);
-            num = norm[0];
-            den = norm[1];
-        } else {
-            throw new NumberFormatException(String.format("Cannot parse %s as Rational", s));
+        switch (tokens.length) {
+            case 1 -> {
+                num = Long.parseLong(s);
+                den = 1;
+            }
+            case 2 -> {
+                long n = Long.parseLong(tokens[0]);
+                long d = Long.parseLong(tokens[1]);
+                long[] norm = normalize(n, d);
+                num = norm[0];
+                den = norm[1];
+            }
+            default -> throw new NumberFormatException(String.format("Cannot parse %s as Rational", s));
         }
         return new Rational(num, den);
     }
@@ -246,7 +248,7 @@ public class Rational implements Comparable<Rational> {
             current = of(num, y*den);
         }
         result.add(current);
-        return result.toArray(new Rational[result.size()]);
+        return result.toArray(Rational[]::new);
     }
     
     private static long ciel(long x, long y) {

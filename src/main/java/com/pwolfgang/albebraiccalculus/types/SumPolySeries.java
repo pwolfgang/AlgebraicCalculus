@@ -22,6 +22,7 @@ public class SumPolySeries extends PolySeries {
         this.q = q;
     }
     
+    @Override
     public Iterator<PolyNumber> iterator() {
         return new SumIterator();
     }
@@ -34,10 +35,12 @@ public class SumPolySeries extends PolySeries {
             qItr = q.iterator();
         }
         
+        @Override
         public boolean hasNext() {
             return pItr.hasNext() || qItr.hasNext();
         }
         
+        @Override
         public PolyNumber next() {
             if (pItr.hasNext()) {
                 if (qItr.hasNext()) {

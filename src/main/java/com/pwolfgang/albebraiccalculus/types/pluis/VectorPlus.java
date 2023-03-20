@@ -27,7 +27,6 @@ public class VectorPlus {
     public VectorPlus(PointPlus p1, PointPlus p2) {
         var p1x = p1.getX();
         var p2x = p2.getX();
-        var p1y = p1.getY();
         var p2y = p2.getY();
         this.x = p2x.sub(p1x);
         this.y = p2y.sub(p2y);
@@ -73,6 +72,7 @@ public class VectorPlus {
         return hash;
     }
     
+    @Override
     public String toString() {
         return String.format("(%s,%s)", x.toString(), y.toString());
     }

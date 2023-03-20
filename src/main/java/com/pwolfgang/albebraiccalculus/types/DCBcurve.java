@@ -81,9 +81,7 @@ public class DCBcurve {
        
     static Rational[] createVector(Rational[] aS, int size) {
         Rational[] v = new Rational[size];
-        for (int i = 0; i < aS.length; i++) {
-            v[i] = aS[i];
-        }
+        System.arraycopy(aS, 0, v, 0, aS.length);
         for (int j = aS.length; j < size; j++) {
             v[j] = Rational.ZERO;
         }
@@ -117,6 +115,7 @@ public class DCBcurve {
         return p;
     }
        
+    @Override
     public String toString() {
         var sJ = new StringJoiner(", ");
         for (int i = 0; i < n; i++) {
@@ -125,6 +124,7 @@ public class DCBcurve {
         return sJ.toString();
     }
     
+    @Override
     public boolean equals(Object other) {
         if (other == null) return false;
         if (this == other) return true;

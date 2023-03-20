@@ -29,6 +29,7 @@ public class Int {
      * 
      * @param a One integer
      * @param b The other integer
+     * @return The gcd of a and b
      */
     public static long gcd(long a, long b) {
         if (a < 0) a = -a;

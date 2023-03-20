@@ -20,6 +20,7 @@ public class RationalPolyNumber extends PolyNumber {
         this.den = den;
     }
     
+    @Override
     public Rational eval(Rational x) {
         Rational n = num.eval(x);
         Rational d = den.eval(x);

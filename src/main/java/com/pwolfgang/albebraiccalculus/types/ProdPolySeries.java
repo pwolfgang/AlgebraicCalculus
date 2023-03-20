@@ -13,34 +13,27 @@ import java.util.Iterator;
  */
 public class ProdPolySeries extends PolySeries {
     
-    final PolySeries p;
-    final PolySeries q;
     
     public ProdPolySeries(PolySeries p, PolySeries q) {
-        this.p = p;
-        this.q = q;
     }
     
+    @Override
     public Iterator<PolyNumber> iterator() {
         return new ProdIterator();
     }
     
     class ProdIterator implements Iterator<PolyNumber> {
         
-        int currentDepth;
-        int maxPdepth;
-        int maxQdepth;
         
         public ProdIterator() {
-            currentDepth = 0;
-            maxPdepth = Integer.MAX_VALUE;
-            maxQdepth = Integer.MAX_VALUE;
         }
         
+        @Override
         public boolean hasNext() {
             return false;
         }
         
+        @Override
         public PolyNumber next() {
             return null;
         }

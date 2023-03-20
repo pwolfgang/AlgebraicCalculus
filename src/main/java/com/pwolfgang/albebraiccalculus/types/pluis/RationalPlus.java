@@ -57,6 +57,7 @@ public class RationalPlus {
         return new RationalPlus(a.mul(x), b.mul(x));
     }
     
+    @Override
     public String toString() {
         if (!Rational.ZERO.equals(b)) {
             return String.format("%s + %s√2", a.toString(), b.toString());

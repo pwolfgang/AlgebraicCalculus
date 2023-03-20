@@ -64,14 +64,14 @@ public class PolyNumber {
     public PolyNumber(Rational... r) {
         List<Rational> tempList = new List<>(Arrays.asList(r));
         trimTrailingZeros(tempList);
-        aS = tempList.toArray(new Rational[tempList.size()]);
+        aS = tempList.toArray(Rational[]::new);
     }
 
     /**
      * Construct a PolyNumber from an array of long numbers. Trailing zeros are
      * removed and each entry is converted to a Rational
      *
-     * @param r The input array of longs.
+     * @param n The input array of longs.
      */
     public PolyNumber(long... n) {
         List<Rational> tempList = new List<>();
@@ -79,7 +79,7 @@ public class PolyNumber {
             tempList.add(Rational.of(n[i]));
         }
         trimTrailingZeros(tempList);
-        aS = tempList.toArray(new Rational[tempList.size()]);
+        aS = tempList.toArray(Rational[]::new);
     }
 
     /**
@@ -91,7 +91,7 @@ public class PolyNumber {
     public PolyNumber(List<Rational> list) {
         List<Rational> tempList = new List<>(list);
         trimTrailingZeros(tempList);
-        aS = tempList.toArray(new Rational[tempList.size()]);
+        aS = tempList.toArray(Rational[]::new);
     }
 
     private void trimTrailingZeros(List<Rational> list) {
@@ -104,6 +104,8 @@ public class PolyNumber {
     
     /**
      * Truncate a PolyNumber to a maximum degree.
+     * @param deg The maximum degree
+     * @return the truncated polynumber
      */
     public KPoly truncate(int deg) {
         Rational[] newAs = Arrays.copyOf(aS, deg+1);
@@ -232,8 +234,8 @@ public class PolyNumber {
      * @param lambda The factor
      * @return A new PolyNumber where each entry is multiplied by lambda.
      */
-    public PolyNumber mul(long k) {
-        return mul(Rational.of(k));
+    public PolyNumber mul(long lambda) {
+        return mul(Rational.of(lambda));
     }
 
     /**
@@ -248,9 +250,7 @@ public class PolyNumber {
         for (int i = 0; i < k; i++) {
             result[i] = Rational.ZERO;
         }
-        for (int i = 0; i < aS.length; i++) {
-            result[i + k] = aS[i];
-        }
+        System.arraycopy(aS, 0, result, k, aS.length);
         return new PolyNumber(result);
     }
 
@@ -512,34 +512,29 @@ public class PolyNumber {
      *
      * @return a String representation of this PolyNumber.
      */
+    @Override
     public String toString() {
         var sj = new StringJoiner(" + ");
         for (int i = 0; i < aS.length; i++) {
             Rational term = aS[i];
             if (!Rational.ZERO.equals(term)) {
                 if (Rational.ONE.equals(term)) {
-                    if (i == 0) {
-                        sj.add("1");
-                    } else if (i == 1) {
-                        sj.add("α");
-                    } else {
-                        sj.add(String.format("α^%d", i));
+                    switch (i) {
+                        case 0 -> sj.add("1");
+                        case 1 -> sj.add("α");
+                        default -> sj.add(String.format("α^%d", i));
                     }
                 } else if (Rational.MINUS_ONE.equals(term)) {
-                    if (i == 0) {
-                        sj.add("-1");
-                    } else if (i == 1) {
-                        sj.add("-α");
-                    } else {
-                        sj.add(String.format("-α^%d", i));
+                    switch (i) {
+                        case 0 -> sj.add("-1");
+                        case 1 -> sj.add("-α");
+                        default -> sj.add(String.format("-α^%d", i));
                     }
                 } else {
-                    if (i == 0) {
-                        sj.add(String.format("%s", term));
-                    } else if (i == 1) {
-                        sj.add(String.format("%sα", term));
-                    } else {
-                        sj.add(String.format("%sα^%d", term, i));
+                    switch (i) {
+                        case 0 -> sj.add(String.format("%s", term));
+                        case 1 -> sj.add(String.format("%sα", term));
+                        default -> sj.add(String.format("%sα^%d", term, i));
                     }
                 }
             }
@@ -565,20 +560,16 @@ public class PolyNumber {
             Rational term = aS[i];
             if (!Rational.ZERO.equals(term)) {
                 if (Rational.ONE.equals(term)) {
-                    if (i == 0) {
-                        sj.add("1");
-                    } else if (i == 1) {
-                        sj.add("α");
-                    } else {
-                        sj.add(String.format("α^%d", i));
+                    switch (i) {
+                        case 0 -> sj.add("1");
+                        case 1 -> sj.add("α");
+                        default -> sj.add(String.format("α^%d", i));
                     }
                 } else {
-                    if (i == 0) {
-                        sj.add(String.format("%f", term.toDouble()));
-                    } else if (i == 1) {
-                        sj.add(String.format("%fα", term.toDouble()));
-                    } else {
-                        sj.add(String.format("%fα^%d", term.toDouble(), i));
+                    switch (i) {
+                        case 0 -> sj.add(String.format("%f", term.toDouble()));
+                        case 1 -> sj.add(String.format("%fα", term.toDouble()));
+                        default -> sj.add(String.format("%fα^%d", term.toDouble(), i));
                     }
                 }
             }
@@ -597,6 +588,7 @@ public class PolyNumber {
      * @param o The other object
      * @return True if the PolyNumbers are equal.
      */
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;
@@ -616,6 +608,7 @@ public class PolyNumber {
      *
      * @return the hashCode.
      */
+    @Override
     public int hashCode() {
         return Arrays.hashCode(aS);
     }

@@ -56,7 +56,6 @@ public class Main2 {
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.pack();
         int m = numSteps;
-        int mSq = m*m;
         PolyNumber xTerm = new PolyNumber(0,9);
         PolyNumber yTerm = new PolyNumber(0,0,9);
         PolyNumber den = new PolyNumber(1, 0, 0, 1);
@@ -65,7 +64,6 @@ public class Main2 {
             new RationalPolyNumber(yTerm, den)
         };
         plotCurve(lambdaMax, lambdaMin, numSteps, folium, radius, offset, canvas, Color.BLACK);
-        var rationalA = Rational.of(11,20);
         var p0 = new Point(2,4);
         var p1 = new Point(Rational.of(11,3), Rational.of(16,3));
         var p2 = new Point(Rational.of(16,3), Rational.of(11,3));

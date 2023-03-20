@@ -14,14 +14,15 @@ import java.util.NoSuchElementException;
  */
 public class DivPolySeries extends PolySeries {
     
-    private PolyNumber dividend;
-    private PolyNumber divisor;
+    private final PolyNumber dividend;
+    private final PolyNumber divisor;
     
     public DivPolySeries(PolyNumber dividend, PolyNumber divisor) {
         this.dividend = dividend;
         this.divisor = divisor;
     }
     
+    @Override
     public Iterator<PolyNumber> iterator() {
         return new DivIterator(dividend, divisor);
     }
@@ -39,7 +40,7 @@ public class DivPolySeries extends PolySeries {
         /**
          * The divisor
          */
-        private PolyNumber g;
+        private final PolyNumber g;
         /**
          * The index of the current term in the quotient
          */
@@ -60,6 +61,7 @@ public class DivPolySeries extends PolySeries {
          * Compute the next term in the quotient.
          * @return The next term in the quotient.
          */
+        @Override
         public PolyNumber next() {
             if (hasNext()) {
                 var t = r.aS[index].div(g.aS[0]);
@@ -81,6 +83,7 @@ public class DivPolySeries extends PolySeries {
          * Return true if the remainder is not zero.
          * @return true if the remainder is not zero
          */
+        @Override
         public boolean hasNext() {
             return !r.equals(PolyNumber.ZERO);
         }

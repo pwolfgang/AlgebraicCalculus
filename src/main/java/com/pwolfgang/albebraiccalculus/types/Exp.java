@@ -14,6 +14,7 @@ import java.util.Iterator;
 public class Exp extends PolySeries {
     
        
+    @Override
     public Iterator<PolyNumber> iterator() {
         return new Itr();
     }
@@ -29,10 +30,12 @@ public class Exp extends PolySeries {
             n = 0;
         }
         
+        @Override
         public boolean hasNext() {
             return true;
         }
         
+        @Override
         public PolyNumber next() {
             n++;
             var term = Rational.of(1, n);

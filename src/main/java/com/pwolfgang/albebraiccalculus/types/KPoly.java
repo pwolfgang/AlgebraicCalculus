@@ -18,6 +18,7 @@ public class KPoly extends PolyNumber {
         super(deg, aS);
     }
     
+    @Override
     public boolean equals(Object o) {
         if (o == null) return false;
         if (o.getClass() == this.getClass()) {
@@ -33,34 +34,29 @@ public class KPoly extends PolyNumber {
      *
      * @return a String representation of this KPoly.
      */
+    @Override
     public String toString() {
         var sj = new StringJoiner(" + ");
         for (int i = 0; i < aS.length; i++) {
             Rational term = aS[i];
             if (!Rational.ZERO.equals(term)) {
                 if (Rational.ONE.equals(term)) {
-                    if (i == 0) {
-                        sj.add("1");
-                    } else if (i == 1) {
-                        sj.add("ε");
-                    } else {
-                        sj.add(String.format("ε^%d", i));
+                    switch (i) {
+                        case 0 -> sj.add("1");
+                        case 1 -> sj.add("ε");
+                        default -> sj.add(String.format("ε^%d", i));
                     }
                 } else if (Rational.MINUS_ONE.equals(term)) {
-                    if (i == 0) {
-                        sj.add("-1");
-                    } else if (i == 1) {
-                        sj.add("-ε");
-                    } else {
-                        sj.add(String.format("-ε^%d", i));
+                    switch (i) {
+                        case 0 -> sj.add("-1");
+                        case 1 -> sj.add("-ε");
+                        default -> sj.add(String.format("-ε^%d", i));
                     }
                 } else {
-                    if (i == 0) {
-                        sj.add(String.format("%s", term));
-                    } else if (i == 1) {
-                        sj.add(String.format("%sε", term));
-                    } else {
-                        sj.add(String.format("%sε^%d", term, i));
+                    switch (i) {
+                        case 0 -> sj.add(String.format("%s", term));
+                        case 1 -> sj.add(String.format("%sε", term));
+                        default -> sj.add(String.format("%sε^%d", term, i));
                     }
                 }
             }
